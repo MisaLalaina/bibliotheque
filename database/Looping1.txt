@@ -1,0 +1,142 @@
+Sub Create_Tables()
+
+DoCmd.RunSQL "CREATE TABLE role(" & _
+   "id INT AUTO_INCREMENT," & _
+   "name VARCHAR(50) NOT NULL," & _
+   "PRIMARY KEY(id)" & _
+");"   
+
+DoCmd.RunSQL "CREATE TABLE user_(" & _
+   "id INT AUTO_INCREMENT," & _
+   "username VARCHAR(50) NOT NULL," & _
+   "password VARCHAR(255) NOT NULL," & _
+   "birthDate DATE NOT NULL," & _
+   "roleId INT," & _
+   "PRIMARY KEY(id)," & _
+   "UNIQUE(username)," & _
+   "FOREIGN KEY(roleId) REFERENCES role(id)" & _
+");"   
+
+DoCmd.RunSQL "CREATE TABLE adherentType(" & _
+   "id INT AUTO_INCREMENT," & _
+   "name VARCHAR(50) NOT NULL," & _
+   "defaultQuote INT," & _
+   "defaultDuration INT," & _
+   "PRIMARY KEY(id)" & _
+");"   
+
+DoCmd.RunSQL "CREATE TABLE book(" & _
+   "id INT AUTO_INCREMENT," & _
+   "title VARCHAR(255) NOT NULL," & _
+   "author VARCHAR(255)," & _
+   "ageMin INT," & _
+   "state VARCHAR(30)," & _
+   "PRIMARY KEY(id)" & _
+");"   
+
+DoCmd.RunSQL "CREATE TABLE config(" & _
+   "id INT AUTO_INCREMENT," & _
+   "maxExtension INT," & _
+   "PRIMARY KEY(id)" & _
+");"   
+
+DoCmd.RunSQL "CREATE TABLE adherent(" & _
+   "id INT AUTO_INCREMENT," & _
+   "adherentTypeId INT NOT NULL," & _
+   "userId INT NOT NULL," & _
+   "PRIMARY KEY(id)," & _
+   "FOREIGN KEY(adherentTypeId) REFERENCES adherentType(id)," & _
+   "FOREIGN KEY(userId) REFERENCES user_(id)" & _
+");"   
+
+DoCmd.RunSQL "CREATE TABLE subscription(" & _
+   "id INT AUTO_INCREMENT," & _
+   "fromDate DATE NOT NULL," & _
+   "toDate DATE NOT NULL," & _
+   "adherentId INT NOT NULL," & _
+   "PRIMARY KEY(id)," & _
+   "FOREIGN KEY(adherentId) REFERENCES adherent(id)" & _
+");"   
+
+DoCmd.RunSQL "CREATE TABLE reservation(" & _
+   "id INT AUTO_INCREMENT," & _
+   "state VARCHAR(30)," & _
+   "reservationDate DATE NOT NULL," & _
+   "bookId INT NOT NULL," & _
+   "adherentId INT NOT NULL," & _
+   "validatedBy INT," & _
+   "PRIMARY KEY(id)," & _
+   "FOREIGN KEY(bookId) REFERENCES book(id)," & _
+   "FOREIGN KEY(adherentId) REFERENCES adherent(id)," & _
+   "FOREIGN KEY(validatedBy) REFERENCES user_(id)" & _
+");"   
+
+DoCmd.RunSQL "CREATE TABLE loan(" & _
+   "id INT AUTO_INCREMENT," & _
+   "fromDate DATE NOT NULL," & _
+   "toDate DATE NOT NULL," & _
+   "createdBy INT," & _
+   "bookId INT NOT NULL," & _
+   "adherentId INT NOT NULL," & _
+   "PRIMARY KEY(id)," & _
+   "FOREIGN KEY(createdBy) REFERENCES user_(id)," & _
+   "FOREIGN KEY(bookId) REFERENCES book(id)," & _
+   "FOREIGN KEY(adherentId) REFERENCES adherent(id)" & _
+");"   
+
+DoCmd.RunSQL "CREATE TABLE extensionRequest(" & _
+   "id INT AUTO_INCREMENT," & _
+   "requestDate DATE NOT NULL," & _
+   "state VARCHAR(30) NOT NULL," & _
+   "reason VARCHAR(255)," & _
+   "loanId INT NOT NULL," & _
+   "validatedBy INT," & _
+   "PRIMARY KEY(id)," & _
+   "FOREIGN KEY(loanId) REFERENCES loan(id)," & _
+   "FOREIGN KEY(validatedBy) REFERENCES user_(id)" & _
+");"   
+
+DoCmd.RunSQL "CREATE TABLE returnBook(" & _
+   "id INT AUTO_INCREMENT," & _
+   "returnDate DATE NOT NULL," & _
+   "adherentId INT NOT NULL," & _
+   "bookId INT NOT NULL," & _
+   "loanId INT NOT NULL," & _
+   "PRIMARY KEY(id)," & _
+   "FOREIGN KEY(adherentId) REFERENCES adherent(id)," & _
+   "FOREIGN KEY(bookId) REFERENCES book(id)," & _
+   "FOREIGN KEY(loanId) REFERENCES loan(id)" & _
+");"   
+
+DoCmd.RunSQL "CREATE TABLE adherentInfo(" & _
+   "id INT AUTO_INCREMENT," & _
+   "availableQuote INT NOT NULL," & _
+   "availableDuration INT NOT NULL," & _
+   "adherentId INT NOT NULL," & _
+   "PRIMARY KEY(id)," & _
+   "FOREIGN KEY(adherentId) REFERENCES adherent(id)" & _
+");"   
+
+DoCmd.RunSQL "CREATE TABLE sanction(" & _
+   "id INT AUTO_INCREMENT," & _
+   "fromDate DATE NOT NULL," & _
+   "toDate DATE NOT NULL," & _
+   "duration INT NOT NULL," & _
+   "createdBy INT," & _
+   "adherentId INT NOT NULL," & _
+   "PRIMARY KEY(id)," & _
+   "FOREIGN KEY(createdBy) REFERENCES user_(id)," & _
+   "FOREIGN KEY(adherentId) REFERENCES adherent(id)" & _
+");"   
+
+DoCmd.RunSQL "CREATE TABLE extension(" & _
+   "id INT AUTO_INCREMENT," & _
+   "duration INT NOT NULL," & _
+   "fromDate DATE NOT NULL," & _
+   "toDate DATE NOT NULL," & _
+   "loanId INT NOT NULL," & _
+   "PRIMARY KEY(id)," & _
+   "FOREIGN KEY(loanId) REFERENCES loan(id)" & _
+");"   
+
+End Sub

@@ -19,6 +19,9 @@ public class BookService {
         return bookRepository.findAll();
     }
 
+    public Book findById(String id) {
+        return findById(Integer.parseInt(id)); // Convert String id to Integer
+    }
     public Book findById(Integer id) {
         Optional<Book> bOptional = bookRepository.findById(id);
         if (bOptional.isPresent()) {

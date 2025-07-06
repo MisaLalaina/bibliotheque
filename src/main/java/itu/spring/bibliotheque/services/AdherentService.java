@@ -18,8 +18,9 @@ public class AdherentService {
         return adherentRepository.findAll();
     }
 
-    public Optional<Adherent> findById(Integer id) {
-        return adherentRepository.findById(id);
+    public Adherent findById(Integer id) {
+        Optional<Adherent> adOptional = adherentRepository.findById(id);
+        return adOptional.orElse(null); // Return null if not found
     }
 
     public Adherent save(Adherent adherent) {

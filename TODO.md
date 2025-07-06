@@ -100,5 +100,8 @@
     - [x] controllers , models, services
     - [ ] liste de mes livres
   - [ ] Emprunt
-    - []
+    - [x] Loans bases (models, service, repo)
+    - [ ] cree une location a partir d'une reservation
+    - [ ] cree une location directement
+      - [ ] verifier que le livre est available
   - [ ] Remise

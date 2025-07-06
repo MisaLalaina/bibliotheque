@@ -26,6 +26,9 @@ public class ReservationService {
         return reservationRepository.findAll();
     }
 
+    public Reservation findById(String id) {
+        return findById(Integer.parseInt(id));
+    }
     public Reservation findById(Integer id) {
         Optional<Reservation> reservationOptional = reservationRepository.findById(id);
         return reservationOptional.orElse(null); // Return null if not found

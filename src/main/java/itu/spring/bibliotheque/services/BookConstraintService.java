@@ -15,8 +15,6 @@ import itu.spring.bibliotheque.models.Subscription;
 @Service
 public class BookConstraintService {
     @Autowired
-    private AdherentService adherentService;
-    @Autowired
     private SubscriptionService subscriptionService;
     @Autowired
     private AdherentInfoService adherentInfoService;

@@ -1,6 +1,5 @@
 package itu.spring.bibliotheque.services;
 
-import itu.spring.bibliotheque.enums.BookState;
 import itu.spring.bibliotheque.enums.ReservationState;
 import itu.spring.bibliotheque.models.Adherent;
 import itu.spring.bibliotheque.models.Book;

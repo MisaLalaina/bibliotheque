@@ -1,11 +1,9 @@
 package itu.spring.bibliotheque.controllers.adherent;
 
 import itu.spring.bibliotheque.models.Adherent;
-import itu.spring.bibliotheque.models.Book;
 import itu.spring.bibliotheque.models.Reservation;
 import itu.spring.bibliotheque.models.Utilisateur;
 import itu.spring.bibliotheque.services.AdherentService;
-import itu.spring.bibliotheque.services.BookConstraintService;
 import itu.spring.bibliotheque.services.BookService;
 import itu.spring.bibliotheque.services.ReservationService;
 import jakarta.servlet.http.HttpSession;
@@ -33,8 +31,6 @@ public class AdherentReservationController {
     @Autowired
     private AdherentService adherentService;
 
-    @Autowired
-    private BookConstraintService bookConstraintService;
 
     @GetMapping("")
     public String listReservations(Model model, HttpSession session) {

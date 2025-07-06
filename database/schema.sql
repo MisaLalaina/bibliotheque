@@ -138,8 +138,8 @@ CREATE TABLE adherent_info (
     FOREIGN KEY (adherent_id) REFERENCES adherent(id)
 );
 
-CREATE TABLE HolidayList (
+CREATE TABLE holiday_list (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    holiday_date DATE NOT NULL,
+    holiday_date DATE NOT NULL UNIQUE,
     description VARCHAR(255)
 );

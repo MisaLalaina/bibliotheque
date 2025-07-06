@@ -1,5 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" import="itu.spring.bibliotheque.model.Utilisateur,itu.spring.bibliotheque.model.Role" %>
 <html>
 <head>
     <title>Create User</title>
@@ -15,9 +14,15 @@
     <input type="date" id="birthDate" name="birthDate" required><br>
     <label for="roleId">Role:</label>
     <select id="roleId" name="roleId" required>
-        <c:forEach var="role" items="${roles}">
-            <option value="${role.id}">${role.name}</option>
-        </c:forEach>
+        <% if (request.getAttribute("roles") != null) {
+            java.util.List roles = (java.util.List) request.getAttribute("roles");
+            for (Object obj : roles) {
+                Role role = (Role) obj; // Change package/class as needed
+        %>
+            <option value="<%= role.getId() %>"><%= role.getName() %></option>
+        <%     }
+           }
+        %>
     </select><br>
     <button type="submit">Save</button>
 </form>

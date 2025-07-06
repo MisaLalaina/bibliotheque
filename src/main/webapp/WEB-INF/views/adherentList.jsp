@@ -1,5 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" import="itu.spring.bibliotheque.model.Adherent,itu.spring.bibliotheque.model.AdherentType,itu.spring.bibliotheque.model.Utilisateur" %>
 <html>
 <head>
     <title>Adherents List</title>
@@ -13,13 +12,19 @@
         <th>Username</th>
         <th>Adherent Type</th>
     </tr>
-    <c:forEach var="adherent" items="${adherents}">
+    <% if (request.getAttribute("adherents") != null) {
+        java.util.List adherents = (java.util.List) request.getAttribute("adherents");
+        for (Object obj : adherents) {
+            Adherent adherent = (Adherent) obj; // Change package/class as needed
+    %>
         <tr>
-            <td>${adherent.id}</td>
-            <td>${adherent.utilisateur.username}</td>
-            <td>${adherent.adherentType.name}</td>
+            <td><%= adherent.getId() %></td>
+            <td><%= adherent.getUtilisateur().getUsername() %></td>
+            <td><%= adherent.getAdherentType().getName() %></td>
         </tr>
-    </c:forEach>
+    <%   }
+       }
+    %>
 </table>
 </body>
 </html>

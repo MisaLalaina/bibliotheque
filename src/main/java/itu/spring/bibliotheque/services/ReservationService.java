@@ -43,7 +43,7 @@ public class ReservationService {
         reservation.setAdherent(adherent);
         reservation.setBook(book);
         reservation.setReservationDate(reservationDate);
-        reservation.setState(ReservationState.PENDING.getLabel());
+        reservation.setState(ReservationState.Pending.name());
         return reservationRepository.save(reservation);
     }
 
@@ -65,7 +65,7 @@ public class ReservationService {
     }
 
     public Reservation validate(Reservation reservation, Utilisateur user) {
-        reservation.setState(ReservationState.VALIDATED.getLabel());
+        reservation.setState(ReservationState.Validated.name());
         reservation.setValidatedBy(user);
         Book book = reservation.getBook();
         bookService.reserved(book);

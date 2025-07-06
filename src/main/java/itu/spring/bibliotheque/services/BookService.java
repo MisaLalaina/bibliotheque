@@ -35,7 +35,7 @@ public class BookService {
         return this.free(book);
     }
     public Book free(Book book) {
-        book.setState(BookState.AVAILABLE.getLabel());
+        book.setState(BookState.Available.name());
         return this.save(book);
     }
 
@@ -48,12 +48,12 @@ public class BookService {
     }
 
     public Book reserved(Book book) {
-        book.setState(BookState.RESERVED.getLabel());
+        book.setState(BookState.Reserved.name());
         return this.save(book);
     }
 
     public Book checkedOut(Book book) {
-        book.setState(BookState.CHECKED_OUT.getLabel());
+        book.setState(BookState.Checked_Out.name());
         return this.save(book);
     }
 }

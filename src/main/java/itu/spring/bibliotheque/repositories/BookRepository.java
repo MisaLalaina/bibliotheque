@@ -9,9 +9,9 @@ import itu.spring.bibliotheque.models.Book;
 
 public interface BookRepository extends JpaRepository<Book, Integer> {
 
-    @Query("SELECT b FROM Book b WHERE b.state <> 'AVAILABLE' AND (EXISTS (SELECT l FROM Loan l WHERE l.book = b AND l.adherent.id = ?1))")
+    @Query("SELECT b FROM Book b WHERE b.state = BookState.CHECKED_OUT AND (EXISTS (SELECT l FROM Loan l WHERE l.book = b AND l.adherent.id = ?1 AND l.state = LoanState.VALIDATED))")
     List<Book> findLoanedBooksByAdherentId(Integer adherentId);
 
-    @Query("SELECT b FROM Book b WHERE b.state <> 'AVAILABLE' AND (EXISTS (SELECT r FROM Reservation r WHERE r.book = b AND r.adherent.id = ?1 AND r.state = ReservationState.VALIDATED))")
+    @Query("SELECT b FROM Book b WHERE b.state = BookState.RESERVED AND (EXISTS (SELECT r FROM Reservation r WHERE r.book = b AND r.adherent.id = ?1 AND r.state = ReservationState.VALIDATED))")
     List<Book> findReservedBooksByAdherentId(Integer adherentId);
 }

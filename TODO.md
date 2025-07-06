@@ -64,9 +64,67 @@
         - [x] login
         - [x] create user
         - [x] list adherent
-  - [ ] Navigation
-    - [ ] Page d'accueil pour /home
-    - [ ] ajouter une barre de navigation a integrer dans chaque page
-  - [ ] CRUD Livre
-    - [ ] liste des livres
-    - [ ] ajouter un livre
+  - [x] Navigation
+    - [x] Page d'accueil pour /home
+    - [x] ajouter une barre de navigation a integrer dans chaque page
+  - [x] CRUD Livre
+    - [x] liste des livres
+    - [x] ajouter un livre
+  - [x] Role Check  
+    - [x] separer les views en deux sous dossier
+      - [x] librarian
+      - [x] adherent
+      - [x] deplacer les pages de crud actuelle dans librarian
+    - [x] Verifier le role dans /home
+    - [x] si role.id = 1 soit librarian -> librarian/home
+    - [x] sinon adherent/home
+  - [x] Reservation
+    - [x] Pages et Controllers
+      - [x] (adherent et librarian ) Liste des reservations
+        - [x] (librarian) avec bouton de validation
+        - [x] (adherent) filtrer les reservation pour un adherent
+      - [x] (adherent) List books avec boutton reserver
+      - [x] (adherent) creation d'une reservation
+        - [x] verification des contraintes
+          - [x] age valide
+          - [x] abonnement
+          - [x] quotas
+          - [x] Liberter du libre
+            - [x] status non reserver ou emprunter
+    - [x] Models et Services
+      - [x] Reservation
+      - [x] Abonnement - subscription
+      - [x] Adherent Info
+  - [x] Abonnement
+    - [x] Page liste d'abonnement et creation pour un adherent
+    - [x] controllers , models, services
+    - [x] liste de mes livres
+  - [ ] Emprunt
+    - [x] Loans bases (models, service, repo)
+    - [x] cree une location a partir d'une reservation
+    - [x] cree une location directement
+      - [x] verifier que le livre est available
+    - [x] Mettre a jour le status du livre
+  - [x] Remise
+    - [x] base
+    - [x] Sanction base
+    - [x] boutton retour on adherent/bookList
+    - [x] retour logic
+      - [x] change loan state
+        - [x] if return date > loan.toDate
+          - [x] loan.state = overdue
+          - [x] create sanction
+        - [x] load.state = finished
+      - [x] change book state to available
+  - [x] Extension
+    - [x] Demande d'extension
+    - [x] Validation
+      - [x] Etat de la requete
+  - [ ] Formulaires de configuraitons
+
+## Possibles Allea
+
+- [ ] Sanctions
+- [ ] Offres d'abonnements
+  - [ ] Regroupement des configurations
+  - [ ] Changer d'abonnement

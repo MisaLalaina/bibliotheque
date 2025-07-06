@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 @Controller
@@ -47,8 +47,7 @@ public class UtilisateurController {
             newUser.setUsername(username);
             newUser.setPassword(password);
             newUser.setRole(roleRepository.findById(roleId).orElse(null));
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            Date date = sdf.parse(birthDate);
+            Date date = Date.valueOf(birthDate);
             newUser.setBirthDate(date);
             utilisateurService.save(newUser);
         } catch (Exception e) {

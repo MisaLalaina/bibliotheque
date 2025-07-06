@@ -1,7 +1,7 @@
 package itu.spring.bibliotheque.model;
 
 import jakarta.persistence.*;
-import java.util.Date;
+import java.sql.Date;
 
 @Entity
 @Table(name = "user")

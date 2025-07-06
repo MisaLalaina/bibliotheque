@@ -8,6 +8,7 @@ import itu.spring.bibliotheque.service.AdherentService;
 import itu.spring.bibliotheque.service.BookService;
 import jakarta.servlet.http.HttpSession;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,8 +54,18 @@ public class AdherentReservationController {
     }
 
     @PostMapping("/save")
-    public String saveReservation(@RequestParam Integer bookId, HttpSession session) {
-        
+    public String saveReservation(@RequestParam Integer bookId, @RequestParam Date reservationDate, HttpSession session) {
+        // recupere book id , find adherent from session, create reservation
+        Utilisateur user = (Utilisateur) session.getAttribute("user");
+        if (user == null) {
+            return "redirect:/login";
+        }
+        Adherent adherent = adherentService.findByUserId(user.getId());
+        if (adherent == null) {
+            return "redirect:/login";
+        }
+
+
         return "redirect:/adherent/reservations";
     }
 }

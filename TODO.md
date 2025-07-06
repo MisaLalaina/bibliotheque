@@ -85,9 +85,13 @@
         - [x] (adherent) filtrer les reservation pour un adherent
       - [ ] (adherent) List books avec boutton reserver
       - [ ] (adherent) creation d'une reservation
+        - [ ] verification des contraintes
+          - [ ] age valide
+          - [ ] abonnement
+          - [ ] quotas
     - [ ] Models et Services
       - [x] Reservation
-      - [ ] Abonnement - subscription
+      - [x] Abonnement - subscription
       - [ ] Adherent Info
   - [ ] Abonnement
     - [ ] Page liste d'abonnement et creation pour un adherent

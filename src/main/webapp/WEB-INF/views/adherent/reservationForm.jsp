@@ -7,6 +7,10 @@
 <body>
 <h2>Create Reservation</h2>
 <form method="post" action="/adherent/reservations/save">
+    <div>
+        <label for="reservationDate">Reservation Date:</label>
+        <input type="date" id="reservationDate" name="reservationDate" required>
+    </div>
     <label for="bookId">Book:</label>
     <select id="bookId" name="bookId" required>
         <%

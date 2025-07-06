@@ -1,5 +1,7 @@
 package itu.spring.bibliotheque.model;
 
+import java.sql.Date;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -24,4 +26,12 @@ public class Adherent {
     public void setUtilisateur(Utilisateur utilisateur) { this.utilisateur = utilisateur; }
     public AdherentType getAdherentType() { return adherentType; }
     public void setAdherentType(AdherentType adherentType) { this.adherentType = adherentType; }
+    public int getAge(Date refDate) {
+        int refYear = refDate.toLocalDate().getYear();
+        int birthYear = this.utilisateur.getBirthDate().toLocalDate().getYear();
+        return refYear - birthYear;
+    }
+    public int getAge() {
+        return getAge(new Date(System.currentTimeMillis()));
+    }
 }

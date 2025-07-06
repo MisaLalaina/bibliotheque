@@ -1,4 +1,4 @@
-package itu.spring.bibliotheque.controller;
+package itu.spring.bibliotheque.controller.librarian;
 
 import itu.spring.bibliotheque.model.Role;
 import itu.spring.bibliotheque.model.Utilisateur;
@@ -13,19 +13,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.text.SimpleDateFormat;
 import java.sql.Date;
 import java.util.List;
 
 @Controller
-@RequestMapping("/librarian")
+@RequestMapping("/librarian/users")
 public class UtilisateurController {
     @Autowired
     private UtilisateurService utilisateurService;
     @Autowired
     private RoleRepository roleRepository;
 
-    @GetMapping("/users/new")
+    @GetMapping("/new")
     public String showUserForm(Model model, HttpSession session) {
         Utilisateur user = (Utilisateur) session.getAttribute("user");
         if (user == null || !"Librarian".equals(user.getRole().getName())) {
@@ -36,7 +35,7 @@ public class UtilisateurController {
         return "librarian/userForm";
     }
 
-    @PostMapping("/users/save")
+    @PostMapping("/save")
     public String saveUser(@RequestParam String username, @RequestParam String password, @RequestParam String birthDate, @RequestParam Integer roleId, HttpSession session) {
         Utilisateur user = (Utilisateur) session.getAttribute("user");
         if (user == null || !"Librarian".equals(user.getRole().getName())) {

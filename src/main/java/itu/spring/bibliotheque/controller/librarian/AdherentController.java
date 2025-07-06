@@ -1,4 +1,4 @@
-package itu.spring.bibliotheque.controller;
+package itu.spring.bibliotheque.controller.librarian;
 
 import itu.spring.bibliotheque.model.Adherent;
 import itu.spring.bibliotheque.model.AdherentInfo;
@@ -70,6 +70,6 @@ public class AdherentController {
         AdherentInfo info = adherentTypeService.createInfo(adherent);
         adherentInfoService.save(info);
 
-        return "redirect:/librarian";
+        return "redirect:/librarian/adherents";
     }
 }

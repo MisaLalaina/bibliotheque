@@ -1,4 +1,4 @@
-package itu.spring.bibliotheque.controller;
+package itu.spring.bibliotheque.controller.librarian;
 
 import itu.spring.bibliotheque.model.Book;
 import itu.spring.bibliotheque.service.BookService;
@@ -14,25 +14,25 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @Controller
-@RequestMapping("/librarian")
+@RequestMapping("/librarian/books")
 public class BookController {
     @Autowired
     private BookService bookService;
 
-    @GetMapping("/books")
+    @GetMapping("")
     public String listBooks(Model model, HttpSession session) {
         List<Book> books = bookService.findAll();
         model.addAttribute("books", books);
         return "librarian/bookList";
     }
 
-    @GetMapping("/books/new")
+    @GetMapping("/new")
     public String showBookForm(Model model, HttpSession session) {
         model.addAttribute("book", new Book());
         return "librarian/bookForm";
     }
 
-    @PostMapping("/books/save")
+    @PostMapping("/save")
     public String saveBook(@RequestParam String title, @RequestParam String author, @RequestParam Integer ageMin, @RequestParam String state) {
         Book book = new Book();
         book.setTitle(title);

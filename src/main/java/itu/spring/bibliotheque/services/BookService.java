@@ -42,6 +42,20 @@ public class BookService {
     }
 
 
+    
+    public Book save(Book book) {
+        return bookRepository.save(book);
+    }
+    
+    public void deleteById(Integer id) {
+        bookRepository.deleteById(id);
+    }
+
+    /**
+     * 
+     * STATE MANAGEMENT
+     * 
+     */
     public Book create(Book book) {
         return this.free(book);
     }
@@ -50,21 +64,13 @@ public class BookService {
         return this.save(book);
     }
 
-    public Book save(Book book) {
-        return bookRepository.save(book);
-    }
-
-    public void deleteById(Integer id) {
-        bookRepository.deleteById(id);
-    }
-
     public Book reserved(Book book) {
         book.setState(BookState.Reserved.name());
         return this.save(book);
     }
 
-    public Book checkedOut(Book book) {
-        book.setState(BookState.Checked_Out.name());
+    public Book loaned(Book book) {
+        book.setState(BookState.Loaned.name());
         return this.save(book);
     }
 }

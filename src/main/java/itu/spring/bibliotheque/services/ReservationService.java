@@ -19,9 +19,6 @@ public class ReservationService {
     @Autowired
     private ReservationRepository reservationRepository;
 
-    @Autowired
-    private BookService bookService;
-
     public List<Reservation> findAll() {
         return reservationRepository.findAll();
     }
@@ -64,19 +61,33 @@ public class ReservationService {
 
     }
 
-    public Reservation validate(Reservation reservation, Utilisateur user) {
-        reservation.setState(ReservationState.Validated.name());
-        reservation.setValidatedBy(user);
-        Book book = reservation.getBook();
-        bookService.reserved(book);
-        return save(reservation);
-    }
-
+    
     public Reservation findReservation(Book book) {
         List<Reservation> reservations = reservationRepository.findByBookId(book.getId());
         if (!reservations.isEmpty()) {
             return reservations.get(0); // Return the first reservation found
         }
         return null; // or throw an exception if preferred
+    }
+    
+    public Reservation validate(Reservation reservation, Utilisateur user) {
+        reservation.setState(ReservationState.Validated.name());
+        reservation.setValidatedBy(user);
+        return save(reservation);
+    }
+
+    public Reservation expire(Reservation reservation) {
+        reservation.setState(ReservationState.Expired.name());
+        return save(reservation);
+    }
+
+    public Reservation loaned(Reservation reservation) {
+        reservation.setState(ReservationState.Loaned.name());
+        return save(reservation);
+    }
+
+    public Reservation cancel(Reservation reservation) {
+        reservation.setState(ReservationState.Canceled.name());
+        return save(reservation);
     }
 }

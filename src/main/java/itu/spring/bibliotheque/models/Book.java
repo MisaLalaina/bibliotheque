@@ -36,7 +36,7 @@ public class Book {
     public boolean isAvailable() {
         if (
             state.equals(BookState.Reserved.name())     || 
-            state.equals(BookState.Checked_Out.name()) 
+            state.equals(BookState.Loaned.name()) 
         ) {
             return false;
         }

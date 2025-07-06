@@ -24,6 +24,8 @@ public class Loan {
     @Column(name = "to_date")
     private Date toDate;
 
+    private String state;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "created_by")
     private Utilisateur createdBy;
@@ -41,4 +43,10 @@ public class Loan {
     public void setToDate(Date toDate) { this.toDate = toDate; }
     public Utilisateur getCreatedBy() { return createdBy; }
     public void setCreatedBy(Utilisateur createdBy) { this.createdBy = createdBy; }
+    public String getState() {
+        return state;
+    }
+    public void setState(String state) {
+        this.state = state;
+    }
 }

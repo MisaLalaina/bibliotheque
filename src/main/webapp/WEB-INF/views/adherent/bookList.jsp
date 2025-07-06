@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" import="itu.spring.bibliotheque.models.Book" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" import="itu.spring.bibliotheque.models.dto.BookLoan" %>
 <%@ include file="navbar.jsp" %>
 <html>
 <head>
@@ -13,19 +13,23 @@
         <th>Author</th>
         <th>Age Min</th>
         <th>State</th>
+        <th>From Date</th>
+        <th>To Date</th>
     </tr>
     <%
         java.util.List books = (java.util.List) request.getAttribute("books");
         if (books != null) {
             for (Object obj : books) {
-                itu.spring.bibliotheque.models.Book book = (itu.spring.bibliotheque.models.Book) obj;
+                BookLoan bookLoan = (BookLoan) obj;
     %>
     <tr>
-        <td><%= book.getId() %></td>
-        <td><%= book.getTitle() %></td>
-        <td><%= book.getAuthor() %></td>
-        <td><%= book.getAgeMin() %></td>
-        <td><%= book.getState() %></td>
+        <td><%= bookLoan.getBookId() %></td>
+        <td><%= bookLoan.getBookTitle() %></td>
+        <td><%= bookLoan.getBookAuthor() %></td>
+        <td><%= bookLoan.getBookAgeMin() %></td>
+        <td><%= bookLoan.getBookState() %></td>
+        <td><%= bookLoan.getFromDate() != null ? bookLoan.getFromDate() : "" %></td>
+        <td><%= bookLoan.getToDate() != null ? bookLoan.getToDate() : "" %></td>
     </tr>
     <%
             }

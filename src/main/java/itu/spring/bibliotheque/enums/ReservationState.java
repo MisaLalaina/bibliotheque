@@ -4,6 +4,7 @@ public enum ReservationState {
     Pending,
     Validated,
     Expired,
+    Loaned,
     Rejected,
     Canceled;
 }

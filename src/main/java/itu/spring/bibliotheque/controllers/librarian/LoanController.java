@@ -22,6 +22,7 @@ import itu.spring.bibliotheque.models.form.LoanForm;
 import itu.spring.bibliotheque.services.AdherentInfoService;
 import itu.spring.bibliotheque.services.AdherentService;
 import itu.spring.bibliotheque.services.BookConstraintService;
+import itu.spring.bibliotheque.services.BookReservationService;
 import itu.spring.bibliotheque.services.BookService;
 import itu.spring.bibliotheque.services.LoanService;
 import itu.spring.bibliotheque.services.ReservationService;
@@ -47,6 +48,8 @@ public class LoanController {
     private LoanService loanService;
     @Autowired
     private  AdherentInfoService adherentInfoService;
+    @Autowired
+    private BookReservationService bookReservationService;
 
     @GetMapping("")
     public String getMethodName(HttpSession session, Model model) {
@@ -76,7 +79,7 @@ public class LoanController {
             loan.setAdherent(adherent);
         } else if (location.getBookId() != null) {
             book = bookService.findById(location.getBookId());
-            if (BookState.Checked_Out.name().equals(book.getState())) {
+            if (BookState.Loaned.name().equals(book.getState())) {
                 model.addAttribute("error", "Le livre n'est pas disponible pour l'emprunt.");
             } else if (BookState.Reserved.name().equals(book.getState())) {
                 model.addAttribute("error", "Le livre est réservé et ne peut pas être emprunté.");
@@ -100,6 +103,7 @@ public class LoanController {
             return "redirect:/login";
         }
         Book book = bookService.findById(loan.getBook().getId());
+        Reservation reservation = null;
         Adherent adherent = adherentService.findById(loan.getAdherent().getId());
         if (loan.getFromDate() == null) {
             model.addAttribute("error", "La date de début ne peut pas être vide.");
@@ -118,8 +122,12 @@ public class LoanController {
             // Confirmation d'une reservation
             if (book.getState().equals(BookState.Reserved.name())) {
                 List<BookReservation> books = bookService.findReservedBooksByAdherentId(adherent.getId());
-                for (BookReservation bookReservation : books) {
-                    if (bookReservation.getAdherentId().equals(adherent.getId()) && bookReservation.getBookId().equals(book.getId())) {
+                if (books == null || books.isEmpty()) {
+                    throw new IllegalArgumentException("Le livre '"+book.getTitle()+"' est réservé par un autre adherent : " + adherent.getUtilisateur().getUsername());
+                }
+                for (BookReservation br : books) {
+                    if (br.getAdherentId().equals(adherent.getId()) && br.getBookId().equals(book.getId())) {
+                        reservation = reservationService.findById(br.getReservationId());
                         break;
                     }
                     throw new IllegalArgumentException("Le livre est réservé par un autre adherent : " + adherent.getUtilisateur().getUsername());
@@ -129,6 +137,9 @@ public class LoanController {
             bookConstraintService.checkAvaiabilityConstraints(adherent, book, loan.getFromDate());
         } catch (Exception e) {
             model.addAttribute("error", e.getMessage());
+            model.addAttribute("books", bookService.findAll());
+            model.addAttribute("adherents", adherentService.findAll());
+            model.addAttribute("holidayDirections", HolidayDirection.values());
             return "librarian/loanForm";
         }
 
@@ -140,10 +151,15 @@ public class LoanController {
         loan.setAdherent(adherent);
         loan.setBook(book);
         loan.setToDate(toDate);
-        book.setState(BookState.Checked_Out.name());
+        loan.setState(BookState.Loaned.name());
         loanService.save(loan);
-        bookService.checkedOut(book);
 
+        if(reservation != null) {
+            bookReservationService.loaned(reservation);
+        }
+        else {
+            bookService.loaned(book);
+        }
         return "redirect:/librarian/loans";
     }
 }

@@ -106,3 +106,12 @@
       - [x] verifier que le livre est available
     - [x] Mettre a jour le status du livre
   - [ ] Remise
+    - [x] base
+    - [ ] boutton retour
+    - [ ] retour logic
+      - [ ] change loan state
+        - [ ] if return date > loan.toDate
+          - [ ] loan.state = overdue
+          - [ ] create sanction
+        - [ ] load.state = finished
+      - [ ] change book state to available

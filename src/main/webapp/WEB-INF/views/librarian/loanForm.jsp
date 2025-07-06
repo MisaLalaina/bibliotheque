@@ -1,10 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" import="itu.spring.bibliotheque.models.Loan,itu.spring.bibliotheque.models.Book,itu.spring.bibliotheque.models.Adherent, itu.spring.bibliotheque.enums.HolidayDirection" %>
-<%@ include file="navbar.jsp" %>
 <html>
 <head>
     <title>Loan Form</title>
+    <link rel="stylesheet" href="/style.css" />
 </head>
 <body>
+<%@ include file="navbar.jsp" %>
 <h2>Create Loan</h2>
 <% String error = (String) request.getAttribute("error"); if (error != null) { %>
     <div style="color:red"><%= error %></div>

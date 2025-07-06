@@ -1,10 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" import="itu.spring.bibliotheque.models.Loan,itu.spring.bibliotheque.models.Book,itu.spring.bibliotheque.models.Adherent" %>
-<%@ include file="navbar.jsp" %>
 <html>
 <head>
     <title>Loans List</title>
+    <link rel="stylesheet" href="/style.css" />
 </head>
 <body>
+<%@ include file="navbar.jsp" %>
 <h2>Loans List</h2>
 <a href="/librarian/loans/create">Add New Loan</a>
 <table border="1">

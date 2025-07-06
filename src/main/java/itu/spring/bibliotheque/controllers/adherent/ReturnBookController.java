@@ -50,7 +50,7 @@ public class ReturnBookController {
         returnBookService.save(rb);
         // Update status
         loan = loanService.finish(loan, rb.getReturnDate());
-        loan.setBook( bookService.free(loan.getBook()) );
+        loan.setBook(bookService.free(loan.getBook()));
 
         return "redirect:/adherent/books";
     }

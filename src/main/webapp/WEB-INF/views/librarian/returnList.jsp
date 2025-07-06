@@ -1,11 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" import="itu.spring.bibliotheque.models.ReturnBook" %>
-<%@ include file="navbar.jsp" %>
 <html>
 <head>
     <title>Return Requests</title>
+    <link rel="stylesheet" href="/style.css" />
 </head>
 <body>
 <h2>Return Requests</h2>
+<%@ include file="navbar.jsp" %>
 <table border="1">
     <tr>
         <th>ID</th>

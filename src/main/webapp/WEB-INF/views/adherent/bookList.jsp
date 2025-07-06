@@ -1,11 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" import="itu.spring.bibliotheque.models.dto.BookLoan" %>
-<%@ include file="navbar.jsp" %>
 <html>
 <head>
     <title>My Books</title>
     <link rel="stylesheet" href="/style.css" />
 </head>
 <body>
+<%@ include file="navbar.jsp" %>
 <h2>My Books</h2>
 <table border="1">
     <tr>

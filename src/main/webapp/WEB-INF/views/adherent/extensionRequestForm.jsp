@@ -1,10 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ include file="navbar.jsp" %>
 <html>
 <head>
+    <link rel="stylesheet" href="/style.css" />
     <title>Request Extension</title>
 </head>
 <body>
+<%@ include file="navbar.jsp" %>
 <h2>Request Extension</h2>
 <% String error = (String) request.getAttribute("error"); if (error != null) { %>
     <div style="color:red"><%= error %></div>

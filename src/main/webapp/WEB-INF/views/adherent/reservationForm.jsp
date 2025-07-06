@@ -1,10 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" import="itu.spring.bibliotheque.models.Book" %>
-<%@ include file="navbar.jsp" %>
 <html>
 <head>
+    <link rel="stylesheet" href="/style.css" />
     <title>Create Reservation</title>
 </head>
 <body>
+    <%@ include file="navbar.jsp" %>
 <h2>Create Reservation</h2>
 <form method="post" action="/adherent/reservations/save">
     <%

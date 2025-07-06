@@ -1,10 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" import="itu.spring.bibliotheque.models.ExtensionRequest" %>
-<%@ include file="navbar.jsp" %>
 <html>
 <head>
+    <link rel="stylesheet" href="/style.css" />
     <title>Extension Requests</title>
 </head>
 <body>
+<%@ include file="navbar.jsp" %>
 <h2>Extension Requests</h2>
 <table border="1">
     <tr>

@@ -1,10 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ include file="navbar.jsp" %>
 <html>
 <head>
+    <link rel="stylesheet" href="/style.css" />
     <title>Return Book</title>
 </head>
 <body>
+<%@ include file="navbar.jsp" %>
 <h2>Return Book</h2>
 <form action="/adherent/returns/create" method="post">
     <input type="hidden" name="loanId" value="<%= request.getAttribute("loanId") %>" />

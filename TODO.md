@@ -95,10 +95,10 @@
       - [x] Reservation
       - [x] Abonnement - subscription
       - [x] Adherent Info
-  - [ ] Abonnement
+  - [x] Abonnement
     - [x] Page liste d'abonnement et creation pour un adherent
     - [x] controllers , models, services
-    - [ ] liste de mes livres
+    - [x] liste de mes livres
   - [ ] Emprunt
     - [x] Loans bases (models, service, repo)
     - [x] cree une location a partir d'une reservation
@@ -116,8 +116,15 @@
           - [x] create sanction
         - [x] load.state = finished
       - [x] change book state to available
-  - [ ] Extension
-    - [ ] Demande d'extension
+  - [x] Extension
+    - [x] Demande d'extension
     - [x] Validation
       - [x] Etat de la requete
   - [ ] Formulaires de configuraitons
+
+## Possibles Allea
+
+- [ ] Sanctions
+- [ ] Offres d'abonnements
+  - [ ] Regroupement des configurations
+  - [ ] Changer d'abonnement

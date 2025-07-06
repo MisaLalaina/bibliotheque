@@ -117,5 +117,7 @@
         - [x] load.state = finished
       - [x] change book state to available
   - [ ] Extension
-    - [ ] Validation
-      - [ ] Etat de la requete
+    - [ ] Demande d'extension
+    - [x] Validation
+      - [x] Etat de la requete
+  - [ ] Formulaires de configuraitons

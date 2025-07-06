@@ -1,7 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" import="itu.spring.bibliotheque.models.Subscription,itu.spring.bibliotheque.models.Adherent" %>
 <%@ include file="navbar.jsp" %>
 <html>
-<head>
+</head>
+    <title>Subscriptions</title>
+    <link rel="stylesheet" href="/style.css" />
+</head>
     <title>Subscriptions List</title>
 </head>
 <body>

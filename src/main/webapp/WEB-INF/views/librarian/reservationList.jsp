@@ -1,7 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" import="itu.spring.bibliotheque.models.Reservation,itu.spring.bibliotheque.models.Book,itu.spring.bibliotheque.models.Adherent,itu.spring.bibliotheque.models.Utilisateur" %>
 <%@ include file="navbar.jsp" %>
 <html>
-<head>
+</head>
+    <title>Reservation List</title>
+    <link rel="stylesheet" href="/style.css" />
+</head>
     <title>Reservations List</title>
 </head>
 <body>

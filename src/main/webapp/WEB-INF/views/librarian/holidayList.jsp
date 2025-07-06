@@ -1,7 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" import="itu.spring.bibliotheque.models.HolidayList" %>
 <%@ include file="navbar.jsp" %>
+
+<!DOCTYPE html>
 <html>
-<head>
+</head>
+    <link rel="stylesheet" href="/style.css" />
     <title>Holiday List</title>
 </head>
 <body>

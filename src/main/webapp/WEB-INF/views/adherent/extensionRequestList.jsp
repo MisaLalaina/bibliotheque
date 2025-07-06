@@ -4,6 +4,7 @@
 <html>
 <head>
     <title>My Extension Requests</title>
+    <link rel="stylesheet" href="/style.css" />
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/navbar.jsp" />

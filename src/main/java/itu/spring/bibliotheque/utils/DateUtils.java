@@ -1,14 +1,11 @@
 package itu.spring.bibliotheque.utils;
 
 import java.sql.Date;
-import java.util.List;
-
 import itu.spring.bibliotheque.enums.HolidayDirection;
-import itu.spring.bibliotheque.models.HolidayList;
 import itu.spring.bibliotheque.services.HolidayListService;
 
 public class DateUtils {
-    public static Date getLoanEndDate(Date startDate, int durationDays, List<HolidayList> holidays, HolidayDirection direction, HolidayListService holidayService) {
+    public static Date getLoanEndDate(Date startDate, int durationDays, HolidayDirection direction, HolidayListService holidayService) {
         if (startDate == null || durationDays < 0) {
             throw new IllegalArgumentException("Invalid start date or duration");
         }

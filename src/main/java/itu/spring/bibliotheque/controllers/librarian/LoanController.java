@@ -24,8 +24,10 @@ import itu.spring.bibliotheque.services.AdherentService;
 import itu.spring.bibliotheque.services.BookConstraintService;
 import itu.spring.bibliotheque.services.BookReservationService;
 import itu.spring.bibliotheque.services.BookService;
+import itu.spring.bibliotheque.services.HolidayListService;
 import itu.spring.bibliotheque.services.LoanService;
 import itu.spring.bibliotheque.services.ReservationService;
+import itu.spring.bibliotheque.utils.DateUtils;
 import jakarta.servlet.http.HttpSession;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,6 +38,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 @RequestMapping("/librarian/loans")
 public class LoanController {
+    @Autowired
+    private HolidayListService holidayService;
     @Autowired
     private ReservationService reservationService;
     @Autowired
@@ -133,6 +137,9 @@ public class LoanController {
                     throw new IllegalArgumentException("Le livre est réservé par un autre adherent : " + adherent.getUtilisateur().getUsername());
                 }
             }
+            else if (!book.getState().equals(BookState.Available.name())) {
+                throw new IllegalArgumentException("Le livre '"+book.getTitle()+"' n'est pas disponible.");
+            }
             // Validation de Adherent et Book
             bookConstraintService.checkAvaiabilityConstraints(adherent, book, loan.getFromDate());
         } catch (Exception e) {
@@ -145,7 +152,7 @@ public class LoanController {
 
         AdherentInfo adherentInfo = adherentInfoService.findByAdherentId(adherent.getId());
         int day = adherentInfo.getAvailableDuration();
-        Date toDate = Date.valueOf(loan.getFromDate().toLocalDate().plusDays(day));
+        Date toDate = DateUtils.getLoanEndDate(loan.getFromDate(), day, holiday, holidayService);
 
         loan.setCreatedBy(user);
         loan.setAdherent(adherent);

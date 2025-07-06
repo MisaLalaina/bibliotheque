@@ -28,4 +28,13 @@ public class AdherentService {
     public void deleteById(Integer id) {
         adherentRepository.deleteById(id);
     }
+
+    public Adherent findByUserId(Integer userId) {
+        Optional<Adherent> adherent = adherentRepository.findByUtilisateurId(userId);
+        if (adherent.isPresent()) {
+            return adherent.get();
+        } else {
+            return null; // or throw an exception if preferred
+        }
+    }
 }

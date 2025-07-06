@@ -70,19 +70,25 @@
   - [x] CRUD Livre
     - [x] liste des livres
     - [x] ajouter un livre
-  - [ ] Role Check  
-    - [ ] separer les views en deux sous dossier
+  - [x] Role Check  
+    - [x] separer les views en deux sous dossier
       - [x] librarian
-      - [ ] adherent
-      - [ ] deplacer les pages de crud actuelle dans librarian
-    - [ ] Verifier le role dans /home
-    - [ ] si role.id = 1 soit librarian -> librarian/home
-    - [ ] sinon adherent/home
+      - [x] adherent
+      - [x] deplacer les pages de crud actuelle dans librarian
+    - [x] Verifier le role dans /home
+    - [x] si role.id = 1 soit librarian -> librarian/home
+    - [x] sinon adherent/home
   - [ ] Reservation
-    - [ ] Pages
-      - [ ] Liste des reservations
-      - [ ] creation d'une reservation
-    - [ ] Models
-      - [ ] Reservation
+    - [ ] Pages et Controllers
+      - [x] (adherent et librarian ) Liste des reservations
+        - [x] (librarian) avec bouton de validation
+        - [x] (adherent) filtrer les reservation pour un adherent
+      - [ ] (adherent) List books avec boutton reserver
+      - [ ] (adherent) creation d'une reservation
+    - [ ] Models et Services
+      - [x] Reservation
       - [ ] Abonnement - subscription
       - [ ] Adherent Info
+  - [ ] Abonnement
+    - [ ] Page liste d'abonnement et creation pour un adherent
+    - [ ] controllers , models, services

@@ -3,15 +3,18 @@ package itu.spring.bibliotheque.repositories;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.NativeQuery;
 import org.springframework.data.jpa.repository.Query;
 
 import itu.spring.bibliotheque.models.Book;
+import itu.spring.bibliotheque.models.dto.BookLoan;
+import itu.spring.bibliotheque.models.dto.BookReservation;
 
 public interface BookRepository extends JpaRepository<Book, Integer> {
 
-    @Query("SELECT b FROM Book b WHERE b.state = BookState.CHECKED_OUT AND (EXISTS (SELECT l FROM Loan l WHERE l.book = b AND l.adherent.id = ?1 AND l.state = LoanState.VALIDATED))")
-    List<Book> findLoanedBooksByAdherentId(Integer adherentId);
+    @Query(value = "SELECT * FROM v_book_loan WHERE adherent_id = ?1", nativeQuery = true)
+    List<BookLoan> findLoanedBooksByAdherentId(Integer adherentId);
 
-    @Query("SELECT b FROM Book b WHERE b.state = BookState.RESERVED AND (EXISTS (SELECT r FROM Reservation r WHERE r.book = b AND r.adherent.id = ?1 AND r.state = ReservationState.VALIDATED))")
-    List<Book> findReservedBooksByAdherentId(Integer adherentId);
+    @Query(value = "SELECT * FROM v_book_reservation WHERE adherent_id = ?1", nativeQuery = true)
+    List<BookReservation> findReservedBooksByAdherentId(Integer adherentId);
 }

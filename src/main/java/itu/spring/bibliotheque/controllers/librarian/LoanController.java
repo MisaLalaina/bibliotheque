@@ -1,6 +1,7 @@
 package itu.spring.bibliotheque.controllers.librarian;
 
 import java.sql.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,7 @@ import itu.spring.bibliotheque.models.Book;
 import itu.spring.bibliotheque.models.Loan;
 import itu.spring.bibliotheque.models.Reservation;
 import itu.spring.bibliotheque.models.Utilisateur;
+import itu.spring.bibliotheque.models.dto.BookReservation;
 import itu.spring.bibliotheque.models.form.LoanForm;
 import itu.spring.bibliotheque.services.AdherentInfoService;
 import itu.spring.bibliotheque.services.AdherentService;
@@ -97,14 +99,32 @@ public class LoanController {
         if (user == null || !"Librarian".equals(user.getRole().getName())) {
             return "redirect:/login";
         }
+        Book book = bookService.findById(loan.getBook().getId());
+        Adherent adherent = adherentService.findById(loan.getAdherent().getId());
         if (loan.getFromDate() == null) {
             model.addAttribute("error", "La date de début ne peut pas être vide.");
             return "librarian/loanForm";
         }
+        if (book == null) {
+            model.addAttribute("error", "Le livre n'existe pas.");
+            return "librarian/loanForm";
+        }
+        if (adherent == null) {
+            model.addAttribute("error", "L'adhérent n'existe pas.");
+            return "librarian/loanForm";
+        }
 
-        Book book = bookService.findById(loan.getBook().getId());
-        Adherent adherent = adherentService.findById(loan.getAdherent().getId());
         try {
+            // Confirmation d'une reservation
+            if (book.getState().equals(BookState.Reserved.name())) {
+                List<BookReservation> books = bookService.findReservedBooksByAdherentId(adherent.getId());
+                for (BookReservation bookReservation : books) {
+                    if (bookReservation.getAdherentId().equals(adherent.getId()) && bookReservation.getBookId().equals(book.getId())) {
+                        break;
+                    }
+                    throw new IllegalArgumentException("Le livre est réservé par un autre adherent : " + adherent.getUtilisateur().getUsername());
+                }
+            }
             // Validation de Adherent et Book
             bookConstraintService.checkAvaiabilityConstraints(adherent, book, loan.getFromDate());
         } catch (Exception e) {

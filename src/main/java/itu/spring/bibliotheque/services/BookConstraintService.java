@@ -2,15 +2,16 @@ package itu.spring.bibliotheque.services;
 
 import java.sql.Date;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import itu.spring.bibliotheque.enums.BookState;
 import itu.spring.bibliotheque.models.Adherent;
 import itu.spring.bibliotheque.models.AdherentInfo;
 import itu.spring.bibliotheque.models.Book;
 import itu.spring.bibliotheque.models.Reservation;
 import itu.spring.bibliotheque.models.Subscription;
+import itu.spring.bibliotheque.models.dto.BookReservation;
 
 @Service
 public class BookConstraintService {
@@ -29,8 +30,6 @@ public class BookConstraintService {
             throw new IllegalArgumentException("Book not found.");
         }
         else if (book.isAvailable() == false) {
-
-
             throw new IllegalArgumentException("Book is already "+book.getState());
         }
         return checkAvaiabilityConstraints(adherent, book, refDate);

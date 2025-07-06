@@ -1,6 +1,4 @@
 package itu.spring.bibliotheque.controllers;
-
-import itu.spring.bibliotheque.enums.LoanState;
 import itu.spring.bibliotheque.models.Utilisateur;
 import itu.spring.bibliotheque.services.UtilisateurService;
 import jakarta.servlet.http.HttpSession;

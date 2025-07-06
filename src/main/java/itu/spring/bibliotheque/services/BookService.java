@@ -2,6 +2,8 @@ package itu.spring.bibliotheque.services;
 
 import itu.spring.bibliotheque.enums.BookState;
 import itu.spring.bibliotheque.models.Book;
+import itu.spring.bibliotheque.models.dto.BookLoan;
+import itu.spring.bibliotheque.models.dto.BookReservation;
 import itu.spring.bibliotheque.repositories.BookRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,15 @@ public class BookService {
             return null; // Return an empty Optional if not found
         }
     }
+
+    public List<BookLoan> findLoanedBooksByAdherentId(Integer adherentId) {
+        return bookRepository.findLoanedBooksByAdherentId(adherentId);
+    }
+
+    public List<BookReservation> findReservedBooksByAdherentId(Integer adherentId) {
+        return bookRepository.findReservedBooksByAdherentId(adherentId);
+    }
+
 
     public Book create(Book book) {
         return this.free(book);

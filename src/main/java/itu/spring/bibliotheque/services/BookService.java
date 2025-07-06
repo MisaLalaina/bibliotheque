@@ -29,6 +29,7 @@ public class BookService {
     }
 
     public Book save(Book book) {
+        book.setState(BookState.AVAILABLE.getLabel());
         return bookRepository.save(book);
     }
 

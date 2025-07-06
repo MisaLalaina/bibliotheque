@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @Controller
-@RequestMapping("/librarian")
+@RequestMapping("/librarian/adherents")
 public class AdherentController {
     @Autowired
     private AdherentService adherentService;
@@ -26,7 +26,7 @@ public class AdherentController {
     @Autowired
     private UtilisateurService utilisateurService;
 
-    @GetMapping("/adherents")
+    @GetMapping("")
     public String listAdherents(Model model, HttpSession session) {
         // Only allow for role 1 (Librarian)
         Utilisateur user = (Utilisateur) session.getAttribute("user");
@@ -38,7 +38,7 @@ public class AdherentController {
         return "librarian/adherentList";
     }
 
-    @GetMapping("/adherents/new")
+    @GetMapping("/new")
     public String showAdherentForm(Model model, HttpSession session) {
         Utilisateur user = (Utilisateur) session.getAttribute("user");
         if (user == null || !"Librarian".equals(user.getRole().getName())) {
@@ -50,7 +50,7 @@ public class AdherentController {
         return "librarian/adherentForm";
     }
 
-    @PostMapping("/adherents/save")
+    @PostMapping("/save")
     public String saveAdherent(@RequestParam Integer userId, @RequestParam Integer adherentTypeId, HttpSession session) {
         Utilisateur user = (Utilisateur) session.getAttribute("user");
         if (user == null || !"Librarian".equals(user.getRole().getName())) {
@@ -60,6 +60,6 @@ public class AdherentController {
         adherent.setUtilisateur(utilisateurService.findById(userId).orElse(null));
         adherent.setAdherentType(adherentTypeService.findById(adherentTypeId).orElse(null));
         adherentService.save(adherent);
-        return "redirect:/librarian/adherents";
+        return "redirect:/librarian";
     }
 }

@@ -137,4 +137,10 @@ public class LoanService {
             bookService.loaned(book);
         }
     }
+
+    public Loan extendToDate(Loan loan, int day, HolidayDirection holiday) {
+        Date toDate = DateUtils.getLoanEndDate(loan.getToDate(), day, holiday, holidayService);
+        loan.setToDate(toDate);
+        return loan;
+    }
 }

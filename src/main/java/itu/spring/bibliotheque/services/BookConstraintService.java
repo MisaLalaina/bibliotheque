@@ -8,8 +8,9 @@ import org.springframework.stereotype.Service;
 import itu.spring.bibliotheque.models.Adherent;
 import itu.spring.bibliotheque.models.AdherentInfo;
 import itu.spring.bibliotheque.models.Book;
-import itu.spring.bibliotheque.models.Reservation;
 import itu.spring.bibliotheque.models.Subscription;
+import itu.spring.bibliotheque.models.dto.BookLoan;
+import itu.spring.bibliotheque.models.dto.BookReservation;
 
 @Service
 public class BookConstraintService {
@@ -18,9 +19,8 @@ public class BookConstraintService {
     @Autowired
     private AdherentInfoService adherentInfoService;
     @Autowired
-    private ReservationService reservationService;
-    @Autowired
     private BookService bookService;
+
 
     public Book checkReservationConstraints(Adherent adherent, Integer bookId, Date refDate) {
         Book book = bookService.findById(bookId);
@@ -42,9 +42,10 @@ public class BookConstraintService {
             throw new IllegalArgumentException("Adherent must be at least "+book.getAgeMin()+" years old to borrow this book.");
         }
         // Quota
-        List<Reservation> reservations = reservationService.findByAdherentId(adherent.getId());
+        List<BookLoan> loans = bookService.findLoanedBooksByAdherentId(adherent.getId());
+        List<BookReservation> reservations = bookService.findReservedBooksByAdherentId(adherent.getId());
         AdherentInfo adherentInfo = adherentInfoService.findByAdherentId(adherent.getId());
-        int current = reservations.size();
+        int current = reservations.size() + loans.size();
         if (adherentInfo == null) {
             throw new IllegalArgumentException("Adherent does not have valid information.");   
         }

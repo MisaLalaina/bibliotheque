@@ -36,6 +36,11 @@
                 <input type="hidden" name="loanId" value="<%= bookLoan.getLoanId() %>" />
                 <button type="submit">Return</button>
             </form>
+
+            <form method="get" action="/adherent/extensions/form">
+                <input type="hidden" name="loanId" value="<%= bookLoan.getLoanId() %>" />
+                <button type="submit">Extension</button>
+            </form>
         </td>
     </tr>
     <%

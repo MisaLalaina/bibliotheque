@@ -105,14 +105,17 @@
     - [x] cree une location directement
       - [x] verifier que le livre est available
     - [x] Mettre a jour le status du livre
-  - [ ] Remise
+  - [x] Remise
     - [x] base
     - [x] Sanction base
     - [x] boutton retour on adherent/bookList
     - [x] retour logic
       - [x] change loan state
-        - [ ] if return date > loan.toDate
-          - [] loan.state = overdue
-          - [ ] create sanction
+        - [x] if return date > loan.toDate
+          - [x] loan.state = overdue
+          - [x] create sanction
         - [x] load.state = finished
       - [x] change book state to available
+  - [ ] Extension
+    - [ ] Validation
+      - [ ] Etat de la requete

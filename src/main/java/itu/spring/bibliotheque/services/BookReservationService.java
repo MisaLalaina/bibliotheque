@@ -1,8 +1,12 @@
 package itu.spring.bibliotheque.services;
 
+import java.sql.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import itu.spring.bibliotheque.models.Adherent;
+import itu.spring.bibliotheque.models.Book;
 import itu.spring.bibliotheque.models.Reservation;
 import itu.spring.bibliotheque.models.Utilisateur;
 
@@ -13,6 +17,8 @@ public class BookReservationService {
     private BookService bookService;
     @Autowired
     private ReservationService reservationService;
+    @Autowired
+    private BookConstraintService bookConstraintService;
 
     public void expire(Reservation reservation){
         if (reservation != null) {
@@ -48,5 +54,17 @@ public class BookReservationService {
         } else {
             throw new IllegalArgumentException("Reservation cannot be null.");
         }
+    }
+
+    public Reservation createReservationWithConstraints(Adherent adherent, Integer bookId, Date reservationDate) {
+        // You may want to inject BookService and BookConstraintService if not already
+        Book book = bookService.findById(bookId);
+        if (book == null) {
+            throw new IllegalArgumentException("Book not found");
+        }
+        // Check constraints (delegated to BookConstraintService)
+        bookConstraintService.checkReservationConstraints(adherent, bookId, reservationDate);
+        // Save reservation
+        return reservationService.save(adherent, book, reservationDate);
     }
 }

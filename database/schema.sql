@@ -86,6 +86,8 @@ CREATE TABLE extension_request (
     request_date DATE NOT NULL,
     state VARCHAR(30) NOT NULL,
     reason VARCHAR(255),
+    direction VARCHAR(30),
+    amount INT,
     validated_by INT,
     FOREIGN KEY (validated_by) REFERENCES user(id),
     FOREIGN KEY (loan_id) REFERENCES loan(id)

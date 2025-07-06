@@ -1,4 +1,4 @@
-package itu.spring.bibliotheque.repository;
+package itu.spring.bibliotheque.repositories;
 
 import itu.spring.bibliotheque.models.Extension;
 import org.springframework.data.jpa.repository.JpaRepository;

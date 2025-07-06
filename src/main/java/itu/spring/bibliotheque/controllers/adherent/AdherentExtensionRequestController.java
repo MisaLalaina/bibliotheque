@@ -1,11 +1,12 @@
 package itu.spring.bibliotheque.controllers.adherent;
 
+import itu.spring.bibliotheque.enums.ExtensionRequestState;
 import itu.spring.bibliotheque.enums.HolidayDirection;
 import itu.spring.bibliotheque.models.ExtensionRequest;
 import itu.spring.bibliotheque.models.Loan;
 import itu.spring.bibliotheque.models.Utilisateur;
-import itu.spring.bibliotheque.service.ConfigService;
-import itu.spring.bibliotheque.service.ExtensionRequestService;
+import itu.spring.bibliotheque.services.ConfigService;
+import itu.spring.bibliotheque.services.ExtensionRequestService;
 import itu.spring.bibliotheque.services.LoanService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,10 +26,19 @@ public class AdherentExtensionRequestController {
     private LoanService loanService;
     @Autowired
     private ConfigService configService;
+    @GetMapping("")
+    public String listExtensionRequests(Model model, HttpSession session) {
+        Utilisateur user = (Utilisateur) session.getAttribute("user");
+        if (user == null) return "redirect:/login";
+        // Assuming ExtensionRequestService has a method to get requests by user/adherent
+        var requests = extensionRequestService.findByUserId(user.getId());
+        model.addAttribute("extensionRequests", requests);
+        return "adherent/extensionRequestList";
+    }
 
     @GetMapping("/form")
     public String showExtensionForm(@RequestParam Integer loanId, Model model) {
-        int maxExtension = configService.getAll().isEmpty() ? 30 : configService.getAll().get(0).getMaxExtension();
+        int maxExtension = configService.getAll().isEmpty() ? 2 : configService.getAll().get(0).getMaxExtension();
         model.addAttribute("loanId", loanId);
         model.addAttribute("maxExtension", maxExtension);
         model.addAttribute("holidayDirections", HolidayDirection.values());
@@ -41,7 +51,7 @@ public class AdherentExtensionRequestController {
         if (user == null) return "redirect:/login";
         Loan loan = loanService.findById(loanId).orElse(null);
         if (loan == null) return "redirect:/adherent/books";
-        int maxExtension = configService.getAll().isEmpty() ? 30 : configService.getAll().get(0).getMaxExtension();
+        int maxExtension = configService.getAll().isEmpty() ? 2 : configService.getAll().get(0).getMaxExtension();
         if (amount < 1 || amount > maxExtension) {
             model.addAttribute("error", "Extension amount must be between 1 and " + maxExtension);
             model.addAttribute("loanId", loanId);
@@ -52,7 +62,9 @@ public class AdherentExtensionRequestController {
         ExtensionRequest req = new ExtensionRequest();
         req.setLoan(loan);
         req.setRequestDate(new java.sql.Date(System.currentTimeMillis()));
-        req.setState(itu.spring.bibliotheque.enums.ExtensionRequestState.Pending);
+        req.setState(ExtensionRequestState.Pending);
+        req.setDirection(holidayDirection.name());
+        req.setAmount(amount);
         req.setReason("Requested " + amount + " days, direction: " + holidayDirection);
         extensionRequestService.save(req);
         return "redirect:/adherent/books";

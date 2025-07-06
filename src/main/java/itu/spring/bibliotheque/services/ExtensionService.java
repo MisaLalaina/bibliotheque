@@ -1,7 +1,8 @@
-package itu.spring.bibliotheque.service;
+package itu.spring.bibliotheque.services;
 
 import itu.spring.bibliotheque.models.Extension;
-import itu.spring.bibliotheque.repository.ExtensionRepository;
+import itu.spring.bibliotheque.repositories.ExtensionRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;

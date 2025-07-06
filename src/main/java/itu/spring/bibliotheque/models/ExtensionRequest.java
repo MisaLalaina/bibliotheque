@@ -18,6 +18,10 @@ public class ExtensionRequest {
     @Column(name = "request_date")
     private Date requestDate;
 
+    private String direction;
+
+    private Integer amount;
+
     @Enumerated(EnumType.STRING)
     private ExtensionRequestState state;
 
@@ -40,4 +44,16 @@ public class ExtensionRequest {
     public void setReason(String reason) { this.reason = reason; }
     public Utilisateur getValidatedBy() { return validatedBy; }
     public void setValidatedBy(Utilisateur validatedBy) { this.validatedBy = validatedBy; }
+    public String getDirection() {
+        return direction;
+    }
+    public void setDirection(String direction) {
+        this.direction = direction;
+    }
+    public Integer getAmount() {
+        return amount;
+    }
+    public void setAmount(Integer amount) {
+        this.amount = amount;
+    }
 }

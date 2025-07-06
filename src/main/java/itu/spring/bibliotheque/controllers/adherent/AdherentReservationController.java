@@ -4,6 +4,7 @@ import itu.spring.bibliotheque.models.Adherent;
 import itu.spring.bibliotheque.models.Reservation;
 import itu.spring.bibliotheque.models.Utilisateur;
 import itu.spring.bibliotheque.services.AdherentService;
+import itu.spring.bibliotheque.services.BookReservationService;
 import itu.spring.bibliotheque.services.BookService;
 import itu.spring.bibliotheque.services.ReservationService;
 import jakarta.servlet.http.HttpSession;
@@ -30,6 +31,9 @@ public class AdherentReservationController {
 
     @Autowired
     private AdherentService adherentService;
+
+    @Autowired
+    private BookReservationService bookReservationService;
 
 
     @GetMapping("")
@@ -66,7 +70,7 @@ public class AdherentReservationController {
             return "redirect:/login";
         }
         try {
-            reservationService.createReservationWithConstraints(adherent, bookId, refDate);
+            bookReservationService.createReservationWithConstraints(adherent, bookId, refDate);
         } catch (Exception e) {
             model.addAttribute("error", e.getMessage());
             model.addAttribute("books", bookService.findAll());

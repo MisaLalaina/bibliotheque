@@ -1,7 +1,9 @@
-package itu.spring.bibliotheque.service;
+
+package itu.spring.bibliotheque.services;
 
 import itu.spring.bibliotheque.models.ExtensionRequest;
-import itu.spring.bibliotheque.repository.ExtensionRequestRepository;
+import itu.spring.bibliotheque.repositories.ExtensionRequestRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -9,6 +11,10 @@ import java.util.Optional;
 
 @Service
 public class ExtensionRequestService {
+
+    public List<ExtensionRequest> findByUserId(Integer userId) {
+        return extensionRequestRepository.findByLoan_Adherent_Utilisateur_Id(userId);
+    }
     @Autowired
     private ExtensionRequestRepository extensionRequestRepository;
 

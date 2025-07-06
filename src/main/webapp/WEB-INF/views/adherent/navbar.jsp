@@ -4,5 +4,6 @@
     <a href="/adherent/reservations">My Reservations</a> |
     <a href="/adherent/reservations/new">Create Reservation</a> |
     <a href="/adherent/books">My Books</a> |
+    <a href="/adherent/extensions">Extensions</a> |
     <a href="/logout">Logout</a>
 </div>

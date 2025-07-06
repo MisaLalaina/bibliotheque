@@ -2,6 +2,7 @@ package itu.spring.bibliotheque.controllers.librarian;
 
 import itu.spring.bibliotheque.models.Reservation;
 import itu.spring.bibliotheque.models.Utilisateur;
+import itu.spring.bibliotheque.services.BookConstraintService;
 import itu.spring.bibliotheque.services.ReservationService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,8 @@ import java.util.List;
 public class LibrarianReservationController {
     @Autowired
     private ReservationService reservationService;
+    @Autowired
+    private BookConstraintService bookConstraintService;
 
     @GetMapping("")
     public String listReservations(Model model, HttpSession session) {
@@ -28,12 +31,20 @@ public class LibrarianReservationController {
     }
 
     @PostMapping("/validate")
-    public String validateReservation(@RequestParam Integer reservationId, HttpSession session) {
+    public String validateReservation(@RequestParam Integer reservationId, HttpSession session, Model model) {
         Utilisateur user = (Utilisateur) session.getAttribute("user");
         if (user == null || !"Librarian".equals(user.getRole().getName())) {
             return "redirect:/login";
         }
-        reservationService.validate(reservationId, user);
+        try {
+            Reservation reservation = reservationService.findById(reservationId);
+            bookConstraintService.checkReservationConstraints(reservation.getAdherent(), reservation.getBook().getId(), reservation.getReservationDate());
+            reservationService.validate(reservationId, user);
+        } catch (Exception e) {
+            List<Reservation> reservations = reservationService.findAll();
+            model.addAttribute("reservations", reservations);
+            return "librarian/reservationList";
+        }
         return "redirect:/librarian/reservations";
     }
 }

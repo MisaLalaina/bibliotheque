@@ -1,11 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" import="itu.spring.bibliotheque.model.Utilisateur,itu.spring.bibliotheque.model.Role" %>
+<%@ include file="navbar.jsp" %>
 <html>
 <head>
     <title>Create User</title>
 </head>
 <body>
 <h2>Create New User</h2>
-<form method="post" action="/users/save">
+<form method="post" action="/librarian/users/save">
     <label for="username">Username:</label>
     <input type="text" id="username" name="username" required><br>
     <label for="password">Password:</label>
@@ -14,14 +15,16 @@
     <input type="date" id="birthDate" name="birthDate" required><br>
     <label for="roleId">Role:</label>
     <select id="roleId" name="roleId" required>
-        <% if (request.getAttribute("roles") != null) {
+        <%
             java.util.List roles = (java.util.List) request.getAttribute("roles");
-            for (Object obj : roles) {
-                Role role = (Role) obj; // Change package/class as needed
+            if (roles != null) {
+                for (Object obj : roles) {
+                    itu.spring.bibliotheque.model.Role role = (itu.spring.bibliotheque.model.Role) obj;
         %>
-            <option value="<%= role.getId() %>"><%= role.getName() %></option>
-        <%     }
-           }
+        <option value="<%= role.getId() %>"><%= role.getName() %></option>
+        <%
+                }
+            }
         %>
     </select><br>
     <button type="submit">Save</button>

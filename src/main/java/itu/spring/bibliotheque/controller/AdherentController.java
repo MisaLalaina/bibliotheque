@@ -11,11 +11,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
 @Controller
+@RequestMapping("/librarian")
 public class AdherentController {
     @Autowired
     private AdherentService adherentService;
@@ -33,7 +35,7 @@ public class AdherentController {
         }
         List<Adherent> adherents = adherentService.findAll();
         model.addAttribute("adherents", adherents);
-        return "adherentList";
+        return "librarian/adherentList";
     }
 
     @GetMapping("/adherents/new")
@@ -45,7 +47,7 @@ public class AdherentController {
         model.addAttribute("adherent", new Adherent());
         model.addAttribute("users", utilisateurService.findAll());
         model.addAttribute("adherentTypes", adherentTypeService.findAll());
-        return "adherentForm";
+        return "librarian/adherentForm";
     }
 
     @PostMapping("/adherents/save")
@@ -58,6 +60,6 @@ public class AdherentController {
         adherent.setUtilisateur(utilisateurService.findById(userId).orElse(null));
         adherent.setAdherentType(adherentTypeService.findById(adherentTypeId).orElse(null));
         adherentService.save(adherent);
-        return "redirect:/adherents";
+        return "redirect:/librarian/adherents";
     }
 }

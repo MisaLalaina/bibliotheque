@@ -13,11 +13,15 @@ public class HomeController {
     @GetMapping("/home")
     public String home(HttpSession session) {
         Utilisateur user = (Utilisateur) session.getAttribute("user");
-        if (user == null || !"Librarian".equals(user.getRole().getName())) {
+        if (user == null) {
             return "redirect:/login";
         }
-        return "home"; // This should return the name of the HTML template for the home page
-    }    
+        if ("Librarian".equals(user.getRole().getName())) {
+            return "librarian/home";
+        } else {
+            return "adherent/home";
+        }
+    }
 
     @GetMapping("/")
     public String index() {

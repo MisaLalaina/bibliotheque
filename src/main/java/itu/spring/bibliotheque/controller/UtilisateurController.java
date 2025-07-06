@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.text.SimpleDateFormat;
@@ -17,6 +18,7 @@ import java.util.Date;
 import java.util.List;
 
 @Controller
+@RequestMapping("/librarian")
 public class UtilisateurController {
     @Autowired
     private UtilisateurService utilisateurService;
@@ -31,7 +33,7 @@ public class UtilisateurController {
         }
         List<Role> roles = roleRepository.findAll();
         model.addAttribute("roles", roles);
-        return "userForm";
+        return "librarian/userForm";
     }
 
     @PostMapping("/users/save")
@@ -52,6 +54,6 @@ public class UtilisateurController {
         } catch (Exception e) {
             // handle error
         }
-        return "redirect:/adherents";
+        return "redirect:/librarian/adherents";
     }
 }

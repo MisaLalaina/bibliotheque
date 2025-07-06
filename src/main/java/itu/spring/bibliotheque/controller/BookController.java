@@ -8,11 +8,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
 @Controller
+@RequestMapping("/librarian")
 public class BookController {
     @Autowired
     private BookService bookService;
@@ -21,13 +23,13 @@ public class BookController {
     public String listBooks(Model model, HttpSession session) {
         List<Book> books = bookService.findAll();
         model.addAttribute("books", books);
-        return "bookList";
+        return "librarian/bookList";
     }
 
     @GetMapping("/books/new")
     public String showBookForm(Model model, HttpSession session) {
         model.addAttribute("book", new Book());
-        return "bookForm";
+        return "librarian/bookForm";
     }
 
     @PostMapping("/books/save")
@@ -38,6 +40,6 @@ public class BookController {
         book.setAgeMin(ageMin);
         book.setState(state);
         bookService.save(book);
-        return "redirect:/books";
+        return "redirect:/librarian/books";
     }
 }

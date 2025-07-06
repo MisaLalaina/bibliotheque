@@ -6,7 +6,7 @@
 </head>
 <body>
 <h2>Add New Book</h2>
-<form method="post" action="/books/save">
+<form method="post" action="/librarian/books/save">
     <label for="title">Title:</label>
     <input type="text" id="title" name="title" required><br>
     <label for="author">Author:</label>

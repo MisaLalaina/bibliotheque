@@ -1,0 +1,45 @@
+# TODO List
+
+- [ ] Conception
+  - [ ] Basic
+    - [ ] Role
+    - [ ] Utilisateurs
+    - [ ] Adherent Type
+    - [ ] Adherent
+    - [ ] Livre
+      - [ ] Age limitation
+      - [ ] Etat
+  - [ ] Actions
+    - [ ] Abonnement
+      - [ ] fromDate
+      - [ ] toDate
+    - [ ] Reservation
+      - [ ] Etat
+    - [ ] Pret
+      - [ ] validatedBy
+    - [ ] Demande de Prolongation
+    - [ ] Prolongation
+      - [ ] ratacher a un pret
+      - [ ] duree
+      - [ ] fromDate
+      - [ ] toDate
+    - [ ] Retour
+    - [ ] Sactions
+      - [ ] ratacher a un adherent
+      - [ ] createdBy
+      - [ ] fromDate
+      - [ ] toDate
+      - [ ] duree
+    - [ ] QuotationPret -> nombre de pret possible
+      - [ ] Ajouter default quote par Adherent Type
+    - [ ] Duree Pret -> nombre de duree possible pour un pret
+      - [ ] Ajouter default duration par Adherent Type
+  - [ ] Configurations
+    - [ ] nombre de prolongation
+- [ ] Specific funtions
+  - [ ] recuperer derniere quotaion
+  - [ ] recuperer derniere duration
+  - [ ] recuperer les prolongations d'un pret
+  - [ ] recuperer les livres avec filtre age
+  - [ ] reservation et pret possible si possede un abonnement
+  - [ ] reservation et pret verifier quota

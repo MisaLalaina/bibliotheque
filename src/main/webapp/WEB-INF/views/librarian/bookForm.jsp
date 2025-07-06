@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" import="itu.spring.bibliotheque.model.Book" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" import="itu.spring.bibliotheque.models.Book" %>
 <%@ include file="navbar.jsp" %>
 <html>
 <head>

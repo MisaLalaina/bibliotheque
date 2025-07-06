@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" import="itu.spring.bibliotheque.model.Book" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" import="itu.spring.bibliotheque.models.Book" %>
 <%@ include file="navbar.jsp" %>
 <html>
 <head>
@@ -19,7 +19,7 @@
         java.util.List books = (java.util.List) request.getAttribute("books");
         if (books != null) {
             for (Object obj : books) {
-                itu.spring.bibliotheque.model.Book book = (itu.spring.bibliotheque.model.Book) obj;
+                itu.spring.bibliotheque.models.Book book = (itu.spring.bibliotheque.models.Book) obj;
     %>
     <tr>
         <td><%= book.getId() %></td>

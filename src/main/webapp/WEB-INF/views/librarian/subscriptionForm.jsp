@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" import="itu.spring.bibliotheque.model.Adherent" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" import="itu.spring.bibliotheque.models.Adherent" %>
 <%@ include file="navbar.jsp" %>
 <html>
 <head>
@@ -13,7 +13,7 @@
             java.util.List adherents = (java.util.List) request.getAttribute("adherents");
             if (adherents != null) {
                 for (Object obj : adherents) {
-                    itu.spring.bibliotheque.model.Adherent adherent = (itu.spring.bibliotheque.model.Adherent) obj;
+                    itu.spring.bibliotheque.models.Adherent adherent = (itu.spring.bibliotheque.models.Adherent) obj;
         %>
         <option value="<%= adherent.getId() %>"><%= adherent.getUtilisateur() != null ? adherent.getUtilisateur().getUsername() : "" %></option>
         <%

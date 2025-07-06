@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" import="itu.spring.bibliotheque.model.Reservation,itu.spring.bibliotheque.model.Book,itu.spring.bibliotheque.model.Adherent" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" import="itu.spring.bibliotheque.models.Reservation,itu.spring.bibliotheque.models.Book,itu.spring.bibliotheque.models.Adherent" %>
 <%@ include file="navbar.jsp" %>
 <html>
 <head>
@@ -18,7 +18,7 @@
         java.util.List reservations = (java.util.List) request.getAttribute("reservations");
         if (reservations != null) {
             for (Object obj : reservations) {
-                itu.spring.bibliotheque.model.Reservation reservation = (itu.spring.bibliotheque.model.Reservation) obj;
+                itu.spring.bibliotheque.models.Reservation reservation = (itu.spring.bibliotheque.models.Reservation) obj;
     %>
     <tr>
         <td><%= reservation.getId() %></td>

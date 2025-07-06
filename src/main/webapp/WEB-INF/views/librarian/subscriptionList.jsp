@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" import="itu.spring.bibliotheque.model.Subscription,itu.spring.bibliotheque.model.Adherent" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" import="itu.spring.bibliotheque.models.Subscription,itu.spring.bibliotheque.models.Adherent" %>
 <%@ include file="navbar.jsp" %>
 <html>
 <head>
@@ -18,7 +18,7 @@
         java.util.List subscriptions = (java.util.List) request.getAttribute("subscriptions");
         if (subscriptions != null) {
             for (Object obj : subscriptions) {
-                itu.spring.bibliotheque.model.Subscription sub = (itu.spring.bibliotheque.model.Subscription) obj;
+                itu.spring.bibliotheque.models.Subscription sub = (itu.spring.bibliotheque.models.Subscription) obj;
     %>
     <tr>
         <td><%= sub.getId() %></td>

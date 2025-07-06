@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" import="itu.spring.bibliotheque.model.Utilisateur,itu.spring.bibliotheque.model.Role" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" import="itu.spring.bibliotheque.models.Utilisateur,itu.spring.bibliotheque.models.Role" %>
 <%@ include file="navbar.jsp" %>
 <html>
 <head>
@@ -19,7 +19,7 @@
             java.util.List roles = (java.util.List) request.getAttribute("roles");
             if (roles != null) {
                 for (Object obj : roles) {
-                    itu.spring.bibliotheque.model.Role role = (itu.spring.bibliotheque.model.Role) obj;
+                    itu.spring.bibliotheque.models.Role role = (itu.spring.bibliotheque.models.Role) obj;
         %>
         <option value="<%= role.getId() %>"><%= role.getName() %></option>
         <%

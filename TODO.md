@@ -95,6 +95,36 @@
       - [x] Reservation
       - [x] Abonnement - subscription
       - [x] Adherent Info
-  - [ ] Abonnement
-    - [ ] Page liste d'abonnement et creation pour un adherent
-    - [ ] controllers , models, services
+  - [x] Abonnement
+    - [x] Page liste d'abonnement et creation pour un adherent
+    - [x] controllers , models, services
+    - [x] liste de mes livres
+  - [ ] Emprunt
+    - [x] Loans bases (models, service, repo)
+    - [x] cree une location a partir d'une reservation
+    - [x] cree une location directement
+      - [x] verifier que le livre est available
+    - [x] Mettre a jour le status du livre
+  - [x] Remise
+    - [x] base
+    - [x] Sanction base
+    - [x] boutton retour on adherent/bookList
+    - [x] retour logic
+      - [x] change loan state
+        - [x] if return date > loan.toDate
+          - [x] loan.state = overdue
+          - [x] create sanction
+        - [x] load.state = finished
+      - [x] change book state to available
+  - [x] Extension
+    - [x] Demande d'extension
+    - [x] Validation
+      - [x] Etat de la requete
+  - [ ] Formulaires de configuraitons
+
+## Possibles Allea
+
+- [ ] Sanctions
+- [ ] Offres d'abonnements
+  - [ ] Regroupement des configurations
+  - [ ] Changer d'abonnement

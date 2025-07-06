@@ -73,6 +73,7 @@ CREATE TABLE loan (
     book_id INT NOT NULL,
     from_date DATE NOT NULL,
     to_date DATE NOT NULL,
+    state VARCHAR(30),
     created_by INT,
     FOREIGN KEY (adherent_id) REFERENCES adherent(id),
     FOREIGN KEY (book_id) REFERENCES book(id),
@@ -85,6 +86,8 @@ CREATE TABLE extension_request (
     request_date DATE NOT NULL,
     state VARCHAR(30) NOT NULL,
     reason VARCHAR(255),
+    direction VARCHAR(30),
+    amount INT,
     validated_by INT,
     FOREIGN KEY (validated_by) REFERENCES user(id),
     FOREIGN KEY (loan_id) REFERENCES loan(id)
@@ -96,6 +99,7 @@ CREATE TABLE extension (
     duration INT NOT NULL,
     from_date DATE NOT NULL,
     to_date DATE NOT NULL,
+    state VARCHAR(30),
     FOREIGN KEY (loan_id) REFERENCES loan(id)
 );
 
@@ -105,6 +109,7 @@ CREATE TABLE return_book (
     return_date DATE NOT NULL,
     adherent_id INT NOT NULL,
     book_id INT NOT NULL,
+    state VARCHAR(30),
     FOREIGN KEY (loan_id) REFERENCES loan(id),
     FOREIGN KEY (adherent_id) REFERENCES adherent(id),
     FOREIGN KEY (book_id) REFERENCES book(id)
@@ -133,4 +138,10 @@ CREATE TABLE adherent_info (
     available_quote INT NOT NULL,
     available_duration INT NOT NULL,
     FOREIGN KEY (adherent_id) REFERENCES adherent(id)
+);
+
+CREATE TABLE holiday_list (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    holiday_date DATE NOT NULL UNIQUE,
+    description VARCHAR(255)
 );

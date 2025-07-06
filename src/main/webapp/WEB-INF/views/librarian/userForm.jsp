@@ -1,10 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" import="itu.spring.bibliotheque.models.Utilisateur,itu.spring.bibliotheque.models.Role" %>
-<%@ include file="navbar.jsp" %>
 <html>
 <head>
     <title>Create User</title>
+    <link rel="stylesheet" href="/style.css" />
 </head>
 <body>
+<%@ include file="navbar.jsp" %>
 <h2>Create New User</h2>
 <form method="post" action="/librarian/users/save">
     <label for="username">Username:</label>

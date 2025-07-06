@@ -1,16 +1,11 @@
 package itu.spring.bibliotheque.services;
 
 import itu.spring.bibliotheque.models.Adherent;
-import itu.spring.bibliotheque.models.AdherentInfo;
-import itu.spring.bibliotheque.models.Book;
-import itu.spring.bibliotheque.models.Reservation;
-import itu.spring.bibliotheque.models.Subscription;
 import itu.spring.bibliotheque.repositories.AdherentRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,8 +18,9 @@ public class AdherentService {
         return adherentRepository.findAll();
     }
 
-    public Optional<Adherent> findById(Integer id) {
-        return adherentRepository.findById(id);
+    public Adherent findById(Integer id) {
+        Optional<Adherent> adOptional = adherentRepository.findById(id);
+        return adOptional.orElse(null); // Return null if not found
     }
 
     public Adherent save(Adherent adherent) {

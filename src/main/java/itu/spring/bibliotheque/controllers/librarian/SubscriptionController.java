@@ -40,7 +40,7 @@ public class SubscriptionController {
     public String saveSubscription(@RequestParam Integer adherentId, @RequestParam String fromDate, @RequestParam String toDate) {
         try {
             Subscription subscription = new Subscription();
-            subscription.setAdherent(adherentService.findById(adherentId).orElse(null));
+            subscription.setAdherent(adherentService.findById(adherentId));
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             subscription.setFromDate(sdf.parse(fromDate));
             subscription.setToDate(sdf.parse(toDate));

@@ -1,11 +1,10 @@
 package itu.spring.bibliotheque.controllers.adherent;
 
 import itu.spring.bibliotheque.models.Adherent;
-import itu.spring.bibliotheque.models.Book;
 import itu.spring.bibliotheque.models.Reservation;
 import itu.spring.bibliotheque.models.Utilisateur;
 import itu.spring.bibliotheque.services.AdherentService;
-import itu.spring.bibliotheque.services.BookConstraintService;
+import itu.spring.bibliotheque.services.BookReservationService;
 import itu.spring.bibliotheque.services.BookService;
 import itu.spring.bibliotheque.services.ReservationService;
 import jakarta.servlet.http.HttpSession;
@@ -34,7 +33,8 @@ public class AdherentReservationController {
     private AdherentService adherentService;
 
     @Autowired
-    private BookConstraintService bookConstraintService;
+    private BookReservationService bookReservationService;
+
 
     @GetMapping("")
     public String listReservations(Model model, HttpSession session) {
@@ -60,7 +60,6 @@ public class AdherentReservationController {
 
     @PostMapping("/save")
     public String saveReservation(Model model, @RequestParam Integer bookId, @RequestParam String reservationDate, HttpSession session) {
-        // recupere book id , find adherent from session, create reservation
         Utilisateur user = (Utilisateur) session.getAttribute("user");
         if (user == null) {
             return "redirect:/login";
@@ -71,15 +70,12 @@ public class AdherentReservationController {
             return "redirect:/login";
         }
         try {
-            Book book = bookConstraintService.checkReservationConstraints(adherent,bookId,refDate);
-            reservationService.save(adherent, book, refDate);
+            bookReservationService.createReservationWithConstraints(adherent, bookId, refDate);
         } catch (Exception e) {
-            // Handle the exception, e.g., show an error message
             model.addAttribute("error", e.getMessage());
+            model.addAttribute("books", bookService.findAll());
             return "adherent/reservationForm";
         }
-
         return "redirect:/adherent/reservations";
     }
 }
- 

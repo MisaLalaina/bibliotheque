@@ -1,7 +1,7 @@
 package itu.spring.bibliotheque.models;
 
 import jakarta.persistence.*;
-import java.util.Date;
+import java.sql.Date;
 
 @Entity
 @Table(name = "reservation")

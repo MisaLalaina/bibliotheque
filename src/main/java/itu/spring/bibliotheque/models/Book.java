@@ -35,8 +35,8 @@ public class Book {
     public void setState(String state) { this.state = state; }
     public boolean isAvailable() {
         if (
-            state.equals(BookState.RESERVED.getLabel())     || 
-            state.equals(BookState.CHECKED_OUT.getLabel()) 
+            state.equals(BookState.Reserved.name())     || 
+            state.equals(BookState.Loaned.name()) 
         ) {
             return false;
         }

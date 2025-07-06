@@ -1,6 +1,5 @@
 package itu.spring.bibliotheque.services;
 
-import itu.spring.bibliotheque.enums.BookState;
 import itu.spring.bibliotheque.enums.ReservationState;
 import itu.spring.bibliotheque.models.Adherent;
 import itu.spring.bibliotheque.models.Book;
@@ -20,13 +19,13 @@ public class ReservationService {
     @Autowired
     private ReservationRepository reservationRepository;
 
-    @Autowired
-    private BookService bookService;
-
     public List<Reservation> findAll() {
         return reservationRepository.findAll();
     }
 
+    public Reservation findById(String id) {
+        return findById(Integer.parseInt(id));
+    }
     public Reservation findById(Integer id) {
         Optional<Reservation> reservationOptional = reservationRepository.findById(id);
         return reservationOptional.orElse(null); // Return null if not found
@@ -41,7 +40,7 @@ public class ReservationService {
         reservation.setAdherent(adherent);
         reservation.setBook(book);
         reservation.setReservationDate(reservationDate);
-        reservation.setState(ReservationState.PENDING.getLabel());
+        reservation.setState(ReservationState.Pending.name());
         return reservationRepository.save(reservation);
     }
 
@@ -62,14 +61,7 @@ public class ReservationService {
 
     }
 
-    public Reservation validate(Reservation reservation, Utilisateur user) {
-        reservation.setState(ReservationState.VALIDATED.getLabel());
-        reservation.setValidatedBy(user);
-        Book book = reservation.getBook();
-        bookService.reserved(book);
-        return save(reservation);
-    }
-
+    
     public Reservation findReservation(Book book) {
         List<Reservation> reservations = reservationRepository.findByBookId(book.getId());
         if (!reservations.isEmpty()) {
@@ -77,4 +69,26 @@ public class ReservationService {
         }
         return null; // or throw an exception if preferred
     }
+    
+    public Reservation validate(Reservation reservation, Utilisateur user) {
+        reservation.setState(ReservationState.Validated.name());
+        reservation.setValidatedBy(user);
+        return save(reservation);
+    }
+
+    public Reservation expire(Reservation reservation) {
+        reservation.setState(ReservationState.Expired.name());
+        return save(reservation);
+    }
+
+    public Reservation loaned(Reservation reservation) {
+        reservation.setState(ReservationState.Loaned.name());
+        return save(reservation);
+    }
+
+    public Reservation cancel(Reservation reservation) {
+        reservation.setState(ReservationState.Canceled.name());
+        return save(reservation);
+    }
+
 }

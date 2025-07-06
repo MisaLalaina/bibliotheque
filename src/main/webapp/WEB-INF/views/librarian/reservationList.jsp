@@ -1,9 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" import="itu.spring.bibliotheque.models.Reservation,itu.spring.bibliotheque.models.Book,itu.spring.bibliotheque.models.Adherent,itu.spring.bibliotheque.models.Utilisateur" %>
-<%@ include file="navbar.jsp" %>
 <html>
-<head>
-    <title>Reservations List</title>
 </head>
+    <title>Reservation List</title>
+    <link rel="stylesheet" href="/style.css" />
+
+</head>
+<%@ include file="navbar.jsp" %>
 <body>
 <h2>Reservations List</h2>
 <table border="1">
@@ -34,7 +36,7 @@
                 <input type="hidden" name="reservationId" value="<%= reservation.getId() %>" />
                 <button type="submit">Validate</button>
             </form>
-            <form method="post" action="/librarian/loans/reservation">
+            <form method="get" action="/librarian/loans/create">
                 <input type="hidden" name="reservationId" value="<%= reservation.getId() %>" />
                 <button type="submit">Louer</button>
             </form>

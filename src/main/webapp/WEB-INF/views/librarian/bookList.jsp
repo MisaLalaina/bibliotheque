@@ -1,10 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" import="itu.spring.bibliotheque.models.Book" %>
-<%@ include file="navbar.jsp" %>
 <html>
-<head>
+<head><link rel="stylesheet" href="/style.css" />
     <title>Books List</title>
 </head>
 <body>
+<%@ include file="navbar.jsp" %>
 <h2>Books List</h2>
 <a href="/librarian/books/new">Add New Book</a>
 <table border="1">
@@ -14,6 +14,7 @@
         <th>Author</th>
         <th>Age Min</th>
         <th>State</th>
+        <th>Action</th>
     </tr>
     <%
         java.util.List books = (java.util.List) request.getAttribute("books");
@@ -27,6 +28,12 @@
         <td><%= book.getAuthor() %></td>
         <td><%= book.getAgeMin() %></td>
         <td><%= book.getState() %></td>
+        <td>
+            <form method="get" action="/librarian/loans/create">
+                <input type="hidden" name="bookId" value="<%= book.getId() %>" />
+                <button type="submit">Louer</button>
+            </form>
+        </td>
     </tr>
     <%
             }

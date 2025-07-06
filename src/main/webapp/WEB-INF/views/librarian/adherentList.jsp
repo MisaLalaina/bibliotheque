@@ -1,10 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" import="itu.spring.bibliotheque.models.Adherent,itu.spring.bibliotheque.models.AdherentType,itu.spring.bibliotheque.models.Utilisateur" %>
-<%@ include file="navbar.jsp" %>
 <html>
 <head>
+    <link rel="stylesheet" href="/style.css" />
     <title>Adherents List</title>
 </head>
 <body>
+<%@ include file="navbar.jsp" %>
 <h2>Adherents List</h2>
 <a href="/librarian/adherents/new">Add New Adherent</a>
 <table border="1">

@@ -158,8 +158,7 @@ public class LoanController {
         loan.setAdherent(adherent);
         loan.setBook(book);
         loan.setToDate(toDate);
-        loan.setState(BookState.Loaned.name());
-        loanService.save(loan);
+        loanService.create(loan);
 
         if(reservation != null) {
             bookReservationService.loaned(reservation);

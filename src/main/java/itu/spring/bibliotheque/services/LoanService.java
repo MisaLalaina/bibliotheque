@@ -1,5 +1,6 @@
 package itu.spring.bibliotheque.services;
 
+import itu.spring.bibliotheque.enums.LoanState;
 import itu.spring.bibliotheque.models.Loan;
 import itu.spring.bibliotheque.repositories.LoanRepository;
 
@@ -35,5 +36,25 @@ public class LoanService {
 
     public void delete(Integer id) {
         loanRepository.deleteById(id);
+    }
+
+    public Loan create(Loan loan) {
+        loan.setState(LoanState.Actif.name());
+        return this.save(loan);
+    }
+
+    public Loan finish(Loan loan) {
+        loan.setState(LoanState.Finished.name());
+        return this.save(loan);
+    }
+
+    public Loan ovrdue(Loan loan) {
+        loan.setState(LoanState.Overdue.name());
+        return this.save(loan);
+    }
+
+    public Loan innactif(Loan loan) {
+        loan.setState(LoanState.Innactif.name());
+        return this.save(loan);
     }
 }

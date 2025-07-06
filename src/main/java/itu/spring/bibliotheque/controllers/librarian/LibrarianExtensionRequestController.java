@@ -14,9 +14,7 @@ import itu.spring.bibliotheque.models.ExtensionRequest;
 import itu.spring.bibliotheque.models.Loan;
 import itu.spring.bibliotheque.models.Utilisateur;
 import itu.spring.bibliotheque.services.ExtensionRequestService;
-import itu.spring.bibliotheque.services.HolidayListService;
 import itu.spring.bibliotheque.services.LoanService;
-import itu.spring.bibliotheque.utils.DateUtils;
 import jakarta.servlet.http.HttpSession;
 
 @Controller

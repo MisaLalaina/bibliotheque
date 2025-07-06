@@ -1,11 +1,13 @@
 
 -- Roles
+
 INSERT INTO role (name) VALUES 
 ('Librarian'),
 ('Adherent');
 
 -- Adherent Types
-INSERT INTO adherentType (name, defaultQuote, defaultDuration) VALUES 
+
+INSERT INTO adherent_type (name, default_quote, default_duration) VALUES 
 ('Student', 5, 30),
 ('Teacher', 10, 60),
 ('Anonymous', 2, 15),
@@ -14,7 +16,8 @@ INSERT INTO adherentType (name, defaultQuote, defaultDuration) VALUES
 -- Users
 
 -- Users with birthDate
-INSERT INTO user (username, password, birthDate, roleId) VALUES 
+
+INSERT INTO user (username, password, birth_date, role_id) VALUES 
 ('librarian1', 'password1', '1980-01-01', 1),
 ('john.doe', 'password2', '2010-05-15', 2),   -- Student, 15 years old
 ('jane.smith', 'password3', '1985-03-22', 2), -- Teacher, 40 years old
@@ -23,13 +26,15 @@ INSERT INTO user (username, password, birthDate, roleId) VALUES
 -- Adherents
 
 -- Adherents with coherent age/type
-INSERT INTO adherent (userId, adherentTypeId) VALUES 
+
+INSERT INTO adherent (user_id, adherent_type_id) VALUES 
 (2, 1), -- John Doe, Student (15 years)
 (3, 2), -- Jane Smith, Teacher (40 years)
 (4, 3); -- Paul Brown, Anonymous (24 years)
 
 -- Books
-INSERT INTO book (title, author, ageMin, state) VALUES
+
+INSERT INTO book (title, author, age_min, state) VALUES
 ('The Great Gatsby', 'F. Scott Fitzgerald', 16, 'Available'),
 ('To Kill a Mockingbird', 'Harper Lee', 14, 'Available'),
 ('1984', 'George Orwell', 16, 'Available'),

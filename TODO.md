@@ -44,23 +44,29 @@
   - [ ] reservation et pret possible si possede un abonnement
   - [ ] reservation et pret verifier quota
 - [ ] Developpement
-  - [ ] Login
-    - [ ] create model Utilisateur for table User
-    - [ ] create CRUD service and repository JPA
-    - [ ] create LoginController to manage login and logout
-    - [ ] create model Role
-    - [ ] store in session the user with Role
-  - [ ] CRUD Utilisateurs
-    - [ ] For user with role 1
-      - [ ] page list adherents
-      - [ ] page insertion user
-        - [ ] choix role
-        - [ ] choix adherent type si role est adherent
-      - [ ] create models
-        - [ ] Adherent
-        - [ ] Adherent Type
-      - [ ] Create the services and repositories
-      - [ ] Create controllers
-        - [ ] login
-        - [ ] create user
-        - [ ] list adherent
+  - [x] Login
+    - [x] create model Utilisateur for table User
+    - [x] create CRUD service and repository JPA
+    - [x] create LoginController to manage login and logout
+    - [x] create model Role
+    - [x] store in session the user with Role
+  - [x] CRUD Utilisateurs
+    - [x] For user with role 1
+      - [x] page list adherents
+      - [x] page insertion user
+        - [x] choix role
+        - [x] choix adherent type si role est adherent
+      - [x] create models
+        - [x] Adherent
+        - [x] Adherent Type
+      - [x] Create the services and repositories
+      - [x] Create controllers
+        - [x] login
+        - [x] create user
+        - [x] list adherent
+  - [ ] Navigation
+    - [ ] Page d'accueil pour /home
+    - [ ] ajouter une barre de navigation a integrer dans chaque page
+  - [ ] CRUD Livre
+    - [ ] liste des livres
+    - [ ] ajouter un livre

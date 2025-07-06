@@ -16,6 +16,10 @@ public class UtilisateurService {
         return utilisateurRepository.findByUsername(username);
     }
 
+    public Iterable<Utilisateur> findAll() {
+        return utilisateurRepository.findAll();
+    }
+
     public Utilisateur save(Utilisateur utilisateur) {
         return utilisateurRepository.save(utilisateur);
     }

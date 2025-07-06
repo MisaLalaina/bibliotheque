@@ -1,41 +1,41 @@
 # TODO List
 
 - [ ] Conception
-  - [ ] Basic
-    - [ ] Role
-    - [ ] Utilisateurs
-    - [ ] Adherent Type
-    - [ ] Adherent
-    - [ ] Livre
-      - [ ] Age limitation
-      - [ ] Etat
-  - [ ] Actions
-    - [ ] Abonnement
-      - [ ] fromDate
-      - [ ] toDate
-    - [ ] Reservation
-      - [ ] Etat
-    - [ ] Pret
-      - [ ] validatedBy
-    - [ ] Demande de Prolongation
-    - [ ] Prolongation
-      - [ ] ratacher a un pret
-      - [ ] duree
-      - [ ] fromDate
-      - [ ] toDate
-    - [ ] Retour
-    - [ ] Sactions
-      - [ ] ratacher a un adherent
-      - [ ] createdBy
-      - [ ] fromDate
-      - [ ] toDate
-      - [ ] duree
-    - [ ] QuotationPret -> nombre de pret possible
-      - [ ] Ajouter default quote par Adherent Type
-    - [ ] Duree Pret -> nombre de duree possible pour un pret
-      - [ ] Ajouter default duration par Adherent Type
-  - [ ] Configurations
-    - [ ] nombre de prolongation
+  - [x] Basic
+    - [x] Role
+    - [x] Utilisateurs
+    - [x] Adherent Type
+    - [x] Adherent
+    - [x] Livre (Book)
+      - [x] Age limitation
+      - [x] Etat
+  - [x] Actions
+    - [x] Abonnement
+      - [x] fromDate
+      - [x] toDate
+    - [x] Reservation
+      - [x] Etat
+    - [x] Pret (Loan)
+      - [x] validatedBy
+    - [x] Demande de Prolongation
+    - [x] Prolongation
+      - [x] ratacher a un pret
+      - [x] duree
+      - [x] fromDate
+      - [x] toDate
+    - [x] Retour
+    - [x] Sactions
+      - [x] ratacher a un adherent
+      - [x] createdBy
+      - [x] fromDate
+      - [x] toDate
+      - [x] duree
+    - [x] QuotationPret -> nombre de pret possible
+      - [x] Ajouter default quote par Adherent Type
+    - [x] Duree Pret -> nombre de duree possible pour un pret
+      - [x] Ajouter default duration par Adherent Type
+  - [x] Configurations
+    - [x] nombre de prolongation
 - [ ] Specific funtions
   - [ ] recuperer derniere quotaion
   - [ ] recuperer derniere duration
@@ -43,3 +43,20 @@
   - [ ] recuperer les livres avec filtre age
   - [ ] reservation et pret possible si possede un abonnement
   - [ ] reservation et pret verifier quota
+- [ ] Developpement
+  - [ ] User Managment
+    - [ ] Login
+      - [ ] create model Utilisateur for table User
+      - [ ] create CRUD service and repository JPA
+      - [ ] create LoginController to manage login and logout
+      - [ ] create model Role
+      - [ ] store in session the user with Role
+    - [ ] CRUD Utilisateurs
+      - [ ] For user with role 1
+        - [ ] page list adherents
+        - [ ] page insertion user
+          - [ ] choix role
+          - [ ] choix adherent type si role est adherent
+      - [ ] create models
+        - [ ] Adherent
+        - [ ] Adherent Type

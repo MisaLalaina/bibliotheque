@@ -30,6 +30,9 @@ public class BookConstraintService {
         if (book == null) {
             throw new IllegalArgumentException("Book not found.");
         }
+        else if (book.isAvailable() == false) {
+            throw new IllegalArgumentException("Book is already "+book.getState());
+        }
         return checkAvaiabilityConstraints(adherent, book, refDate);
     }
     public Book checkAvaiabilityConstraints(Adherent adherent, Book book,  Date refDate) {
@@ -48,8 +51,8 @@ public class BookConstraintService {
         if (adherentInfo == null) {
             throw new IllegalArgumentException("Adherent does not have valid information.");   
         }
-        // else (current >= adherentInfo.getAvailableQuote()) {
-        else if (current > 0) {
+        else if(current >= adherentInfo.getAvailableQuote()) {
+        // else if (current > 0) {
             throw new IllegalArgumentException("Adherent has reached the borrowing quota.");
         }
 

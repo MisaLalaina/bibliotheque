@@ -1,6 +1,7 @@
 package itu.spring.bibliotheque.controllers.librarian;
 
 import itu.spring.bibliotheque.models.Reservation;
+import itu.spring.bibliotheque.models.Utilisateur;
 import itu.spring.bibliotheque.services.ReservationService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +28,12 @@ public class LibrarianReservationController {
     }
 
     @PostMapping("/validate")
-    public String validateReservation(@RequestParam Integer reservationId) {
-        Reservation reservation = reservationService.findById(reservationId);
+    public String validateReservation(@RequestParam Integer reservationId, HttpSession session) {
+        Utilisateur user = (Utilisateur) session.getAttribute("user");
+        if (user == null || !"Librarian".equals(user.getRole().getName())) {
+            return "redirect:/login";
+        }
+        reservationService.validate(reservationId, user);
         return "redirect:/librarian/reservations";
     }
 }

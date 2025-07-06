@@ -1,5 +1,6 @@
 package itu.spring.bibliotheque.services;
 
+import itu.spring.bibliotheque.enums.BookState;
 import itu.spring.bibliotheque.models.Book;
 import itu.spring.bibliotheque.repositories.BookRepository;
 
@@ -33,5 +34,10 @@ public class BookService {
 
     public void deleteById(Integer id) {
         bookRepository.deleteById(id);
+    }
+
+    public Book reserved(Book book) {
+        book.setState(BookState.RESERVED.getLabel());
+        return bookRepository.save(book);
     }
 }

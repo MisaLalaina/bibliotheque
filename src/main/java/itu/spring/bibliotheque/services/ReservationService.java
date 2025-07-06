@@ -1,5 +1,6 @@
 package itu.spring.bibliotheque.services;
 
+import itu.spring.bibliotheque.enums.BookState;
 import itu.spring.bibliotheque.enums.ReservationState;
 import itu.spring.bibliotheque.models.Adherent;
 import itu.spring.bibliotheque.models.Book;
@@ -18,6 +19,9 @@ import java.util.Optional;
 public class ReservationService {
     @Autowired
     private ReservationRepository reservationRepository;
+
+    @Autowired
+    private BookService bookService;
 
     public List<Reservation> findAll() {
         return reservationRepository.findAll();
@@ -57,9 +61,20 @@ public class ReservationService {
         throw new IllegalArgumentException("Reservation not found with id: " + reservationId);
 
     }
+
     public Reservation validate(Reservation reservation, Utilisateur user) {
         reservation.setState(ReservationState.VALIDATED.getLabel());
         reservation.setValidatedBy(user);
+        Book book = reservation.getBook();
+        bookService.reserved(book);
         return save(reservation);
+    }
+
+    public Reservation findReservation(Book book) {
+        List<Reservation> reservations = reservationRepository.findByBookId(book.getId());
+        if (!reservations.isEmpty()) {
+            return reservations.get(0); // Return the first reservation found
+        }
+        return null; // or throw an exception if preferred
     }
 }

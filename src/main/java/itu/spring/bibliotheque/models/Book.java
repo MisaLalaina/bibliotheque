@@ -1,5 +1,6 @@
 package itu.spring.bibliotheque.models;
 
+import itu.spring.bibliotheque.enums.BookState;
 import jakarta.persistence.*;
 
 @Entity
@@ -32,4 +33,13 @@ public class Book {
     public void setAgeMin(Integer ageMin) { this.ageMin = ageMin; }
     public String getState() { return state; }
     public void setState(String state) { this.state = state; }
+    public boolean isAvailable() {
+        if (
+            state.equals(BookState.RESERVED.getLabel())     || 
+            state.equals(BookState.CHECKED_OUT.getLabel()) 
+        ) {
+            return false;
+        }
+        return true;
+    }
 }

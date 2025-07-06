@@ -89,6 +89,8 @@
           - [x] age valide
           - [x] abonnement
           - [x] quotas
+          - [x] Liberter du libre
+            - [x] status non reserver ou emprunter
     - [x] Models et Services
       - [x] Reservation
       - [x] Abonnement - subscription

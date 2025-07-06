@@ -1,10 +1,10 @@
 package itu.spring.bibliotheque.enums;
 
-public enum ReservationState {
-    PENDING,
-    VALIDATED,
-    REJECTED,
-    CANCELED;
+public enum BookState {
+    AVAILABLE,
+    CHECKED_OUT,
+    RESERVED;
+
     public String getLabel() {
         return this.name().toLowerCase();
     }

@@ -34,6 +34,10 @@
                 <input type="hidden" name="reservationId" value="<%= reservation.getId() %>" />
                 <button type="submit">Validate</button>
             </form>
+            <form method="post" action="/librarian/loans/reservation">
+                <input type="hidden" name="reservationId" value="<%= reservation.getId() %>" />
+                <button type="submit">Louer</button>
+            </form>
         </td>
     </tr>
     <%

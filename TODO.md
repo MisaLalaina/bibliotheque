@@ -64,9 +64,37 @@
         - [x] login
         - [x] create user
         - [x] list adherent
-  - [ ] Navigation
-    - [ ] Page d'accueil pour /home
-    - [ ] ajouter une barre de navigation a integrer dans chaque page
-  - [ ] CRUD Livre
-    - [ ] liste des livres
-    - [ ] ajouter un livre
+  - [x] Navigation
+    - [x] Page d'accueil pour /home
+    - [x] ajouter une barre de navigation a integrer dans chaque page
+  - [x] CRUD Livre
+    - [x] liste des livres
+    - [x] ajouter un livre
+  - [x] Role Check  
+    - [x] separer les views en deux sous dossier
+      - [x] librarian
+      - [x] adherent
+      - [x] deplacer les pages de crud actuelle dans librarian
+    - [x] Verifier le role dans /home
+    - [x] si role.id = 1 soit librarian -> librarian/home
+    - [x] sinon adherent/home
+  - [x] Reservation
+    - [x] Pages et Controllers
+      - [x] (adherent et librarian ) Liste des reservations
+        - [x] (librarian) avec bouton de validation
+        - [x] (adherent) filtrer les reservation pour un adherent
+      - [x] (adherent) List books avec boutton reserver
+      - [x] (adherent) creation d'une reservation
+        - [x] verification des contraintes
+          - [x] age valide
+          - [x] abonnement
+          - [x] quotas
+          - [x] Liberter du libre
+            - [x] status non reserver ou emprunter
+    - [x] Models et Services
+      - [x] Reservation
+      - [x] Abonnement - subscription
+      - [x] Adherent Info
+  - [ ] Abonnement
+    - [ ] Page liste d'abonnement et creation pour un adherent
+    - [ ] controllers , models, services

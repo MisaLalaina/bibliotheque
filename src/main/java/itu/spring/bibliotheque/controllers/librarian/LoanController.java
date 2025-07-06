@@ -90,6 +90,7 @@ public class LoanController {
             }
             loan.setBook(book);
         }
+        loan.setFromDate(new Date(System.currentTimeMillis()));
         // If you want to prefill dates, you can set them here
         model.addAttribute("loan", loan);
         model.addAttribute("book", book);

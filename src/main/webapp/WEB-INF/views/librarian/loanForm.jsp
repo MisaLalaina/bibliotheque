@@ -49,6 +49,9 @@
     <label>From Date:</label>
     <input type="date" name="fromDate" value="<%= loan != null && loan.getFromDate() != null ? loan.getFromDate().toString() : "" %>" required />
     <br/>
+    <label>To Date:</label>
+    <input type="date" name="toDate" value="<%= loan != null && loan.getToDate() != null ? loan.getToDate().toString() : "" %>" required />
+    <br/>
     <div>
         <%
             for (HolidayDirection direction : holidayDirections) {

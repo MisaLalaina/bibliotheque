@@ -15,6 +15,7 @@
         <th>State</th>
         <th>From Date</th>
         <th>To Date</th>
+        <th>Action</th>
     </tr>
     <%
         java.util.List books = (java.util.List) request.getAttribute("books");
@@ -30,6 +31,12 @@
         <td><%= bookLoan.getBookState() %></td>
         <td><%= bookLoan.getFromDate() != null ? bookLoan.getFromDate() : "" %></td>
         <td><%= bookLoan.getToDate() != null ? bookLoan.getToDate() : "" %></td>
+        <td>
+            <form method="get" action="/adherent/returns/form">
+                <input type="hidden" name="loanId" value="<%= bookLoan.getLoanId() %>" />
+                <button type="submit">Return</button>
+            </form>
+        </td>
     </tr>
     <%
             }

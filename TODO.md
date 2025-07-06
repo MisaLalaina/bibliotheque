@@ -107,12 +107,12 @@
     - [x] Mettre a jour le status du livre
   - [ ] Remise
     - [x] base
-    - [ ] Sanction base
-    - [ ] boutton retour
-    - [ ] retour logic
-      - [ ] change loan state
+    - [x] Sanction base
+    - [x] boutton retour on adherent/bookList
+    - [x] retour logic
+      - [x] change loan state
         - [ ] if return date > loan.toDate
-          - [ ] loan.state = overdue
+          - [] loan.state = overdue
           - [ ] create sanction
-        - [ ] load.state = finished
-      - [ ] change book state to available
+        - [x] load.state = finished
+      - [x] change book state to available

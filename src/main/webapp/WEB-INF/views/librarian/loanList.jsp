@@ -14,6 +14,7 @@
         <th>Adherent</th>
         <th>From Date</th>
         <th>To Date</th>
+        <th>State</th>
         <th>Created By</th>
     </tr>
     <%
@@ -28,6 +29,7 @@
         <td><%= loan.getAdherent() != null && loan.getAdherent().getUtilisateur() != null ? loan.getAdherent().getUtilisateur().getUsername() : "" %></td>
         <td><%= loan.getFromDate() %></td>
         <td><%= loan.getToDate() %></td>
+        <td><%= loan.getState() %></td>
         <td><%= loan.getCreatedBy() != null ? loan.getCreatedBy().getUsername() : "" %></td>
     </tr>
     <%

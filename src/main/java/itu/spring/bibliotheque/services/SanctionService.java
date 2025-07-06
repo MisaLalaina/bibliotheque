@@ -1,7 +1,8 @@
-package itu.spring.bibliotheque.service;
+package itu.spring.bibliotheque.services;
 
 import itu.spring.bibliotheque.models.Sanction;
-import itu.spring.bibliotheque.repository.SanctionRepository;
+import itu.spring.bibliotheque.repositories.SanctionRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;

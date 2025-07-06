@@ -8,6 +8,7 @@
     <a href="/librarian/subscriptions">Subscriptions</a> |
     <a href="/librarian/reservations">Reservations</a> |
     <a href="/librarian/loans">Emprunts</a> |
+    <a href="/librarian/returns">Returns</a> |
     <a href="/librarian/holidays">Holidays</a> |
     <a href="/logout">Logout</a>
 </div>

@@ -107,6 +107,7 @@
     - [x] Mettre a jour le status du livre
   - [ ] Remise
     - [x] base
+    - [ ] Sanction base
     - [ ] boutton retour
     - [ ] retour logic
       - [ ] change loan state

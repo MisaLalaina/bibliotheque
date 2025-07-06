@@ -76,6 +76,7 @@ public class AdherentReservationController {
         } catch (Exception e) {
             // Handle the exception, e.g., show an error message
             model.addAttribute("error", e.getMessage());
+            model.addAttribute("books", bookService.findAll());
             return "adherent/reservationForm";
         }
 

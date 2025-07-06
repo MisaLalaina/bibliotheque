@@ -44,19 +44,23 @@
   - [ ] reservation et pret possible si possede un abonnement
   - [ ] reservation et pret verifier quota
 - [ ] Developpement
-  - [ ] User Managment
-    - [ ] Login
-      - [ ] create model Utilisateur for table User
-      - [ ] create CRUD service and repository JPA
-      - [ ] create LoginController to manage login and logout
-      - [ ] create model Role
-      - [ ] store in session the user with Role
-    - [ ] CRUD Utilisateurs
-      - [ ] For user with role 1
-        - [ ] page list adherents
-        - [ ] page insertion user
-          - [ ] choix role
-          - [ ] choix adherent type si role est adherent
+  - [ ] Login
+    - [ ] create model Utilisateur for table User
+    - [ ] create CRUD service and repository JPA
+    - [ ] create LoginController to manage login and logout
+    - [ ] create model Role
+    - [ ] store in session the user with Role
+  - [ ] CRUD Utilisateurs
+    - [ ] For user with role 1
+      - [ ] page list adherents
+      - [ ] page insertion user
+        - [ ] choix role
+        - [ ] choix adherent type si role est adherent
       - [ ] create models
         - [ ] Adherent
         - [ ] Adherent Type
+      - [ ] Create the services and repositories
+      - [ ] Create controllers
+        - [ ] login
+        - [ ] create user
+        - [ ] list adherent

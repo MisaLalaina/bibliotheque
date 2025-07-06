@@ -18,6 +18,10 @@ import java.util.Optional;
 public class ReservationService {
     @Autowired
     private ReservationRepository reservationRepository;
+    @org.springframework.beans.factory.annotation.Autowired
+    private itu.spring.bibliotheque.services.BookService bookService;
+    @org.springframework.beans.factory.annotation.Autowired
+    private itu.spring.bibliotheque.services.BookConstraintService bookConstraintService;
 
     public List<Reservation> findAll() {
         return reservationRepository.findAll();
@@ -89,5 +93,17 @@ public class ReservationService {
     public Reservation cancel(Reservation reservation) {
         reservation.setState(ReservationState.Canceled.name());
         return save(reservation);
+    }
+
+    public Reservation createReservationWithConstraints(Adherent adherent, Integer bookId, Date reservationDate) {
+        // You may want to inject BookService and BookConstraintService if not already
+        Book book = bookService.findById(bookId);
+        if (book == null) {
+            throw new IllegalArgumentException("Book not found");
+        }
+        // Check constraints (delegated to BookConstraintService)
+        bookConstraintService.checkReservationConstraints(adherent, bookId, reservationDate);
+        // Save reservation
+        return save(adherent, book, reservationDate);
     }
 }

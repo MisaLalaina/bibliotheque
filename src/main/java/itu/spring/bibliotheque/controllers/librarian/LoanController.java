@@ -33,8 +33,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 @RequestMapping("/librarian/loans")
 public class LoanController {
-
-    private final BookController bookController;
     @Autowired
     private ReservationService reservationService;
     @Autowired
@@ -47,10 +45,6 @@ public class LoanController {
     private LoanService loanService;
     @Autowired
     private  AdherentInfoService adherentInfoService;
-
-    LoanController(BookController bookController) {
-        this.bookController = bookController;
-    }
 
     @GetMapping("")
     public String getMethodName(HttpSession session, Model model) {

@@ -29,6 +29,8 @@ public class BookConstraintService {
             throw new IllegalArgumentException("Book not found.");
         }
         else if (book.isAvailable() == false) {
+
+
             throw new IllegalArgumentException("Book is already "+book.getState());
         }
         return checkAvaiabilityConstraints(adherent, book, refDate);

@@ -39,7 +39,7 @@ public class BookController {
         book.setAuthor(author);
         book.setAgeMin(ageMin);
         book.setState(state);
-        bookService.save(book);
+        bookService.create(book);
         return "redirect:/librarian/books";
     }
 }

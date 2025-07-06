@@ -31,8 +31,15 @@ public class BookService {
         }
     }
 
-    public Book save(Book book) {
+    public Book create(Book book) {
+        return this.free(book);
+    }
+    public Book free(Book book) {
         book.setState(BookState.AVAILABLE.getLabel());
+        return this.save(book);
+    }
+
+    public Book save(Book book) {
         return bookRepository.save(book);
     }
 
@@ -42,6 +49,11 @@ public class BookService {
 
     public Book reserved(Book book) {
         book.setState(BookState.RESERVED.getLabel());
-        return bookRepository.save(book);
+        return this.save(book);
+    }
+
+    public Book checkedOut(Book book) {
+        book.setState(BookState.CHECKED_OUT.getLabel());
+        return this.save(book);
     }
 }

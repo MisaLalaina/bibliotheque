@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" import="itu.spring.bibliotheque.models.Loan,itu.spring.bibliotheque.models.Book,itu.spring.bibliotheque.models.Adherent" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" import="itu.spring.bibliotheque.models.Loan,itu.spring.bibliotheque.models.Book,itu.spring.bibliotheque.models.Adherent, itu.spring.bibliotheque.enums.HolidayDirection" %>
 <%@ include file="navbar.jsp" %>
 <html>
 <head>
@@ -16,10 +16,11 @@
         Adherent adherent = (Adherent) request.getAttribute("adherent");
         java.util.List books = (java.util.List) request.getAttribute("books");
         java.util.List adherents = (java.util.List) request.getAttribute("adherents");
+        HolidayDirection[] holidayDirections = (HolidayDirection[]) request.getAttribute("holidayDirections");
     %>
     <label>Book:</label>
     <% if (book != null) { %>
-        <input type="text" name="bookTitle" value="<%= book.getTitle() %>" readonly />
+        <input type="text" name="bookTitle" value="<%= book.getTitle() %>" readonly disabled />
         <input type="hidden" name="book.id" value="<%= book.getId() %>" />
     <% } else { %>
         <select name="book.id">
@@ -33,7 +34,7 @@
     <br/>
     <label>Adherent:</label>
     <% if (adherent != null) { %>
-        <input type="text" name="adherentName" value="<%= adherent.getUtilisateur().getUsername() %>" readonly />
+        <input type="text" name="adherentName" value="<%= adherent.getUtilisateur().getUsername() %>" readonly disabled/>
         <input type="hidden" name="adherent.id" value="<%= adherent.getId() %>" />
     <% } else { %>
         <select name="adherent.id">
@@ -48,6 +49,18 @@
     <label>From Date:</label>
     <input type="date" name="fromDate" value="<%= loan != null && loan.getFromDate() != null ? loan.getFromDate().toString() : "" %>" required />
     <br/>
+    <div>
+        <%
+            for (HolidayDirection direction : holidayDirections) {
+            %>
+                <label>
+                    <input type="radio" name="holiday" value="<%= direction.name() %>"/>
+                    <%= direction.name() %>
+                </label>
+            <%
+        }
+        %>
+    </div>
     <input type="submit" value="Save Loan" />
 </form>
 </body>

@@ -19,6 +19,7 @@ import itu.spring.bibliotheque.models.Utilisateur;
 import itu.spring.bibliotheque.models.form.LoanForm;
 import itu.spring.bibliotheque.services.AdherentInfoService;
 import itu.spring.bibliotheque.services.AdherentService;
+import itu.spring.bibliotheque.services.BookConstraintService;
 import itu.spring.bibliotheque.services.BookService;
 import itu.spring.bibliotheque.services.LoanService;
 import itu.spring.bibliotheque.services.ReservationService;
@@ -32,9 +33,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 @RequestMapping("/librarian/loans")
 public class LoanController {
+
+    private final BookController bookController;
     @Autowired
     private ReservationService reservationService;
-
+    @Autowired
+    private BookConstraintService bookConstraintService;
     @Autowired
     private BookService bookService;
     @Autowired
@@ -44,13 +48,17 @@ public class LoanController {
     @Autowired
     private  AdherentInfoService adherentInfoService;
 
+    LoanController(BookController bookController) {
+        this.bookController = bookController;
+    }
+
     @GetMapping("")
     public String getMethodName(HttpSession session, Model model) {
         Utilisateur user = (Utilisateur) session.getAttribute("user");
         if (user == null || !"Librarian".equals(user.getRole().getName())) {
             return "redirect:/login";
         }
-        // Here you would typically fetch the list of loans from the service layer
+        model.addAttribute("loans", loanService.findAll());
         return "librarian/loanList"; // Assuming you have a view named loanList.jsp
     }
 
@@ -85,6 +93,7 @@ public class LoanController {
         model.addAttribute("adherent", adherent);
         model.addAttribute("books", bookService.findAll());
         model.addAttribute("adherents", adherentService.findAll());
+        model.addAttribute("holidayDirections", HolidayDirection.values());
         return "librarian/loanForm";
     }
 
@@ -94,13 +103,22 @@ public class LoanController {
         if (user == null || !"Librarian".equals(user.getRole().getName())) {
             return "redirect:/login";
         }
-        Adherent adherent = adherentService.findById(loan.getAdherent().getId());
-        Book book = bookService.findById(loan.getBook().getId());
-        AdherentInfo adherentInfo = adherentInfoService.findByAdherentId(adherent.getId());
         if (loan.getFromDate() == null) {
             model.addAttribute("error", "La date de début ne peut pas être vide.");
             return "librarian/loanForm";
         }
+
+        Book book = bookService.findById(loan.getBook().getId());
+        Adherent adherent = adherentService.findById(loan.getAdherent().getId());
+        try {
+            // Validation de Adherent et Book
+            bookConstraintService.checkAvaiabilityConstraints(adherent, book, loan.getFromDate());
+        } catch (Exception e) {
+            model.addAttribute("error", e.getMessage());
+            return "librarian/loanForm";
+        }
+
+        AdherentInfo adherentInfo = adherentInfoService.findByAdherentId(adherent.getId());
         int day = adherentInfo.getAvailableDuration();
         Date toDate = Date.valueOf(loan.getFromDate().toLocalDate().plusDays(day));
 
@@ -108,8 +126,10 @@ public class LoanController {
         loan.setAdherent(adherent);
         loan.setBook(book);
         loan.setToDate(toDate);
-        loanService.saveLoan(loan);
-        
+        book.setState(BookState.CHECKED_OUT.getLabel());
+        loanService.save(loan);
+        bookService.checkedOut(book);
+
         return "redirect:/librarian/loans";
     }
 }

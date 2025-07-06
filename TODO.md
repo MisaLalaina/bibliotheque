@@ -101,7 +101,8 @@
     - [ ] liste de mes livres
   - [ ] Emprunt
     - [x] Loans bases (models, service, repo)
-    - [ ] cree une location a partir d'une reservation
-    - [ ] cree une location directement
-      - [ ] verifier que le livre est available
+    - [x] cree une location a partir d'une reservation
+    - [x] cree une location directement
+      - [x] verifier que le livre est available
+    - [x] Mettre a jour le status du livre
   - [ ] Remise

@@ -13,27 +13,27 @@ public class LoanService {
     @Autowired
     private LoanRepository loanRepository;
 
-    public List<Loan> getAllLoans() {
+    public List<Loan> findAll() {
         return loanRepository.findAll();
     }
 
-    public Optional<Loan> getLoanById(Integer id) {
+    public Optional<Loan> findById(Integer id) {
         return loanRepository.findById(id);
     }
 
-    public List<Loan> getLoansByAdherentId(Integer adherentId) {
+    public List<Loan> findLoansByAdherentId(Integer adherentId) {
         return loanRepository.findByAdherentId(adherentId);
     }
 
-    public List<Loan> getLoansByBookId(Integer bookId) {
+    public List<Loan> findLoansByBookId(Integer bookId) {
         return loanRepository.findByBookId(bookId);
     }
 
-    public Loan saveLoan(Loan loan) {
+    public Loan save(Loan loan) {
         return loanRepository.save(loan);
     }
 
-    public void deleteLoan(Integer id) {
+    public void delete(Integer id) {
         loanRepository.deleteById(id);
     }
 }

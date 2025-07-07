@@ -86,3 +86,5 @@ INSERT INTO book_copy (book_id, copy_number, acquisition_date, copy_condition, s
 (10, 1, '2023-09-01', 'new', 'Available');
 
 INSERT into config(max_extension,default_sanction) values (2,10);
+
+update book_copy set state="Available";

@@ -142,7 +142,7 @@ CREATE TABLE config (
     id INT PRIMARY KEY AUTO_INCREMENT,
     max_extension INT,
     default_sanction INT,
-    created_at TIMESTAMP DEFAULT ON CREATE
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Table to store adherent's available quote and duration

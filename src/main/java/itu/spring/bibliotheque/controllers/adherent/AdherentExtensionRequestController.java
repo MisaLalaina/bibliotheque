@@ -4,7 +4,6 @@ import itu.spring.bibliotheque.enums.ExtensionRequestState;
 import itu.spring.bibliotheque.enums.HolidayDirection;
 import itu.spring.bibliotheque.models.Adherent;
 import itu.spring.bibliotheque.models.AdherentInfo;
-import itu.spring.bibliotheque.models.Config;
 import itu.spring.bibliotheque.models.ExtensionRequest;
 import itu.spring.bibliotheque.models.Loan;
 import itu.spring.bibliotheque.models.Utilisateur;

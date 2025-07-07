@@ -9,7 +9,6 @@ import itu.spring.bibliotheque.services.ReturnBookService;
 import itu.spring.bibliotheque.services.LoanService;
 import itu.spring.bibliotheque.services.AdherentService;
 import itu.spring.bibliotheque.services.BookCopyService;
-import itu.spring.bibliotheque.services.BookService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

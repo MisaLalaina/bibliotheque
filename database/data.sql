@@ -1,88 +1,73 @@
-
--- Roles
-
+-- ROLES
 INSERT INTO role (name) VALUES 
 ('Librarian'),
 ('Adherent');
 
--- Adherent Types
-
+-- ADHERENT TYPES
 INSERT INTO adherent_type (name, default_quote, default_duration) VALUES 
-('Student', 5, 30),
-('Teacher', 10, 60),
-('Anonymous', 2, 15),
-('Other', 3, 20);
+('Etudiant', 5, 30),
+('Enseignant', 10, 60),
+('Professionnel', 12, 90);
 
--- Users
+-- USERS (birth_date adjusted for age consistency)
+INSERT INTO user (id, username, password, birth_date, role_id) VALUES 
+(1, 'admin', 'admin', '1970-01-01', 1),
+(2, 'etu001', 'pass', '2007-02-01', 2),
+(3, 'etu002', 'pass', '2006-02-01', 2),
+(4, 'etu003', 'pass', '2005-04-01', 2),
+(5, 'ens001', 'pass', '1980-07-01', 2),
+(6, 'ens002', 'pass', '1979-08-01', 2),
+(7, 'ens003', 'pass', '1981-07-01', 2),
+(8, 'prof001', 'pass', '1985-06-01', 2),
+(9, 'prof002', 'pass', '1980-10-01', 2);
 
--- Users with birthDate
+-- ADHERENTS
+INSERT INTO adherent (id, user_id, adherent_type_id) VALUES 
+(1, 2, 1),
+(2, 3, 1),
+(3, 4, 1),
+(4, 5, 2),
+(5, 6, 2),
+(6, 7, 2),
+(7, 8, 3),
+(8, 9, 3);
 
-INSERT INTO user (username, password, birth_date, role_id) VALUES 
-('librarian1', 'password1', '1980-01-01', 1),
-('john.doe', 'password2', '2010-05-15', 2),   -- Student, 15 years old
-('jane.smith', 'password3', '1985-03-22', 2), -- Teacher, 40 years old
-('paul.brown', 'password4', '2000-09-10', 2); -- Anonymous, 24 years old
+-- BOOKS
+INSERT INTO book (id, title, author, age_min, state) VALUES
+(1, 'Les Misérables', 'Victor Hugo', 12, 'Available'),
+(2, 'L''Étranger', 'Albert Camus', 14, 'Available'),
+(3, 'Harry Potter à l''école des sorciers', 'J.K. Rowling', 10, 'Available');
 
--- Adherents
-
--- Adherents with coherent age/type
-
-INSERT INTO adherent (user_id, adherent_type_id) VALUES 
-(2, 1), -- John Doe, Student (15 years)
-(3, 2), -- Jane Smith, Teacher (40 years)
-(4, 3); -- Paul Brown, Anonymous (24 years)
-
--- Books
-
-INSERT INTO book (title, author, age_min, state) VALUES
-('The Great Gatsby', 'F. Scott Fitzgerald', 16, 'Available'),
-('To Kill a Mockingbird', 'Harper Lee', 14, 'Available'),
-('1984', 'George Orwell', 16, 'Available'),
-('Pride and Prejudice', 'Jane Austen', 12, 'Available'),
-('The Catcher in the Rye', 'J.D. Salinger', 16, 'Available'),
-('The Hobbit', 'J.R.R. Tolkien', 10, 'Available'),
-('Moby Dick', 'Herman Melville', 16, 'Available'),
-('War and Peace', 'Leo Tolstoy', 18, 'Available'),
-('The Odyssey', 'Homer', 12, 'Available'),
-('Crime and Punishment', 'Fyodor Dostoevsky', 18, 'Available');
-
+-- BOOK COPIES
 INSERT INTO book_copy (book_id, copy_number, acquisition_date, copy_condition, state) VALUES
--- The Great Gatsby (3 copies)
-(1, 1, '2023-01-01', 'new', 'Available'),
-(1, 2, '2023-02-01', 'used', 'Available'),
-(1, 3, '2023-03-01', 'damaged', 'Available'),
+(1, 1, '2023-01-01', 'Neuf', 'Available'),
+(1, 2, '2023-01-01', 'Neuf', 'Available'),
+(1, 3, '2023-01-01', 'Neuf', 'Available'),
+(2, 1, '2023-01-01', 'Neuf', 'Available'),
+(2, 2, '2023-01-01', 'Neuf', 'Available'),
+(3, 1, '2023-01-01', 'Neuf', 'Available');
 
--- To Kill a Mockingbird (2 copies)
-(2, 1, '2022-10-10', 'used', 'Available'),
-(2, 2, '2022-11-15', 'used', 'Available'),
+-- SUBSCRIPTIONS
+INSERT INTO subscription (id, adherent_id, from_date, to_date) VALUES
+(1, 1, '2025-02-01', '2025-12-01'),
+(2, 2, '2025-02-01', '2025-07-01'),
+(3, 3, '2025-04-01', '2025-12-01'),
+(4, 4, '2025-07-01', '2026-07-01'),
+(5, 5, '2025-08-01', '2026-05-01'),
+(6, 6, '2025-07-01', '2026-06-01'),
+(7, 7, '2025-06-01', '2025-12-01'),
+(8, 8, '2024-10-01', '2025-06-01');
 
--- 1984 (1 copy)
-(3, 1, '2024-01-20', 'new', 'Available'),
+-- CONFIG
+INSERT INTO config (max_extension, default_sanction) VALUES (2, 10);
 
--- Pride and Prejudice (2 copies)
-(4, 1, '2021-06-01', 'used', 'Available'),
-(4, 2, '2022-07-01', 'damaged', 'Available'),
-
--- The Catcher in the Rye (1 copy)
-(5, 1, '2023-08-01', 'new', 'Available'),
-
--- The Hobbit (3 copies)
-(6, 1, '2022-01-01', 'used', 'Available'),
-(6, 2, '2022-03-01', 'new', 'Available'),
-(6, 3, '2022-06-01', 'used', 'Available'),
-
--- Moby Dick (1 copy)
-(7, 1, '2024-01-10', 'new', 'Available'),
-
--- War and Peace (2 copies)
-(8, 1, '2021-12-12', 'used', 'Available'),
-(8, 2, '2022-02-02', 'used', 'Available'),
-
--- The Odyssey (2 copies)
-(9, 1, '2023-04-04', 'used', 'Available'),
-(9, 2, '2023-05-05', 'used', 'Available'),
-
--- Crime and Punishment (1 copy)
-(10, 1, '2023-09-01', 'new', 'Available');
-
-INSERT into config(max_extension,default_sanction) values (2,10);
+-- ADHERENT INFO (available_quote, extension and duration mapped from types)
+INSERT INTO adherent_info (adherent_id, available_quote, available_extension, available_duration) VALUES
+(1, 5, 1, 30),
+(2, 5, 1, 30),
+(3, 5, 1, 30),
+(4, 10, 2, 60),
+(5, 10, 2, 60),
+(6, 10, 2, 60),
+(7, 12, 3, 90),
+(8, 12, 3, 90);

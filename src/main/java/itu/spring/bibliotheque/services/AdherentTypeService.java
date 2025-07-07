@@ -28,6 +28,7 @@ public class AdherentTypeService {
         AdherentInfo info = new AdherentInfo();
         info.setAvailableDuration(adherentType.getDefaultDuration());
         info.setAvailableQuote(adherentType.getDefaultQuote());
+        info.setAvailableExtension(3);
         info.setAdherent(adherent);
         return info;
     }

@@ -150,6 +150,7 @@ CREATE TABLE adherent_info (
     id INT PRIMARY KEY AUTO_INCREMENT,
     adherent_id INT NOT NULL,
     available_quote INT NOT NULL,
+    available_extension INT NOT NULL,
     available_duration INT NOT NULL,
     FOREIGN KEY (adherent_id) REFERENCES adherent(id)
 );

@@ -20,6 +20,8 @@ public class AdherentInfo {
     private Integer availableQuote;
     @Column(name = "available_duration")
     private Integer availableDuration;
+    @Column(name = "available_extension")
+    private Integer availableExtension;
 
     @ManyToOne
     @JoinColumn(name = "adherent_id")
@@ -49,5 +51,10 @@ public class AdherentInfo {
     public void setAdherent(Adherent adherent) {
         this.adherent = adherent;
     }
-
+    public Integer getAvailableExtension() {
+        return availableExtension;
+    }
+    public void setAvailableExtension(Integer availableExtension) {
+        this.availableExtension = availableExtension;
+    }
 }

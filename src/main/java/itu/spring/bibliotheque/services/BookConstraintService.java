@@ -4,13 +4,11 @@ import java.sql.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import itu.spring.bibliotheque.enums.BookState;
 import itu.spring.bibliotheque.models.Adherent;
 import itu.spring.bibliotheque.models.AdherentInfo;
 import itu.spring.bibliotheque.models.Book;
 import itu.spring.bibliotheque.models.BookCopy;
-import itu.spring.bibliotheque.models.Sanction;
 import itu.spring.bibliotheque.models.Subscription;
 import itu.spring.bibliotheque.models.dto.BookLoan;
 import itu.spring.bibliotheque.models.dto.BookReservation;
@@ -41,6 +39,9 @@ public class BookConstraintService {
         boolean check = sanctionService.checkSanction(adherent.getId(), refDate);
         if (check) {
             throw new RuntimeException("The Adherent is sanctioned");
+        }
+    }
+
     public BookCopy checkAvailableCopy(Book book) {
         BookCopy copy = null;
         List<BookCopy> copies = bookCopyService.findByBookId(book.getId());
@@ -86,6 +87,7 @@ public class BookConstraintService {
         }
         return adherentInfo;
     }
+
     public BookCopy checkAvaiabilityConstraints(Adherent adherent, Book book,  Date refDate) {
         BookCopy copy = checkAvailableCopy(book);
         checkSanctions(adherent, refDate);

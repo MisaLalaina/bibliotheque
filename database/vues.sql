@@ -34,9 +34,15 @@ FROM
 JOIN 
     book b ON bc.book_id = b.id;
 
--- View for Book and Reservation
+
+-- View for BookCopy and Reservation
 CREATE OR REPLACE VIEW v_book_reservation AS
 SELECT 
+    bc.id AS copy_id,
+    bc.copy_number,
+    bc.acquisition_date,
+    bc.copy_condition,
+    bc.state AS copy_state,
     b.id AS book_id,
     b.title AS book_title,
     b.author AS book_author,
@@ -47,8 +53,9 @@ SELECT
     r.state AS reservation_state,
     r.reservation_date,
     r.validated_by
-FROM book b
-LEFT JOIN reservation r ON b.id = r.book_id;
+FROM book_copy bc
+JOIN book b ON bc.book_id = b.id
+LEFT JOIN reservation r ON bc.book_id = r.book_id;
 
 -- View for Book and Loan
 CREATE OR REPLACE VIEW v_book_loan AS

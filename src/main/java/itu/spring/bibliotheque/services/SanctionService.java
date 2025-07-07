@@ -21,10 +21,6 @@ public class SanctionService {
         return sanctionRepository.findByAdherentId(adherentId);
     }
 
-    public List<Sanction> getByState(String state) {
-        return sanctionRepository.findByState(state);
-    }
-
     public Optional<Sanction> getById(Integer id) {
         return sanctionRepository.findById(id);
     }

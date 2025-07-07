@@ -8,5 +8,4 @@ import java.util.List;
 
 public interface LoanRepository extends JpaRepository<Loan, Integer> {
     List<Loan> findByAdherentId(Integer adherentId);
-    List<Loan> findByBookId(Integer bookId);
 }

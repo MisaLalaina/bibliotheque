@@ -60,9 +60,9 @@ public class LoanService {
         return loanRepository.findByAdherentId(adherentId);
     }
 
-    public List<Loan> findLoansByBookId(Integer bookId) {
-        return loanRepository.findByBookId(bookId);
-    }
+    // public List<Loan> findLoansByBookId(Integer bookId) {
+    //     return loanRepository.findByBookId(bookId);
+    // }
 
     public Loan save(Loan loan) {
         return loanRepository.save(loan);
@@ -97,7 +97,7 @@ public class LoanService {
             );
             sanction.setToDate(toDate);
             sanction.setDuration(c.getDefaultSanction());
-            
+            sanctionService.save(sanction);
         } else {
             loan.setState(LoanState.Finished.name());
         }

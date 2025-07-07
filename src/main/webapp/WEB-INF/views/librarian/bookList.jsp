@@ -13,7 +13,6 @@
         <th>Title</th>
         <th>Author</th>
         <th>Age Min</th>
-        <th>State</th>
         <th>Action</th>
     </tr>
     <%
@@ -27,7 +26,6 @@
         <td><%= book.getTitle() %></td>
         <td><%= book.getAuthor() %></td>
         <td><%= book.getAgeMin() %></td>
-        <td><%= book.getState() %></td>
         <td>
             <form method="get" action="/librarian/loans/create">
                 <input type="hidden" name="bookId" value="<%= book.getId() %>" />

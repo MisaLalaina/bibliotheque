@@ -22,7 +22,7 @@
     <label>Book:</label>
     <% if (book != null) { %>
         <input type="text" name="bookTitle" value="<%= book.getTitle() %>" readonly disabled />
-        <input type="hidden" name="book.id" value="<%= book.getId() %>" />
+        <input type="hidden" name="bookCopy.book.id" value="<%= book.getId() %>" />
     <% } else { %>
         <select name="bookCopy.book.id">
             <option value="">-- Select Book --</option>

@@ -32,8 +32,7 @@ public class AdherentExtensionRequestController {
     private AdherentInfoService infoService;
     @Autowired
     private LoanService loanService;
-    @Autowired
-    private ConfigService configService;
+
     @GetMapping("")
     public String listExtensionRequests(Model model, HttpSession session) {
         Utilisateur user = (Utilisateur) session.getAttribute("user");

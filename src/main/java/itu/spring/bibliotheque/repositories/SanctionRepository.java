@@ -6,5 +6,4 @@ import java.util.List;
 
 public interface SanctionRepository extends JpaRepository<Sanction, Integer> {
     List<Sanction> findByAdherentId(Integer adherentId);
-    List<Sanction> findByState(String state);
 }

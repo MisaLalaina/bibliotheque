@@ -62,7 +62,6 @@ public class LoanController {
             Reservation reservation = reservationService.findById(location.getReservationId());
             book = reservation.getBook();
             adherent = reservation.getAdherent();
-            loan.setBook(book);
             loan.setAdherent(adherent);
         } else if (location.getBookId() != null) {
             book = bookService.findById(location.getBookId());
@@ -71,7 +70,6 @@ public class LoanController {
             } else if (BookState.Reserved.name().equals(book.getState())) {
                 model.addAttribute("error", "Le livre est réservé et ne peut pas être emprunté.");
             }
-            loan.setBook(book);
         }
         loan.setFromDate(new Date(System.currentTimeMillis()));
         // If you want to prefill dates, you can set them here

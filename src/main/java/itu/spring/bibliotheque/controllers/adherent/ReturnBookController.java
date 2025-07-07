@@ -8,10 +8,13 @@ import itu.spring.bibliotheque.models.Adherent;
 import itu.spring.bibliotheque.services.ReturnBookService;
 import itu.spring.bibliotheque.services.LoanService;
 import itu.spring.bibliotheque.services.AdherentService;
+import itu.spring.bibliotheque.services.BookCopyService;
 import itu.spring.bibliotheque.services.BookService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,6 +30,8 @@ public class ReturnBookController {
     private LoanService loanService;
     @Autowired
     private BookService bookService;
+    @Autowired
+    private BookCopyService bookCopyService;
     @Autowired
     private AdherentService adherentService;
 
@@ -44,19 +49,19 @@ public class ReturnBookController {
         ReturnBook rb = new ReturnBook();
         rb.setLoan(loan);
         rb.setAdherent(adherent);
-        rb.setBook(loan.getBook());
+        rb.setBookCopy(loan.getBookCopy());
         rb.setReturnDate(Date.valueOf(returnDate));
         rb.setState(ReturnBookState.Validated);
         returnBookService.save(rb);
         // Update status
         loan = loanService.finish(loan, rb.getReturnDate());
-        loan.setBook(bookService.free(loan.getBook()));
+        loan.setBookCopy(bookCopyService.free(loan.getBookCopy()));
 
         return "redirect:/adherent/books";
     }
 
-    @org.springframework.web.bind.annotation.GetMapping("/form")
-    public String showReturnForm(@RequestParam Integer loanId, org.springframework.ui.Model model) {
+    @GetMapping("/form")
+    public String showReturnForm(@RequestParam Integer loanId, Model model) {
         model.addAttribute("loanId", loanId);
         model.addAttribute("today", new java.sql.Date(System.currentTimeMillis()));
         return "adherent/returnForm";

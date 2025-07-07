@@ -23,8 +23,8 @@ public class ReturnBook {
     private Adherent adherent;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "book_id")
-    private Book book;
+    @JoinColumn(name = "book_copy_id")
+    private BookCopy bookCopy;
 
     @Enumerated(EnumType.STRING)
     private ReturnBookState state;
@@ -38,8 +38,8 @@ public class ReturnBook {
     public void setReturnDate(Date returnDate) { this.returnDate = returnDate; }
     public Adherent getAdherent() { return adherent; }
     public void setAdherent(Adherent adherent) { this.adherent = adherent; }
-    public Book getBook() { return book; }
-    public void setBook(Book book) { this.book = book; }
+    public BookCopy getBookCopy() { return bookCopy; }
+    public void setBookCopy(BookCopy bookCopy) { this.bookCopy = bookCopy; }
     public ReturnBookState getState() { return state; }
     public void setState(ReturnBookState state) { this.state = state; }
 }

@@ -2,6 +2,7 @@ package itu.spring.bibliotheque.controllers.adherent;
 
 import itu.spring.bibliotheque.enums.ExtensionRequestState;
 import itu.spring.bibliotheque.enums.HolidayDirection;
+import itu.spring.bibliotheque.models.Config;
 import itu.spring.bibliotheque.models.ExtensionRequest;
 import itu.spring.bibliotheque.models.Loan;
 import itu.spring.bibliotheque.models.Utilisateur;
@@ -51,7 +52,8 @@ public class AdherentExtensionRequestController {
         if (user == null) return "redirect:/login";
         Loan loan = loanService.findById(loanId).orElse(null);
         if (loan == null) return "redirect:/adherent/books";
-        int maxExtension = configService.getAll().isEmpty() ? 2 : configService.getAll().get(0).getMaxExtension();
+        Config c = configService.getConfig();
+        int maxExtension = c.getMaxExtension();
         if (amount < 1 || amount > maxExtension) {
             model.addAttribute("error", "Extension amount must be between 1 and " + maxExtension);
             model.addAttribute("loanId", loanId);

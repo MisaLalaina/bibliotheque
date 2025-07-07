@@ -12,6 +12,7 @@
     <tr>
         <th>ID</th>
         <th>Book</th>
+        <th>No Copy</th>
         <th>Adherent</th>
         <th>From Date</th>
         <th>To Date</th>
@@ -26,7 +27,8 @@
     %>
     <tr>
         <td><%= loan.getId() %></td>
-        <td><%= loan.getBook() != null ? loan.getBook().getTitle() : "" %></td>
+        <td><%= loan.getBookCopy().getBook() != null ? loan.getBookCopy().getBook().getTitle() : "" %></td>
+        <td><%= loan.getBookCopy() != null ? loan.getBookCopy().getCopyNumber() : "" %></td>
         <td><%= loan.getAdherent() != null && loan.getAdherent().getUtilisateur() != null ? loan.getAdherent().getUtilisateur().getUsername() : "" %></td>
         <td><%= loan.getFromDate() %></td>
         <td><%= loan.getToDate() %></td>

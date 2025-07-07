@@ -1,0 +1,6 @@
+CREATE TABLE config (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    max_extension INT,
+    default_sanction INT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

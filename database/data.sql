@@ -49,8 +49,8 @@ INSERT INTO book (title, author, age_min, state) VALUES
 INSERT INTO book_copy (book_id, copy_number, acquisition_date, copy_condition, state) VALUES
 -- The Great Gatsby (3 copies)
 (1, 1, '2023-01-01', 'new', 'Available'),
-(1, 2, '2023-02-01', 'used', 'Reserved'),
-(1, 3, '2023-03-01', 'damaged', 'Reserved'),
+(1, 2, '2023-02-01', 'used', 'Available'),
+(1, 3, '2023-03-01', 'damaged', 'Available'),
 
 -- To Kill a Mockingbird (2 copies)
 (2, 1, '2022-10-10', 'used', 'Available'),
@@ -86,5 +86,3 @@ INSERT INTO book_copy (book_id, copy_number, acquisition_date, copy_condition, s
 (10, 1, '2023-09-01', 'new', 'Available');
 
 INSERT into config(max_extension,default_sanction) values (2,10);
-
-update book_copy set state="Available";

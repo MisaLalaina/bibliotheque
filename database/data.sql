@@ -45,3 +45,42 @@ INSERT INTO book (title, author, age_min, state) VALUES
 ('War and Peace', 'Leo Tolstoy', 18, 'Available'),
 ('The Odyssey', 'Homer', 12, 'Available'),
 ('Crime and Punishment', 'Fyodor Dostoevsky', 18, 'Available');
+
+INSERT INTO book_copy (book_id, copy_number, acquisition_date, copy_condition, state) VALUES
+-- The Great Gatsby (3 copies)
+(1, 1, '2023-01-01', 'new', 'available'),
+(1, 2, '2023-02-01', 'used', 'borrowed'),
+(1, 3, '2023-03-01', 'damaged', 'repair'),
+
+-- To Kill a Mockingbird (2 copies)
+(2, 1, '2022-10-10', 'used', 'available'),
+(2, 2, '2022-11-15', 'used', 'available'),
+
+-- 1984 (1 copy)
+(3, 1, '2024-01-20', 'new', 'available'),
+
+-- Pride and Prejudice (2 copies)
+(4, 1, '2021-06-01', 'used', 'available'),
+(4, 2, '2022-07-01', 'damaged', 'lost'),
+
+-- The Catcher in the Rye (1 copy)
+(5, 1, '2023-08-01', 'new', 'borrowed'),
+
+-- The Hobbit (3 copies)
+(6, 1, '2022-01-01', 'used', 'available'),
+(6, 2, '2022-03-01', 'new', 'available'),
+(6, 3, '2022-06-01', 'used', 'reserved'),
+
+-- Moby Dick (1 copy)
+(7, 1, '2024-01-10', 'new', 'available'),
+
+-- War and Peace (2 copies)
+(8, 1, '2021-12-12', 'used', 'available'),
+(8, 2, '2022-02-02', 'used', 'available'),
+
+-- The Odyssey (2 copies)
+(9, 1, '2023-04-04', 'used', 'available'),
+(9, 2, '2023-05-05', 'used', 'borrowed'),
+
+-- Crime and Punishment (1 copy)
+(10, 1, '2023-09-01', 'new', 'available');

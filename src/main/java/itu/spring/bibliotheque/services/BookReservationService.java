@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import itu.spring.bibliotheque.models.Adherent;
 import itu.spring.bibliotheque.models.Book;
+import itu.spring.bibliotheque.models.BookCopy;
 import itu.spring.bibliotheque.models.Reservation;
 import itu.spring.bibliotheque.models.Utilisateur;
 
@@ -15,6 +16,8 @@ public class BookReservationService {
     
     @Autowired
     private BookService bookService;
+    @Autowired
+    private BookCopyService bookCopyService;
     @Autowired
     private ReservationService reservationService;
     @Autowired
@@ -38,19 +41,19 @@ public class BookReservationService {
         }
     }
 
-    public void loaned(Reservation reservation) {
+    public void loaned(Reservation reservation, BookCopy bookCopy) {
         if (reservation != null) {
             reservationService.loaned(reservation);
-            bookService.loaned(reservation.getBook());
+            bookCopyService.loaned(bookCopy);
         } else {
             throw new IllegalArgumentException("Reservation cannot be null.");
         }
     }
 
-    public void validate(Reservation reservation, Utilisateur user) {
+    public void validate(Reservation reservation, BookCopy bookCopy, Utilisateur user) {
         if (reservation != null) {
             reservationService.validate(reservation, user);
-            bookService.reserved(reservation.getBook());
+            bookCopyService.reserved(bookCopy);
         } else {
             throw new IllegalArgumentException("Reservation cannot be null.");
         }
@@ -63,7 +66,7 @@ public class BookReservationService {
             throw new IllegalArgumentException("Book not found");
         }
         // Check constraints (delegated to BookConstraintService)
-        bookConstraintService.checkReservationConstraints(adherent, bookId, reservationDate);
+        BookCopy bookCopy = bookConstraintService.checkReservationConstraints(adherent, bookId, reservationDate);
         // Save reservation
         return reservationService.save(adherent, book, reservationDate);
     }

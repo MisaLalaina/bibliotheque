@@ -137,9 +137,10 @@ public class LoanService {
         loan.setToDate(toDate);
         this.create(loan);
         if(reservation != null) {
-            bookReservationService.loaned(reservation);
+            bookReservationService.loaned(reservation, bookCopy);
         } else {
-            bookService.loaned(book);
+            // bookService.loaned(book);
+            bookCopyService.loaned(bookCopy);
         }
     }
 

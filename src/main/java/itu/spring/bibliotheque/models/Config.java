@@ -19,4 +19,10 @@ public class Config {
     public void setId(Integer id) { this.id = id; }
     public Integer getMaxExtension() { return maxExtension; }
     public void setMaxExtension(Integer maxExtension) { this.maxExtension = maxExtension; }
+    public Integer getDefaultSanction() {
+        return defaultSanction;
+    }
+    public void setDefaultSanction(Integer defaultSanction) {
+        this.defaultSanction = defaultSanction;
+    }
 }

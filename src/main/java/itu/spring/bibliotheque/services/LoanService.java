@@ -14,6 +14,7 @@ import itu.spring.bibliotheque.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import itu.spring.bibliotheque.models.Config;
 import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
@@ -44,6 +45,8 @@ public class LoanService {
     private BookCopyService bookCopyService;
     @Autowired 
     private SanctionService sanctionService;
+    @Autowired
+    private ConfigService configService;
 
     public List<Loan> findAll() {
         return loanRepository.findAll();
@@ -83,10 +86,18 @@ public class LoanService {
     public Loan finish(Loan loan, Date returnDate) {
         if (loan.getToDate().before(returnDate)) {
             loan.setState(LoanState.Overdue.name());
+            Config c = configService.getConfig();
             Sanction sanction = new Sanction();
             sanction.setAdherent(loan.getAdherent());
             sanction.setFromDate(returnDate);
-            sanction.setToDate(returnDate);
+            Date toDate = Date.valueOf(
+                sanction.getFromDate().toLocalDate().plusDays(
+                    c.getDefaultSanction()
+                )
+            );
+            sanction.setToDate(toDate);
+            sanction.setDuration(c.getDefaultSanction());
+            
         } else {
             loan.setState(LoanState.Finished.name());
         }

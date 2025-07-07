@@ -84,3 +84,5 @@ INSERT INTO book_copy (book_id, copy_number, acquisition_date, copy_condition, s
 
 -- Crime and Punishment (1 copy)
 (10, 1, '2023-09-01', 'new', 'Available');
+
+INSERT into config(max_extension,default_sanction) values (2,10);

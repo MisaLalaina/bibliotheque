@@ -140,7 +140,9 @@ CREATE TABLE sanction (
 
 CREATE TABLE config (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    max_extension INT
+    max_extension INT,
+    default_sanction INT,
+    created_at TIMESTAMP DEFAULT ON CREATE
 );
 
 -- Table to store adherent's available quote and duration

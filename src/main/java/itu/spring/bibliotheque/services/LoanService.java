@@ -18,6 +18,7 @@ import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 import itu.spring.bibliotheque.models.Reservation;
+import itu.spring.bibliotheque.models.Sanction;
 import itu.spring.bibliotheque.models.Utilisateur;
 import itu.spring.bibliotheque.models.dto.BookReservation;
 
@@ -41,6 +42,8 @@ public class LoanService {
     private AdherentService adherentService;
     @Autowired
     private BookCopyService bookCopyService;
+    @Autowired 
+    private SanctionService sanctionService;
 
     public List<Loan> findAll() {
         return loanRepository.findAll();
@@ -80,6 +83,10 @@ public class LoanService {
     public Loan finish(Loan loan, Date returnDate) {
         if (loan.getToDate().before(returnDate)) {
             loan.setState(LoanState.Overdue.name());
+            Sanction sanction = new Sanction();
+            sanction.setAdherent(loan.getAdherent());
+            sanction.setFromDate(returnDate);
+            sanction.setToDate(returnDate);
         } else {
             loan.setState(LoanState.Finished.name());
         }

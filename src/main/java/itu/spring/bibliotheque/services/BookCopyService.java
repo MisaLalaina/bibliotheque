@@ -1,7 +1,6 @@
 package itu.spring.bibliotheque.services;
 
 import itu.spring.bibliotheque.enums.BookState;
-import itu.spring.bibliotheque.models.Book;
 import itu.spring.bibliotheque.models.BookCopy;
 import itu.spring.bibliotheque.repositories.BookCopyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +33,7 @@ public class BookCopyService {
         bookCopyRepository.deleteById(id);
     }
 
-        /**
+    /**
      * 
      * STATE MANAGEMENT
      * 

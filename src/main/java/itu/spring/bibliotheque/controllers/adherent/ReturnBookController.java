@@ -8,6 +8,7 @@ import itu.spring.bibliotheque.models.Adherent;
 import itu.spring.bibliotheque.services.ReturnBookService;
 import itu.spring.bibliotheque.services.LoanService;
 import itu.spring.bibliotheque.services.AdherentService;
+import itu.spring.bibliotheque.services.BookCopyService;
 import itu.spring.bibliotheque.services.BookService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,8 @@ public class ReturnBookController {
     @Autowired
     private BookService bookService;
     @Autowired
+    private BookCopyService bookCopyService;
+    @Autowired
     private AdherentService adherentService;
 
     @PostMapping("/create")
@@ -44,13 +47,13 @@ public class ReturnBookController {
         ReturnBook rb = new ReturnBook();
         rb.setLoan(loan);
         rb.setAdherent(adherent);
-        rb.setBook(loan.getBook());
+        rb.setBookCopy(loan.getBookCopy());
         rb.setReturnDate(Date.valueOf(returnDate));
         rb.setState(ReturnBookState.Validated);
         returnBookService.save(rb);
         // Update status
         loan = loanService.finish(loan, rb.getReturnDate());
-        loan.setBook(bookService.free(loan.getBook()));
+        loan.setBookCopy(bookCopyService.free(loan.getBookCopy()));
 
         return "redirect:/adherent/books";
     }

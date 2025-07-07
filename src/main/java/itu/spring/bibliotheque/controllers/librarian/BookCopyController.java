@@ -1,12 +1,10 @@
 package itu.spring.bibliotheque.controllers.librarian;
 
 import itu.spring.bibliotheque.enums.BookState;
-import itu.spring.bibliotheque.models.Book;
 import itu.spring.bibliotheque.models.BookCopy;
 import itu.spring.bibliotheque.models.form.CopyForm;
 import itu.spring.bibliotheque.services.BookCopyService;
 import itu.spring.bibliotheque.services.BookService;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

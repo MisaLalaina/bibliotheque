@@ -66,7 +66,7 @@ public class BookReservationService {
             throw new IllegalArgumentException("Book not found");
         }
         // Check constraints (delegated to BookConstraintService)
-        BookCopy bookCopy = bookConstraintService.checkReservationConstraints(adherent, bookId, reservationDate);
+        bookConstraintService.checkReservationConstraints(adherent, bookId, reservationDate);
         // Save reservation
         return reservationService.save(adherent, book, reservationDate);
     }

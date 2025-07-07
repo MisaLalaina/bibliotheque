@@ -1,8 +1,10 @@
 package itu.spring.bibliotheque.controllers.librarian;
 
+import itu.spring.bibliotheque.models.BookCopy;
 import itu.spring.bibliotheque.models.Reservation;
 import itu.spring.bibliotheque.models.Utilisateur;
 import itu.spring.bibliotheque.services.BookConstraintService;
+import itu.spring.bibliotheque.services.BookReservationService;
 import itu.spring.bibliotheque.services.ReservationService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,8 @@ public class LibrarianReservationController {
     private ReservationService reservationService;
     @Autowired
     private BookConstraintService bookConstraintService;
+    @Autowired
+    private BookReservationService bookReservationService;
 
     @GetMapping("")
     public String listReservations(Model model, HttpSession session) {
@@ -38,8 +42,8 @@ public class LibrarianReservationController {
         }
         try {
             Reservation reservation = reservationService.findById(reservationId);
-            bookConstraintService.checkReservationConstraints(reservation.getAdherent(), reservation.getBook().getId(), reservation.getReservationDate());
-            reservationService.validate(reservationId, user);
+            BookCopy copy = bookConstraintService.checkReservationConstraints(reservation.getAdherent(), reservation.getBook().getId(), reservation.getReservationDate());
+            bookReservationService.validate(reservation, copy, user);
         } catch (Exception e) {
             List<Reservation> reservations = reservationService.findAll();
             model.addAttribute("reservations", reservations);

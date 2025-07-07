@@ -28,4 +28,15 @@ public class ConfigService {
     public void delete(Integer id) {
         configRepository.deleteById(id);
     }
+
+    public Config getConfig(){
+        List<Config> configs = getAll();
+        if (configs.size() == 0) {
+            Config c = new Config();
+            c.setMaxExtension(2);
+            c.setMaxExtension(10);
+            return c;
+        }
+        return configs.get(0);
+    }
 }

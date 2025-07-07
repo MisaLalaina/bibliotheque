@@ -24,7 +24,7 @@
         <input type="text" name="bookTitle" value="<%= book.getTitle() %>" readonly disabled />
         <input type="hidden" name="book.id" value="<%= book.getId() %>" />
     <% } else { %>
-        <select name="book.id">
+        <select name="bookCopy.book.id">
             <option value="">-- Select Book --</option>
             <% for (Object obj : books) {
                 Book b = (Book) obj; %>

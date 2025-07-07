@@ -6,6 +6,7 @@ import itu.spring.bibliotheque.enums.LoanState;
 import itu.spring.bibliotheque.models.Adherent;
 import itu.spring.bibliotheque.models.AdherentInfo;
 import itu.spring.bibliotheque.models.Book;
+import itu.spring.bibliotheque.models.BookCopy;
 import itu.spring.bibliotheque.models.Loan;
 import itu.spring.bibliotheque.repositories.LoanRepository;
 import itu.spring.bibliotheque.utils.DateUtils;
@@ -38,6 +39,8 @@ public class LoanService {
     private BookReservationService bookReservationService;
     @Autowired
     private AdherentService adherentService;
+    @Autowired
+    private BookCopyService bookCopyService;
 
     public List<Loan> findAll() {
         return loanRepository.findAll();
@@ -95,7 +98,7 @@ public class LoanService {
 
     public void createLoanWithReservation(Loan loan, HolidayDirection holiday, Utilisateur user) {
         // Fetch book and adherent
-        Book book = bookService.findById(loan.getBook().getId());
+        Book book = bookService.findById(loan.getBookCopy().getBook().getId());
         Adherent adherent = adherentService.findById(loan.getAdherent().getId());
         if (loan.getFromDate() == null) {
             throw new IllegalArgumentException("La date de début ne peut pas être vide.");
@@ -124,13 +127,13 @@ public class LoanService {
             throw new IllegalArgumentException("Le livre '"+book.getTitle()+"' n'est pas disponible.");
         }
         // Validation de Adherent et Book
-        bookConstraintService.checkAvaiabilityConstraints(adherent, book, loan.getFromDate());
+        BookCopy bookCopy = bookConstraintService.checkAvaiabilityConstraints(adherent, book, loan.getFromDate());
         AdherentInfo adherentInfo = adherentInfoService.findByAdherentId(adherent.getId());
         int day = adherentInfo.getAvailableDuration();
         Date toDate = DateUtils.getLoanEndDate(loan.getFromDate(), day, holiday, holidayService);
         loan.setCreatedBy(user);
         loan.setAdherent(adherent);
-        loan.setBook(book);
+        loan.setBookCopy(bookCopy);
         loan.setToDate(toDate);
         this.create(loan);
         if(reservation != null) {

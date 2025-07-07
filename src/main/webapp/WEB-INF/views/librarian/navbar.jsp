@@ -5,6 +5,7 @@
     <a href="/librarian/users/new">Add User</a> |
     <a href="/librarian/adherents/new">Add Adherent</a> |
     <a href="/librarian/books">Books</a> |
+    <a href="/librarian/book-copies">Book Copies</a> |
     <a href="/librarian/subscriptions">Subscriptions</a> |
     <a href="/librarian/reservations">Reservations</a> |
     <a href="/librarian/loans">Emprunts</a> |

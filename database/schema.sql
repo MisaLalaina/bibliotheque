@@ -47,6 +47,17 @@ CREATE TABLE book (
     state VARCHAR(30)
 );
 
+CREATE TABLE book_copy (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    book_id INT NOT NULL,
+    copy_number INT NOT NULL,
+    acquisition_date DATE,
+    copy_condition VARCHAR(100),
+    state VARCHAR(30), 
+    FOREIGN KEY (book_id) REFERENCES book(id),
+    UNIQUE (book_id, copy_number)
+);
+
 CREATE TABLE subscription (
     id INT PRIMARY KEY AUTO_INCREMENT,
     adherent_id INT NOT NULL,
@@ -70,15 +81,16 @@ CREATE TABLE reservation (
 CREATE TABLE loan (
     id INT PRIMARY KEY AUTO_INCREMENT,
     adherent_id INT NOT NULL,
-    book_id INT NOT NULL,
+    book_copy_id INT NOT NULL, -- changed from book_id
     from_date DATE NOT NULL,
     to_date DATE NOT NULL,
     state VARCHAR(30),
     created_by INT,
     FOREIGN KEY (adherent_id) REFERENCES adherent(id),
-    FOREIGN KEY (book_id) REFERENCES book(id),
+    FOREIGN KEY (book_copy_id) REFERENCES book_copy(id),
     FOREIGN KEY (created_by) REFERENCES user(id)
 );
+
 
 CREATE TABLE extension_request (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -108,11 +120,11 @@ CREATE TABLE return_book (
     loan_id INT NOT NULL,
     return_date DATE NOT NULL,
     adherent_id INT NOT NULL,
-    book_id INT NOT NULL,
+    book_copy_id INT NOT NULL,
     state VARCHAR(30),
     FOREIGN KEY (loan_id) REFERENCES loan(id),
     FOREIGN KEY (adherent_id) REFERENCES adherent(id),
-    FOREIGN KEY (book_id) REFERENCES book(id)
+    FOREIGN KEY (book_copy_id) REFERENCES book_copy(id)
 );
 
 CREATE TABLE sanction (
@@ -128,7 +140,9 @@ CREATE TABLE sanction (
 
 CREATE TABLE config (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    max_extension INT
+    max_extension INT,
+    default_sanction INT,
+    created_at TIMESTAMP DEFAULT ON CREATE
 );
 
 -- Table to store adherent's available quote and duration
@@ -145,3 +159,4 @@ CREATE TABLE holiday_list (
     holiday_date DATE NOT NULL UNIQUE,
     description VARCHAR(255)
 );
+

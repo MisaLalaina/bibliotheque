@@ -15,8 +15,8 @@ public class Loan {
     private Adherent adherent;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "book_id")
-    private Book book;
+    @JoinColumn(name = "book_copy_id")
+    private BookCopy bookCopy;
 
     @Column(name = "from_date")
     private Date fromDate;
@@ -35,8 +35,8 @@ public class Loan {
     public void setId(Integer id) { this.id = id; }
     public Adherent getAdherent() { return adherent; }
     public void setAdherent(Adherent adherent) { this.adherent = adherent; }
-    public Book getBook() { return book; }
-    public void setBook(Book book) { this.book = book; }
+    public BookCopy getBookCopy() { return bookCopy; }
+    public void setBookCopy(BookCopy bookCopy) { this.bookCopy = bookCopy; }
     public Date getFromDate() { return fromDate; }
     public void setFromDate(Date fromDate) { this.fromDate = fromDate; }
     public Date getToDate() { return toDate; }

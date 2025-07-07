@@ -29,7 +29,7 @@
         <td><%= bookLoan.getBookTitle() %></td>
         <td><%= bookLoan.getBookAuthor() %></td>
         <td><%= bookLoan.getBookAgeMin() %></td>
-        <td><%= bookLoan.getBookState() %></td>
+        <td><%= bookLoan.getCopyState() %></td>
         <td><%= bookLoan.getFromDate() != null ? bookLoan.getFromDate() : "" %></td>
         <td><%= bookLoan.getToDate() != null ? bookLoan.getToDate() : "" %></td>
         <td>

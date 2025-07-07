@@ -1,6 +1,5 @@
 package itu.spring.bibliotheque.models;
 
-import itu.spring.bibliotheque.enums.SanctionState;
 import jakarta.persistence.*;
 import java.sql.Date;
 
@@ -26,10 +25,6 @@ public class Sanction {
     private Date toDate;
 
     private Integer duration;
-
-    @Enumerated(EnumType.STRING)
-    private SanctionState state;
-
     // Getters and setters
     public Integer getId() { return id; }
     public void setId(Integer id) { this.id = id; }
@@ -43,6 +38,4 @@ public class Sanction {
     public void setToDate(Date toDate) { this.toDate = toDate; }
     public Integer getDuration() { return duration; }
     public void setDuration(Integer duration) { this.duration = duration; }
-    public SanctionState getState() { return state; }
-    public void setState(SanctionState state) { this.state = state; }
 }

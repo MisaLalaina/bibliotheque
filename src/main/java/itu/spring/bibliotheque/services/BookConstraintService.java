@@ -5,9 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import itu.spring.bibliotheque.enums.BookState;
 import itu.spring.bibliotheque.models.Adherent;
 import itu.spring.bibliotheque.models.AdherentInfo;
 import itu.spring.bibliotheque.models.Book;
+import itu.spring.bibliotheque.models.BookCopy;
 import itu.spring.bibliotheque.models.Sanction;
 import itu.spring.bibliotheque.models.Subscription;
 import itu.spring.bibliotheque.models.dto.BookLoan;
@@ -24,14 +26,13 @@ public class BookConstraintService {
     private AdherentInfoService adherentInfoService;
     @Autowired
     private BookService bookService;
+    @Autowired
+    private BookCopyService bookCopyService;
 
-    public Book checkReservationConstraints(Adherent adherent, Integer bookId, Date refDate) {
+    public BookCopy checkReservationConstraints(Adherent adherent, Integer bookId, Date refDate) {
         Book book = bookService.findById(bookId);
         if (book == null) {
             throw new IllegalArgumentException("Book not found.");
-        }
-        else if (book.isAvailable() == false) {
-            throw new IllegalArgumentException("Book is already "+book.getState());
         }
         return checkAvaiabilityConstraints(adherent, book, refDate);
     }
@@ -40,7 +41,35 @@ public class BookConstraintService {
         boolean check = sanctionService.checkSanction(adherent.getId(), refDate);
         if (check) {
             throw new RuntimeException("The Adherent is sanctioned");
+    public BookCopy checkAvailableCopy(Book book) {
+        BookCopy copy = null;
+        List<BookCopy> copies = bookCopyService.findByBookId(book.getId());
+        int free = 0;
+        for (BookCopy bookCopy : copies) {
+            if (bookCopy.getState().equals(BookState.Available.name())) {
+                free += 1;
+                copy = bookCopy;
+            }
         }
+        if (free == 0) {
+            throw new IllegalArgumentException("The book has no available copy");
+        }
+        return copy;
+    }
+
+    public Book checkBookEligibility(Adherent adherent, Book book,Date refDate){
+        if (adherent.getAge(refDate) < book.getAgeMin()) {
+            throw new IllegalArgumentException("Adherent must be at least "+book.getAgeMin()+" years old to borrow this book.");
+        }
+        return book;
+    }
+
+    public Subscription checkSubscription(Adherent adherent, Date refDate){
+        Subscription subscription = subscriptionService.fincdByAdherentId(adherent.getId(), refDate);
+        if (subscription == null) {
+            throw new IllegalArgumentException("Adherent does not have a valid subscription.");
+        }
+        return subscription;
     }
 
     public AdherentInfo checkQuota(Adherent adherent) {

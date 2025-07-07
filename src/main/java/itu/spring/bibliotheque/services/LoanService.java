@@ -6,6 +6,7 @@ import itu.spring.bibliotheque.enums.LoanState;
 import itu.spring.bibliotheque.models.Adherent;
 import itu.spring.bibliotheque.models.AdherentInfo;
 import itu.spring.bibliotheque.models.Book;
+import itu.spring.bibliotheque.models.BookCopy;
 import itu.spring.bibliotheque.models.Loan;
 import itu.spring.bibliotheque.repositories.LoanRepository;
 import itu.spring.bibliotheque.utils.DateUtils;
@@ -13,10 +14,12 @@ import itu.spring.bibliotheque.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import itu.spring.bibliotheque.models.Config;
 import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 import itu.spring.bibliotheque.models.Reservation;
+import itu.spring.bibliotheque.models.Sanction;
 import itu.spring.bibliotheque.models.Utilisateur;
 import itu.spring.bibliotheque.models.dto.BookReservation;
 
@@ -38,6 +41,12 @@ public class LoanService {
     private BookReservationService bookReservationService;
     @Autowired
     private AdherentService adherentService;
+    @Autowired
+    private BookCopyService bookCopyService;
+    @Autowired 
+    private SanctionService sanctionService;
+    @Autowired
+    private ConfigService configService;
 
     public List<Loan> findAll() {
         return loanRepository.findAll();
@@ -51,9 +60,9 @@ public class LoanService {
         return loanRepository.findByAdherentId(adherentId);
     }
 
-    public List<Loan> findLoansByBookId(Integer bookId) {
-        return loanRepository.findByBookId(bookId);
-    }
+    // public List<Loan> findLoansByBookId(Integer bookId) {
+    //     return loanRepository.findByBookId(bookId);
+    // }
 
     public Loan save(Loan loan) {
         return loanRepository.save(loan);
@@ -77,6 +86,18 @@ public class LoanService {
     public Loan finish(Loan loan, Date returnDate) {
         if (loan.getToDate().before(returnDate)) {
             loan.setState(LoanState.Overdue.name());
+            Config c = configService.getConfig();
+            Sanction sanction = new Sanction();
+            sanction.setAdherent(loan.getAdherent());
+            sanction.setFromDate(returnDate);
+            Date toDate = Date.valueOf(
+                sanction.getFromDate().toLocalDate().plusDays(
+                    c.getDefaultSanction()
+                )
+            );
+            sanction.setToDate(toDate);
+            sanction.setDuration(c.getDefaultSanction());
+            sanctionService.save(sanction);
         } else {
             loan.setState(LoanState.Finished.name());
         }
@@ -95,7 +116,7 @@ public class LoanService {
 
     public void createLoanWithReservation(Loan loan, HolidayDirection holiday, Utilisateur user) {
         // Fetch book and adherent
-        Book book = bookService.findById(loan.getBook().getId());
+        Book book = bookService.findById(loan.getBookCopy().getBook().getId());
         Adherent adherent = adherentService.findById(loan.getAdherent().getId());
         if (loan.getFromDate() == null) {
             throw new IllegalArgumentException("La date de début ne peut pas être vide.");
@@ -124,19 +145,20 @@ public class LoanService {
             throw new IllegalArgumentException("Le livre '"+book.getTitle()+"' n'est pas disponible.");
         }
         // Validation de Adherent et Book
-        bookConstraintService.checkAvaiabilityConstraints(adherent, book, loan.getFromDate());
+        BookCopy bookCopy = bookConstraintService.checkAvaiabilityConstraints(adherent, book, loan.getFromDate());
         AdherentInfo adherentInfo = adherentInfoService.findByAdherentId(adherent.getId());
         int day = adherentInfo.getAvailableDuration();
         Date toDate = DateUtils.getLoanEndDate(loan.getFromDate(), day, holiday, holidayService);
         loan.setCreatedBy(user);
         loan.setAdherent(adherent);
-        loan.setBook(book);
+        loan.setBookCopy(bookCopy);
         loan.setToDate(toDate);
         this.create(loan);
         if(reservation != null) {
-            bookReservationService.loaned(reservation);
+            bookReservationService.loaned(reservation, bookCopy);
         } else {
-            bookService.loaned(book);
+            // bookService.loaned(book);
+            bookCopyService.loaned(bookCopy);
         }
     }
 

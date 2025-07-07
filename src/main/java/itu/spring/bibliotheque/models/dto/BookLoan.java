@@ -2,12 +2,15 @@ package itu.spring.bibliotheque.models.dto;
 
 import java.sql.Date;
 
+
 public class BookLoan {
     private Integer bookId;
+    private Integer copyId;
     private String bookTitle;
     private String bookAuthor;
     private Integer bookAgeMin;
-    private String bookState;
+    private Integer copyNumber;
+    private String copyState;
     private Integer loanId;
     private Integer adherentId;
     private String loanState;
@@ -15,13 +18,18 @@ public class BookLoan {
     private Date toDate;
     private Integer createdBy;
 
-    public BookLoan() {}
-    public BookLoan(Integer bookId, String bookTitle, String bookAuthor, Integer bookAgeMin, String bookState, Integer loanId, Integer adherentId, String loanState, Date fromDate, Date toDate, Integer createdBy) {
+    public BookLoan(Integer bookId, Integer copyId, String bookTitle, String bookAuthor, Integer bookAgeMin,
+        String copyState, Integer copyNumber,
+        Integer loanId, Integer adherentId, String loanState,
+        Date fromDate, Date toDate, Integer createdBy){
+
         this.bookId = bookId;
+        this.copyId = copyId;
         this.bookTitle = bookTitle;
         this.bookAuthor = bookAuthor;
         this.bookAgeMin = bookAgeMin;
-        this.bookState = bookState;
+        this.copyNumber = copyNumber;
+        this.copyState = copyState;
         this.loanId = loanId;
         this.adherentId = adherentId;
         this.loanState = loanState;
@@ -29,6 +37,9 @@ public class BookLoan {
         this.toDate = toDate;
         this.createdBy = createdBy;
     }
+
+    public BookLoan() {}
+   
     public Integer getBookId() { return bookId; }
     public void setBookId(Integer bookId) { this.bookId = bookId; }
     public String getBookTitle() { return bookTitle; }
@@ -37,8 +48,12 @@ public class BookLoan {
     public void setBookAuthor(String bookAuthor) { this.bookAuthor = bookAuthor; }
     public Integer getBookAgeMin() { return bookAgeMin; }
     public void setBookAgeMin(Integer bookAgeMin) { this.bookAgeMin = bookAgeMin; }
-    public String getBookState() { return bookState; }
-    public void setBookState(String bookState) { this.bookState = bookState; }
+    public Integer getCopyId() { return copyId; }
+    public void setCopyId(Integer copyId) { this.copyId = copyId; }
+    public Integer getCopyNumber() { return copyNumber; }
+    public void setCopyNumber(Integer copyNumber) { this.copyNumber = copyNumber; }
+    public String getCopyState() { return copyState; }
+    public void setCopyState(String copyState) { this.copyState = copyState; }
     public Integer getLoanId() { return loanId; }
     public void setLoanId(Integer loanId) { this.loanId = loanId; }
     public Integer getAdherentId() { return adherentId; }

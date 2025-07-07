@@ -36,6 +36,8 @@ public class LoanService {
     private HolidayListService holidayService;
     @Autowired
     private BookReservationService bookReservationService;
+    @Autowired
+    private AdherentService adherentService;
 
     public List<Loan> findAll() {
         return loanRepository.findAll();
@@ -93,8 +95,8 @@ public class LoanService {
 
     public void createLoanWithReservation(Loan loan, HolidayDirection holiday, Utilisateur user) {
         // Fetch book and adherent
-        Book book = loan.getBook();
-        Adherent adherent = loan.getAdherent();
+        Book book = bookService.findById(loan.getBook().getId());
+        Adherent adherent = adherentService.findById(loan.getAdherent().getId());
         if (loan.getFromDate() == null) {
             throw new IllegalArgumentException("La date de début ne peut pas être vide.");
         }

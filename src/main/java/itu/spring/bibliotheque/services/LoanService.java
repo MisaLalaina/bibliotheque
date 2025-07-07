@@ -129,23 +129,18 @@ public class LoanService {
         }
         Reservation reservation = null;
         // Reservation logic
-        if (book.getState().equals(BookState.Reserved.name())) {
-            List<BookReservation> books = bookService.findReservedBooksByAdherentId(adherent.getId());
-            if (books == null || books.isEmpty()) {
-                throw new IllegalArgumentException("Le livre '"+book.getTitle()+"' est réservé par un autre adherent : " + adherent.getUtilisateur().getUsername());
+        List<BookReservation> books = bookService.findReservedBooksByAdherentId(adherent.getId());
+        for (BookReservation br : books) {
+            if (br.getAdherentId().equals(adherent.getId()) && br.getBookId().equals(book.getId())) {
+                reservation = reservationService.findById(br.getReservationId());
+                break;
             }
-            for (BookReservation br : books) {
-                if (br.getAdherentId().equals(adherent.getId()) && br.getBookId().equals(book.getId())) {
-                    reservation = reservationService.findById(br.getReservationId());
-                    break;
-                }
-                throw new IllegalArgumentException("Le livre est réservé par un autre adherent : " + adherent.getUtilisateur().getUsername());
-            }
-        } else if (!book.getState().equals(BookState.Available.name())) {
-            throw new IllegalArgumentException("Le livre '"+book.getTitle()+"' n'est pas disponible.");
+            throw new IllegalArgumentException("Le livre est réservé par un autre adherent : " + adherent.getUtilisateur().getUsername());
         }
+        boolean res = reservation != null;
         // Validation de Adherent et Book
-        BookCopy bookCopy = bookConstraintService.checkAvaiabilityConstraints(adherent, book, loan.getFromDate());
+        BookCopy bookCopy = bookConstraintService.checkAvaiabilityConstraints(adherent, book, loan.getFromDate(), res);
+
         AdherentInfo adherentInfo = adherentInfoService.findByAdherentId(adherent.getId());
         int day = adherentInfo.getAvailableDuration();
         Date toDate = DateUtils.getLoanEndDate(loan.getFromDate(), day, holiday, holidayService);

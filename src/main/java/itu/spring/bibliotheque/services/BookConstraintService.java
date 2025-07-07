@@ -43,13 +43,22 @@ public class BookConstraintService {
     }
 
     public BookCopy checkAvailableCopy(Book book) {
+        return checkAvailableCopy(book, false);
+    }
+    public BookCopy checkAvailableCopy(Book book, boolean res) {
         BookCopy copy = null;
         List<BookCopy> copies = bookCopyService.findByBookId(book.getId());
         int free = 0;
         for (BookCopy bookCopy : copies) {
-            if (bookCopy.getState().equals(BookState.Available.name())) {
+            if (res && bookCopy.getState().equals(BookState.Reserved.name())) {
                 free += 1;
                 copy = bookCopy;
+            }
+            else if (bookCopy.getState().equals(BookState.Available.name())) {
+                free += 1;
+                if (!res) {
+                    copy = bookCopy;
+                }
             }
         }
         if (free == 0) {
@@ -88,8 +97,27 @@ public class BookConstraintService {
         return adherentInfo;
     }
 
+    public BookCopy findReservedBook(Book book){
+        BookCopy copy = null;
+        List<BookCopy> copies = bookCopyService.findByBookId(book.getId());
+        int free = 0;
+        for (BookCopy bookCopy : copies) {
+            if (bookCopy.getState().equals(BookState.Reserved.name())) {
+                free += 1;
+                copy = bookCopy;
+            }
+        }
+        if (free == 0) {
+            throw new IllegalArgumentException("The book has no available copy");
+        }
+        return copy;
+    }
+
     public BookCopy checkAvaiabilityConstraints(Adherent adherent, Book book,  Date refDate) {
-        BookCopy copy = checkAvailableCopy(book);
+        return checkAvaiabilityConstraints(adherent, book, refDate, false);
+    }
+    public BookCopy checkAvaiabilityConstraints(Adherent adherent, Book book,  Date refDate, boolean res) {
+        BookCopy copy = checkAvailableCopy(book, res);
         checkSanctions(adherent, refDate);
         checkSubscription(adherent, refDate);
         checkBookEligibility(adherent, book, refDate);

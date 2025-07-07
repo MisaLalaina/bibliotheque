@@ -29,8 +29,6 @@ public class ReturnBookController {
     @Autowired
     private LoanService loanService;
     @Autowired
-    private BookService bookService;
-    @Autowired
     private BookCopyService bookCopyService;
     @Autowired
     private AdherentService adherentService;

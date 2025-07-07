@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/book-copies")
@@ -19,11 +20,15 @@ public class BookRestController {
     @GetMapping("")
     public ResponseEntity<BookDataResponse> getAllBookCopies(@RequestParam(value = "bookId", required = false) Integer bookId) {
         List<BookCopy> copies = new ArrayList<>();
+        List<BookCopyDTO> result ;
         if (bookId != null) {
             copies = bookCopyService.findByBookId(bookId);
         } else {
             copies = bookCopyService.findAll();
         }
-        return ResponseEntity.ok().body(new BookDataResponse(copies));
+        result = copies.stream()
+                .map(BookCopyDTO::new)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok().body(new BookDataResponse(result));
     }
 }

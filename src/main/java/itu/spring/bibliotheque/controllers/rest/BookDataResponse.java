@@ -2,20 +2,18 @@ package itu.spring.bibliotheque.controllers.rest;
 
 import java.util.List;
 
-import itu.spring.bibliotheque.models.BookCopy;
-
 public class BookDataResponse {
-    public List<BookCopy> data;
+    public List<BookCopyDTO> data;
 
-    public BookDataResponse(List<BookCopy> data) {
+    public BookDataResponse(List<BookCopyDTO> data) {
         this.data = data;
     }
 
-    public List<BookCopy> getData() {
+    public List<BookCopyDTO> getData() {
         return data;
     }
 
-    public void setData(List<BookCopy> data) {
+    public void setData(List<BookCopyDTO> data) {
         this.data = data;
     }
 }

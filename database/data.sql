@@ -72,16 +72,16 @@ INSERT INTO adherent_info (adherent_id, available_pret,available_duration, avail
 (7, 4, 12, 3, 3),
 (8, 4, 12, 3, 3);
 
-INSERT INTO holiday_list(holiday_date) VALUES 
-('2025-07-13'),
-('2025-07-20'),
-('2025-07-27'),
-('2025-07-17'),
-('2025-07-19'),
-('2025-08-03'),
-('2025-08-10'),
-('2025-08-17'),
-('2025-08-24'),
-('2025-08-15'),
-('2025-11-01'),
-('2025-12-25');
+INSERT INTO holiday_list(holiday_date, description) VALUES 
+('2025-07-13', "Dimanche"),
+('2025-07-20', "Dimanche"),
+('2025-07-27', "Dimanche"),
+('2025-07-17', "Ferier"),
+('2025-07-19', "Ferier"),
+('2025-08-03', "Dimanche"),
+('2025-08-10', "Dimanche"),
+('2025-08-17', "Dimanche"),
+('2025-08-24', "Dimanchfe"),
+('2025-08-15', "Ferier"),
+('2025-11-01', "Ferier"),
+('2025-12-25', "Ferier");

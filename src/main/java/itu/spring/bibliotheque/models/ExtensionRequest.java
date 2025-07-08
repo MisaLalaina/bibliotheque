@@ -11,7 +11,7 @@ public class ExtensionRequest {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "loan_id")
     private Loan loan;
 

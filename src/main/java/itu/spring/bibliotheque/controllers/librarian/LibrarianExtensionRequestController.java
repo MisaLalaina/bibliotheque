@@ -52,12 +52,12 @@ public class LibrarianExtensionRequestController {
             return "redirect:/librarian/extension-requests?error=Request not found";
         }
         Loan loan = loanService.findById(request.getLoan().getId()).orElse(null);
-        Adherent ad = adherentService.findByUserId(loan.getAdherent().getId());
+        Adherent ad = loan.getAdherent();
         AdherentInfo info = adherentInfoService.findByAdherentId(ad.getId());
         List<ExtensionRequest> requests = extensionRequestService.getAll();
         int count = 0;
         for (ExtensionRequest extensionRequest : requests) {
-            if (extensionRequest.getState().equals(ExtensionRequestState.Validated.name()) 
+            if (extensionRequest.getState().equals(ExtensionRequestState.Validated) 
                 && 
                 extensionRequest.getLoan().getAdherent().getId() == ad.getId()
             ) {
@@ -67,6 +67,8 @@ public class LibrarianExtensionRequestController {
 
         if (count >= info.getAvailableExtension()) {
             request.setState(ExtensionRequestState.Refused);
+            extensionRequestService.save(request);
+
             return "redirect:/librarian/extension-requests";
         }
 

@@ -1,5 +1,6 @@
 package itu.spring.bibliotheque.controllers.api;
 
+import itu.spring.bibliotheque.models.Adherent;
 import itu.spring.bibliotheque.models.BookCopy;
 import itu.spring.bibliotheque.models.dto.BookLoan;
 import itu.spring.bibliotheque.services.AdherentService;
@@ -46,6 +47,7 @@ public class BookRestController {
     public ResponseEntity<BookLoanResponse> getEmprunts(@RequestParam(value = "adherentId", required = false) Integer adherentId) {
         List<BookLoan> loans = new ArrayList<>();
         List<BookLoanDTO> result ;
+        Adherent ad = null;
         if (adherentId != null) {
             loans = bookService.findLoanedBooksByAdherentId(adherentId);
         } else {
@@ -54,10 +56,15 @@ public class BookRestController {
         if (loans.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
-        
+
         result = loans.stream()
             .map(BookLoanDTO::new)
             .collect(Collectors.toList());
+
+        for (BookLoanDTO bookLoanDTO : result) {
+            ad = adherentService.findById(bookLoanDTO.getAdherentId());
+            bookLoanDTO.setAdherent(ad.getUtilisateur().getUsername());
+        }
         return ResponseEntity.ok().body(new BookLoanResponse(result));
     }
 }

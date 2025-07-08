@@ -37,9 +37,14 @@ public class BookService {
         return bookRepository.findLoanedBooksByAdherentId(adherentId);
     }
 
+    public List<BookLoan> findLoanedBooks() {
+        return bookRepository.findLoanedBooks();
+    }
+
     public List<BookReservation> findReservedBooksByAdherentId(Integer adherentId) {
         return bookRepository.findReservedBooksByAdherentId(adherentId);
     }
+
 
 
     

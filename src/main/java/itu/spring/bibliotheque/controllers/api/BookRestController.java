@@ -1,7 +1,11 @@
 package itu.spring.bibliotheque.controllers.api;
 
 import itu.spring.bibliotheque.models.BookCopy;
+import itu.spring.bibliotheque.models.dto.BookLoan;
+import itu.spring.bibliotheque.services.AdherentService;
 import itu.spring.bibliotheque.services.BookCopyService;
+import itu.spring.bibliotheque.services.BookService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,13 +15,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/book-copies")
 @CrossOrigin()
 public class BookRestController {
     @Autowired
     private BookCopyService bookCopyService;
+    @Autowired
+    private BookService bookService;
+    @Autowired
+    private AdherentService adherentService;
 
-    @GetMapping("")
+    @GetMapping("/api/book-copies")
     public ResponseEntity<BookDataResponse> getAllBookCopies(@RequestParam(value = "bookId", required = false) Integer bookId) {
         List<BookCopy> copies = new ArrayList<>();
         List<BookCopyDTO> result ;
@@ -33,5 +40,24 @@ public class BookRestController {
             .map(BookCopyDTO::new)
             .collect(Collectors.toList());
         return ResponseEntity.ok().body(new BookDataResponse(result));
+    }
+
+    @GetMapping("/api/emprunts")
+    public ResponseEntity<BookLoanResponse> getEmprunts(@RequestParam(value = "adherentId", required = false) Integer adherentId) {
+        List<BookLoan> loans = new ArrayList<>();
+        List<BookLoanDTO> result ;
+        if (adherentId != null) {
+            loans = bookService.findLoanedBooksByAdherentId(adherentId);
+        } else {
+            loans = bookService.findLoanedBooks();
+        }
+        if (loans.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        
+        result = loans.stream()
+            .map(BookLoanDTO::new)
+            .collect(Collectors.toList());
+        return ResponseEntity.ok().body(new BookLoanResponse(result));
     }
 }

@@ -1,10 +1,10 @@
 package itu.spring.bibliotheque.enums;
 
 public enum ReservationState {
-    Pending,
-    Validated,
-    Expired,
-    Loaned,
-    Rejected,
-    Canceled;
+    Attente,
+    Validee,
+    Expiree,
+    Emprunter,
+    Refusee,
+    Annulee;
 }

@@ -1,5 +1,7 @@
 package itu.spring.bibliotheque.controllers.librarian;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,9 +12,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import itu.spring.bibliotheque.enums.ExtensionRequestState;
 import itu.spring.bibliotheque.enums.HolidayDirection;
+import itu.spring.bibliotheque.models.Adherent;
+import itu.spring.bibliotheque.models.AdherentInfo;
 import itu.spring.bibliotheque.models.ExtensionRequest;
 import itu.spring.bibliotheque.models.Loan;
 import itu.spring.bibliotheque.models.Utilisateur;
+import itu.spring.bibliotheque.services.AdherentInfoService;
+import itu.spring.bibliotheque.services.AdherentService;
 import itu.spring.bibliotheque.services.ExtensionRequestService;
 import itu.spring.bibliotheque.services.LoanService;
 import jakarta.servlet.http.HttpSession;
@@ -24,10 +30,14 @@ public class LibrarianExtensionRequestController {
     private ExtensionRequestService extensionRequestService;
     @Autowired
     private LoanService loanService;
+    @Autowired
+    private AdherentInfoService adherentInfoService;
+    @Autowired
+    private AdherentService adherentService;
 
     @GetMapping("")
     public String listRequests(Model model) {
-        model.addAttribute("requests", extensionRequestService.getAll());
+        model.addAttribute("requests", extensionRequestService.getNonValidated());
         return "librarian/extensionRequestList";
     }
 
@@ -41,9 +51,27 @@ public class LibrarianExtensionRequestController {
         if (request == null) {
             return "redirect:/librarian/extension-requests?error=Request not found";
         }
+        Loan loan = loanService.findById(request.getLoan().getId()).orElse(null);
+        Adherent ad = adherentService.findByUserId(loan.getAdherent().getId());
+        AdherentInfo info = adherentInfoService.findByAdherentId(ad.getId());
+        List<ExtensionRequest> requests = extensionRequestService.getAll();
+        int count = 0;
+        for (ExtensionRequest extensionRequest : requests) {
+            if (extensionRequest.getState().equals(ExtensionRequestState.Validated.name()) 
+                && 
+                extensionRequest.getLoan().getAdherent().getId() == ad.getId()
+            ) {
+                count += 1;
+            }
+        }        
+
+        if (count >= info.getAvailableExtension()) {
+            request.setState(ExtensionRequestState.Refused);
+            return "redirect:/librarian/extension-requests";
+        }
+
         request.setState(ExtensionRequestState.Validated);
         request.setValidatedBy(user);
-        Loan loan = request.getLoan();
         loan = loanService.extendToDate(loan, request.getAmount().intValue(), HolidayDirection.valueOf(request.getDirection()));
         loanService.save(loan);
         extensionRequestService.save(request);

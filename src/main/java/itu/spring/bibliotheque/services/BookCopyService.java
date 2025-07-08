@@ -42,17 +42,17 @@ public class BookCopyService {
         return this.free(book);
     }
     public BookCopy free(BookCopy book) {
-        book.setState(BookState.Available.name());
+        book.setState(BookState.Disponible.name());
         return this.save(book);
     }
 
     public BookCopy reserved(BookCopy book) {
-        book.setState(BookState.Reserved.name());
+        book.setState(BookState.Reserver.name());
         return this.save(book);
     }
 
     public BookCopy loaned(BookCopy book) {
-        book.setState(BookState.Loaned.name());
+        book.setState(BookState.Emprunter.name());
         return this.save(book);
     }
 }

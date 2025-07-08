@@ -15,7 +15,7 @@ public class BookCopy {
     private Book book;
 
     @Column(name = "copy_number", nullable = false)
-    private Integer copyNumber;
+    private String copyNumber;
 
     @Column(name = "acquisition_date")
     @Temporal(TemporalType.DATE)
@@ -32,8 +32,6 @@ public class BookCopy {
     public void setId(Integer id) { this.id = id; }
     public Book getBook() { return book; }
     public void setBook(Book book) { this.book = book; }
-    public Integer getCopyNumber() { return copyNumber; }
-    public void setCopyNumber(Integer copyNumber) { this.copyNumber = copyNumber; }
     public Date getAcquisitionDate() { return acquisitionDate; }
     public void setAcquisitionDate(Date acquisitionDate) { this.acquisitionDate = acquisitionDate; }
     public String getState() { return state; }
@@ -43,5 +41,11 @@ public class BookCopy {
     }
     public void setCopyCondition(String copyCondition) {
         this.copyCondition = copyCondition;
+    }
+    public String getCopyNumber() {
+        return copyNumber;
+    }
+    public void setCopyNumber(String copyNumber) {
+        this.copyNumber = copyNumber;
     }
 }

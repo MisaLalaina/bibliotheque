@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class BookReservation {
     private Integer copyId;
-    private Integer copyNumber;
+    private String copyNumber;
     private String copyState;
     private String bookTitle;
     private String bookAuthor;
@@ -22,7 +22,7 @@ public class BookReservation {
 
     public BookReservation(
         Integer copyId,
-        Integer copyNumber,
+        String copyNumber,
         Date acquisitionDate,
         String copyCondition,
         String copyState,
@@ -69,8 +69,8 @@ public class BookReservation {
     public void setBookState(String bookState) { this.bookState = bookState; }
     public Integer getCopyId() { return copyId; }
     public void setCopyId(Integer copyId) { this.copyId = copyId; }
-    public Integer getCopyNumber() { return copyNumber; }
-    public void setCopyNumber(Integer copyNumber) { this.copyNumber = copyNumber; }
+    public String getCopyNumber() { return copyNumber; }
+    public void setCopyNumber(String copyNumber) { this.copyNumber = copyNumber; }
     public String getCopyState() { return copyState; }
     public void setCopyState(String copyState) { this.copyState = copyState; }
     public Integer getReservationId() { return reservationId; }

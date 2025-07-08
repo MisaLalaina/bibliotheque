@@ -39,7 +39,7 @@ public class BookCopyController {
         copy.setAcquisitionDate(bookCopy.getAcquisitionDate());
         copy.setBook(bookCopy.getBook());
         copy.setCopyNumber(bookCopy.getCopyNumber());
-        copy.setState(BookState.Available.name());
+        copy.setState(BookState.Disponible.name());
         copy.setCopyCondition("New");
         bookCopyService.save(copy);
         return "redirect:/librarian/book-copies";

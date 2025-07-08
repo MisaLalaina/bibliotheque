@@ -12,14 +12,14 @@ INSERT INTO adherent_type (name, default_quote, default_duration) VALUES
 -- USERS (birth_date adjusted for age consistency)
 INSERT INTO user (id, username, password, birth_date, role_id) VALUES 
 (1, 'admin', 'admin', '1970-01-01', 1),
-(2, 'etu001', 'pass', '2007-02-01', 2),
-(3, 'etu002', 'pass', '2006-02-01', 2),
-(4, 'etu003', 'pass', '2005-04-01', 2),
-(5, 'ens001', 'pass', '1980-07-01', 2),
-(6, 'ens002', 'pass', '1979-08-01', 2),
-(7, 'ens003', 'pass', '1981-07-01', 2),
-(8, 'prof001', 'pass', '1985-06-01', 2),
-(9, 'prof002', 'pass', '1980-10-01', 2);
+(2, 'ETU001', 'pass', '2007-02-01', 2),
+(3, 'ETU002', 'pass', '2006-02-01', 2),
+(4, 'ETU003', 'pass', '2005-04-01', 2),
+(5, 'ENS001', 'pass', '1980-07-01', 2),
+(6, 'ENS002', 'pass', '1979-08-01', 2),
+(7, 'ENS003', 'pass', '1981-07-01', 2),
+(8, 'PROF001', 'pass', '1985-06-01', 2),
+(9, 'PROF002', 'pass', '1980-10-01', 2);
 
 -- ADHERENTS
 INSERT INTO adherent (id, user_id, adherent_type_id) VALUES 
@@ -34,18 +34,18 @@ INSERT INTO adherent (id, user_id, adherent_type_id) VALUES
 
 -- BOOKS
 INSERT INTO book (id, title, author, age_min, state) VALUES
-(1, 'Les Misérables', 'Victor Hugo', 12, 'Available'),
-(2, 'L''Étranger', 'Albert Camus', 14, 'Available'),
-(3, 'Harry Potter à l''école des sorciers', 'J.K. Rowling', 10, 'Available');
+(1, 'Les Misérables', 'Victor Hugo', 12, 'Disponible'),
+(2, 'L''Étranger', 'Albert Camus', 14, 'Disponible'),
+(3, 'Harry Potter à l''école des sorciers', 'J.K. Rowling', 10, 'Disponible');
 
 -- BOOK COPIES
 INSERT INTO book_copy (book_id, copy_number, acquisition_date, copy_condition, state) VALUES
-(1, 1, '2023-01-01', 'Neuf', 'Available'),
-(1, 2, '2023-01-01', 'Neuf', 'Available'),
-(1, 3, '2023-01-01', 'Neuf', 'Available'),
-(2, 1, '2023-01-01', 'Neuf', 'Available'),
-(2, 2, '2023-01-01', 'Neuf', 'Available'),
-(3, 1, '2023-01-01', 'Neuf', 'Available');
+(1, "MIS001", '2023-01-01', 'Neuf', 'Disponible'),
+(1, "MIS002", '2023-01-01', 'Neuf', 'Disponible'),
+(1, "MIS003", '2023-01-01', 'Neuf', 'Disponible'),
+(2, "ETR001", '2023-01-01', 'Neuf', 'Disponible'),
+(2, "ETR002", '2023-01-01', 'Neuf', 'Disponible'),
+(3, "HAR001", '2023-01-01', 'Neuf', 'Disponible');
 
 -- SUBSCRIPTIONS
 INSERT INTO subscription (id, adherent_id, from_date, to_date) VALUES
@@ -62,12 +62,12 @@ INSERT INTO subscription (id, adherent_id, from_date, to_date) VALUES
 INSERT INTO config (max_extension, default_sanction) VALUES (2, 10);
 
 -- ADHERENT INFO (available_quote, extension and duration mapped from types)
-INSERT INTO adherent_info (adherent_id, available_quote, available_extension, available_duration) VALUES
-(1, 5, 1, 30),
-(2, 5, 1, 30),
-(3, 5, 1, 30),
-(4, 10, 2, 60),
-(5, 10, 2, 60),
-(6, 10, 2, 60),
-(7, 12, 3, 90),
-(8, 12, 3, 90);
+INSERT INTO adherent_info (adherent_id, available_pret,available_duration, available_reservation, available_extension) VALUES
+(1, 2, 5, 1, 1),
+(2, 2, 5, 1, 1),
+(3, 2, 5, 1, 1),
+(4, 3, 10, 2, 2),
+(5, 3, 10, 2, 2),
+(6, 3, 10, 2, 2),
+(7, 4, 12, 3, 3),
+(8, 4, 12, 3, 3);

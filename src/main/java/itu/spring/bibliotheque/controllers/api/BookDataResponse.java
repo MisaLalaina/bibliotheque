@@ -1,4 +1,4 @@
-package itu.spring.bibliotheque.controllers.rest;
+package itu.spring.bibliotheque.controllers.api;
 
 import java.util.List;
 

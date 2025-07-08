@@ -9,7 +9,7 @@ public class BookLoan {
     private String bookTitle;
     private String bookAuthor;
     private Integer bookAgeMin;
-    private Integer copyNumber;
+    private String copyNumber;
     private String copyState;
     private Integer loanId;
     private Integer adherentId;
@@ -19,7 +19,7 @@ public class BookLoan {
     private Integer createdBy;
 
     public BookLoan(Integer bookId, Integer copyId, String bookTitle, String bookAuthor, Integer bookAgeMin,
-        String copyState, Integer copyNumber,
+        String copyState, String copyNumber,
         Integer loanId, Integer adherentId, String loanState,
         Date fromDate, Date toDate, Integer createdBy){
 
@@ -50,8 +50,8 @@ public class BookLoan {
     public void setBookAgeMin(Integer bookAgeMin) { this.bookAgeMin = bookAgeMin; }
     public Integer getCopyId() { return copyId; }
     public void setCopyId(Integer copyId) { this.copyId = copyId; }
-    public Integer getCopyNumber() { return copyNumber; }
-    public void setCopyNumber(Integer copyNumber) { this.copyNumber = copyNumber; }
+    public String getCopyNumber() { return copyNumber; }
+    public void setCopyNumber(String copyNumber) { this.copyNumber = copyNumber; }
     public String getCopyState() { return copyState; }
     public void setCopyState(String copyState) { this.copyState = copyState; }
     public Integer getLoanId() { return loanId; }

@@ -60,17 +60,17 @@ public class BookService {
         return this.free(book);
     }
     public Book free(Book book) {
-        book.setState(BookState.Available.name());
+        book.setState(BookState.Disponible.name());
         return this.save(book);
     }
 
     public Book reserved(Book book) {
-        book.setState(BookState.Reserved.name());
+        book.setState(BookState.Reserver.name());
         return this.save(book);
     }
 
     public Book loaned(Book book) {
-        book.setState(BookState.Loaned.name());
+        book.setState(BookState.Emprunter.name());
         return this.save(book);
     }
 }

@@ -16,10 +16,12 @@ public class AdherentInfo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "available_quote")
-    private Integer availableQuote;
+    @Column(name = "available_pret")
+    private Integer availablePret;
     @Column(name = "available_duration")
     private Integer availableDuration;
+    @Column(name = "available_reservation")
+    private Integer availableReservation;
     @Column(name = "available_extension")
     private Integer availableExtension;
 
@@ -33,11 +35,11 @@ public class AdherentInfo {
     public void setId(Integer id) {
         this.id = id;
     }
-    public Integer getAvailableQuote() {
-        return availableQuote;
+    public Integer getAvailablePret() {
+        return availablePret;
     }
-    public void setAvailableQuote(Integer availableQuote) {
-        this.availableQuote = availableQuote;
+    public void setAvailablePret(Integer availableQuote) {
+        this.availablePret = availableQuote;
     }
     public Integer getAvailableDuration() {
         return availableDuration;
@@ -56,5 +58,11 @@ public class AdherentInfo {
     }
     public void setAvailableExtension(Integer availableExtension) {
         this.availableExtension = availableExtension;
+    }
+    public Integer getAvailableReservation() {
+        return availableReservation;
+    }
+    public void setAvailableReservation(Integer availableReservation) {
+        this.availableReservation = availableReservation;
     }
 }

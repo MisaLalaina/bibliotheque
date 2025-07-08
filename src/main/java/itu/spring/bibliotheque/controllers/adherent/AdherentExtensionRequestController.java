@@ -9,7 +9,6 @@ import itu.spring.bibliotheque.models.Loan;
 import itu.spring.bibliotheque.models.Utilisateur;
 import itu.spring.bibliotheque.services.AdherentInfoService;
 import itu.spring.bibliotheque.services.AdherentService;
-import itu.spring.bibliotheque.services.ConfigService;
 import itu.spring.bibliotheque.services.ExtensionRequestService;
 import itu.spring.bibliotheque.services.LoanService;
 import jakarta.servlet.http.HttpSession;
@@ -57,31 +56,19 @@ public class AdherentExtensionRequestController {
     }
 
     @PostMapping("/request")
-    public String requestExtension(@RequestParam Integer loanId, @RequestParam Integer amount, @RequestParam HolidayDirection holidayDirection, HttpSession session, Model model) {
+    public String requestExtension(@RequestParam Integer loanId, HttpSession session, Model model) {
         Utilisateur user = (Utilisateur) session.getAttribute("user");
         if (user == null) return "redirect:/login";
         Loan loan = loanService.findById(loanId).orElse(null);
         if (loan == null) return "redirect:/adherent/books";
-        Adherent adherent = adherentService.findByUserId(user.getId());
-        AdherentInfo info = infoService.findByAdherentId(adherent.getId());
-        int maxExtension = info.getAvailableExtension();
-        if (maxExtension ==0 ) {
-            maxExtension = 3;
-        }
-        if (amount < 1 || amount > maxExtension) {
-            model.addAttribute("error", "Extension amount must be between 1 and " + maxExtension);
-            model.addAttribute("loanId", loanId);
-            model.addAttribute("maxExtension", maxExtension);
-            model.addAttribute("holidayDirections", HolidayDirection.values());
-            return "adherent/extensionRequestForm";
-        }
+        
         ExtensionRequest req = new ExtensionRequest();
         req.setLoan(loan);
         req.setRequestDate(new java.sql.Date(System.currentTimeMillis()));
         req.setState(ExtensionRequestState.Pending);
-        req.setDirection(holidayDirection.name());
-        req.setAmount(amount);
-        req.setReason("Requested " + amount + " days, direction: " + holidayDirection);
+        req.setDirection(HolidayDirection.After.name());
+        req.setAmount(2);
+        req.setReason("Requested " + 2 + " days, direction: " + req.getDirection());
         extensionRequestService.save(req);
         return "redirect:/adherent/books";
     }

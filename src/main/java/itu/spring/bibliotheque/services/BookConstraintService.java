@@ -50,14 +50,16 @@ public class BookConstraintService {
         List<BookCopy> copies = bookCopyService.findByBookId(book.getId());
         int free = 0;
         for (BookCopy bookCopy : copies) {
-            if (res && bookCopy.getState().equals(BookState.Reserved.name())) {
+            if (res && bookCopy.getState().equals(BookState.Reserver.name())) {
                 free += 1;
                 copy = bookCopy;
+                break;
             }
-            else if (bookCopy.getState().equals(BookState.Available.name())) {
+            else if (bookCopy.getState().equals(BookState.Disponible.name())) {
                 free += 1;
                 if (!res) {
                     copy = bookCopy;
+                    break;
                 }
             }
         }
@@ -82,46 +84,54 @@ public class BookConstraintService {
         return subscription;
     }
 
-    public AdherentInfo checkQuota(Adherent adherent) {
-        List<BookLoan> loans = bookService.findLoanedBooksByAdherentId(adherent.getId());
-        List<BookReservation> reservations = bookService.findReservedBooksByAdherentId(adherent.getId());
+    public AdherentInfo checkQuota(Adherent adherent, boolean emprunt) {
         AdherentInfo adherentInfo = adherentInfoService.findByAdherentId(adherent.getId());
-        int current = reservations.size() + loans.size();
         if (adherentInfo == null) {
             throw new IllegalArgumentException("Adherent does not have valid information.");   
         }
-        else if(current >= adherentInfo.getAvailableQuote()) {
-        // else if (current > 0) {
-            throw new IllegalArgumentException("Adherent has reached the borrowing quota.");
+        
+        if (!emprunt){
+            List<BookReservation> reservations = bookService.findReservedBooksByAdherentId(adherent.getId());
+            int current = reservations.size();
+            if(current >= adherentInfo.getAvailableReservation()) {
+                throw new IllegalArgumentException("Limit de reservation atteinte.");
+            }
+        }
+        else if (emprunt){
+            List<BookLoan> loans = bookService.findLoanedBooksByAdherentId(adherent.getId());
+            int current = loans.size();
+            if(current >= adherentInfo.getAvailablePret()) {
+                throw new IllegalArgumentException("Limit de pret atteinte.");
+            }
         }
         return adherentInfo;
     }
 
-    public BookCopy findReservedBook(Book book){
-        BookCopy copy = null;
-        List<BookCopy> copies = bookCopyService.findByBookId(book.getId());
-        int free = 0;
-        for (BookCopy bookCopy : copies) {
-            if (bookCopy.getState().equals(BookState.Reserved.name())) {
-                free += 1;
-                copy = bookCopy;
-            }
-        }
-        if (free == 0) {
-            throw new IllegalArgumentException("The book has no available copy");
-        }
-        return copy;
-    }
+    // public BookCopy findReservedBook(Book book){
+    //     BookCopy copy = null;
+    //     List<BookCopy> copies = bookCopyService.findByBookId(book.getId());
+    //     int free = 0;
+    //     for (BookCopy bookCopy : copies) {
+    //         if (bookCopy.getState().equals(BookState.Reserved.name())) {
+    //             free += 1;
+    //             copy = bookCopy;
+    //         }
+    //     }
+    //     if (free == 0) {
+    //         throw new IllegalArgumentException("The book has no available copy");
+    //     }
+    //     return copy;
+    // }
 
     public BookCopy checkAvaiabilityConstraints(Adherent adherent, Book book,  Date refDate) {
-        return checkAvaiabilityConstraints(adherent, book, refDate, false);
+        return checkAvaiabilityConstraints(adherent, book, refDate, false, false);
     }
-    public BookCopy checkAvaiabilityConstraints(Adherent adherent, Book book,  Date refDate, boolean res) {
+    public BookCopy checkAvaiabilityConstraints(Adherent adherent, Book book,  Date refDate, boolean res, boolean emprunt) {
         BookCopy copy = checkAvailableCopy(book, res);
         checkSanctions(adherent, refDate);
         checkSubscription(adherent, refDate);
         checkBookEligibility(adherent, book, refDate);
-        checkQuota(adherent);
+        checkQuota(adherent, emprunt);
         return copy;
     }
 }

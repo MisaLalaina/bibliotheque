@@ -13,7 +13,7 @@
 <form action="/adherent/extensions/request" method="post">
     <input type="hidden" name="loanId" value="<%= request.getAttribute("loanId") %>" />
     <label>Extension Amount (days):</label>
-    <input type="number" name="amount" min="1" max="<%= request.getAttribute("maxExtension") %>" required /> (max: <%= request.getAttribute("maxExtension") %>)
+    <input type="number" name="amount" min="1" value="<%= request.getAttribute("maxExtension") %>" disabled  max="<%= request.getAttribute("maxExtension") %>" required />
     <br/>
     <label>Holiday Direction:</label>
     <% Object[] directions = (Object[]) request.getAttribute("holidayDirections");

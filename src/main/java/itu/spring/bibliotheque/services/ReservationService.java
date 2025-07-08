@@ -40,7 +40,7 @@ public class ReservationService {
         reservation.setAdherent(adherent);
         reservation.setBook(book);
         reservation.setReservationDate(reservationDate);
-        reservation.setState(ReservationState.Pending.name());
+        reservation.setState(ReservationState.Attente.name());
         return reservationRepository.save(reservation);
     }
 
@@ -71,23 +71,23 @@ public class ReservationService {
     }
     
     public Reservation validate(Reservation reservation, Utilisateur user) {
-        reservation.setState(ReservationState.Validated.name());
+        reservation.setState(ReservationState.Validee.name());
         reservation.setValidatedBy(user);
         return save(reservation);
     }
 
     public Reservation expire(Reservation reservation) {
-        reservation.setState(ReservationState.Expired.name());
+        reservation.setState(ReservationState.Expiree.name());
         return save(reservation);
     }
 
     public Reservation loaned(Reservation reservation) {
-        reservation.setState(ReservationState.Loaned.name());
+        reservation.setState(ReservationState.Emprunter.name());
         return save(reservation);
     }
 
     public Reservation cancel(Reservation reservation) {
-        reservation.setState(ReservationState.Canceled.name());
+        reservation.setState(ReservationState.Annulee.name());
         return save(reservation);
     }
 

@@ -9,6 +9,11 @@ public class DateUtils {
         if (startDate == null || durationDays < 0) {
             throw new IllegalArgumentException("Invalid start date or duration");
         }
+        durationDays -= 1;
+        if (durationDays <= 0) {
+            return startDate;
+        }
+
         Date endDate = Date.valueOf(startDate.toLocalDate().plusDays(durationDays));
         boolean isHoliday = holidayService.isHoliday(endDate);
         while (isHoliday) {

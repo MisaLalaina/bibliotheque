@@ -1,6 +1,5 @@
 package itu.spring.bibliotheque.services;
 
-import itu.spring.bibliotheque.enums.BookState;
 import itu.spring.bibliotheque.enums.HolidayDirection;
 import itu.spring.bibliotheque.enums.LoanState;
 import itu.spring.bibliotheque.models.Adherent;
@@ -139,7 +138,7 @@ public class LoanService {
         }
         boolean res = reservation != null;
         // Validation de Adherent et Book
-        BookCopy bookCopy = bookConstraintService.checkAvaiabilityConstraints(adherent, book, loan.getFromDate(), res);
+        BookCopy bookCopy = bookConstraintService.checkAvaiabilityConstraints(adherent, book, loan.getFromDate(), res, true);
 
         AdherentInfo adherentInfo = adherentInfoService.findByAdherentId(adherent.getId());
         int day = adherentInfo.getAvailableDuration();

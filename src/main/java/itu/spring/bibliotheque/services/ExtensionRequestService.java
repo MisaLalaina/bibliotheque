@@ -1,11 +1,14 @@
 
 package itu.spring.bibliotheque.services;
 
+import itu.spring.bibliotheque.enums.ExtensionRequestState;
 import itu.spring.bibliotheque.models.ExtensionRequest;
 import itu.spring.bibliotheque.repositories.ExtensionRequestRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +23,18 @@ public class ExtensionRequestService {
 
     public List<ExtensionRequest> getAll() {
         return extensionRequestRepository.findAll();
+    }
+
+
+    public List<ExtensionRequest> getNonValidated() {
+        List<ExtensionRequest> req = extensionRequestRepository.findAll();
+        List<ExtensionRequest> result  = new ArrayList<>();
+        for (ExtensionRequest extensionRequest : req) {
+            if (!extensionRequest.getState().equals(ExtensionRequestState.Validated)  ) {
+                result.add(extensionRequest);
+            }
+        }
+        return result;
     }
 
     public List<ExtensionRequest> getByLoanId(Integer loanId) {

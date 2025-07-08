@@ -50,7 +50,7 @@ CREATE TABLE book (
 CREATE TABLE book_copy (
     id INT PRIMARY KEY AUTO_INCREMENT,
     book_id INT NOT NULL,
-    copy_number INT NOT NULL,
+    copy_number VARCHAR(100) NOT NULL,
     acquisition_date DATE,
     copy_condition VARCHAR(100),
     state VARCHAR(30), 
@@ -149,9 +149,10 @@ CREATE TABLE config (
 CREATE TABLE adherent_info (
     id INT PRIMARY KEY AUTO_INCREMENT,
     adherent_id INT NOT NULL,
-    available_quote INT NOT NULL,
-    available_extension INT NOT NULL,
+    available_pret INT NOT NULL,
     available_duration INT NOT NULL,
+    available_reservation INT NOT NULL,
+    available_extension INT NOT NULL,
     FOREIGN KEY (adherent_id) REFERENCES adherent(id)
 );
 

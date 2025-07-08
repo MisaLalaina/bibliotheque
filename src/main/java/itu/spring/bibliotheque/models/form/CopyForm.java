@@ -6,7 +6,7 @@ import itu.spring.bibliotheque.models.Book;
 
 public class CopyForm {
     public Book book;
-    public Integer copyNumber;
+    public String copyNumber;
     public Date acquisitionDate;
     public Book getBook() {
         return book;
@@ -14,10 +14,10 @@ public class CopyForm {
     public void setBook(Book book) {
         this.book = book;
     }
-    public Integer getCopyNumber() {
+    public String getCopyNumber() {
         return copyNumber;
     }
-    public void setCopyNumber(Integer copyNumber) {
+    public void setCopyNumber(String copyNumber) {
         this.copyNumber = copyNumber;
     }
     public Date getAcquisitionDate() {

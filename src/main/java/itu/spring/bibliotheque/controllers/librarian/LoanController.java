@@ -65,9 +65,9 @@ public class LoanController {
             loan.setAdherent(adherent);
         } else if (location.getBookId() != null) {
             book = bookService.findById(location.getBookId());
-            if (BookState.Loaned.name().equals(book.getState())) {
+            if (BookState.Emprunter.name().equals(book.getState())) {
                 model.addAttribute("error", "Le livre n'est pas disponible pour l'emprunt.");
-            } else if (BookState.Reserved.name().equals(book.getState())) {
+            } else if (BookState.Reserver.name().equals(book.getState())) {
                 model.addAttribute("error", "Le livre est réservé et ne peut pas être emprunté.");
             }
         }

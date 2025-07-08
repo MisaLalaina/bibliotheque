@@ -1,4 +1,4 @@
-package itu.spring.bibliotheque.controllers.rest;
+package itu.spring.bibliotheque.controllers.api;
 
 import itu.spring.bibliotheque.models.BookCopy;
 import itu.spring.bibliotheque.services.BookCopyService;
@@ -26,9 +26,12 @@ public class BookRestController {
         } else {
             copies = bookCopyService.findAll();
         }
+        if (copies.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
         result = copies.stream()
-                .map(BookCopyDTO::new)
-                .collect(Collectors.toList());
+            .map(BookCopyDTO::new)
+            .collect(Collectors.toList());
         return ResponseEntity.ok().body(new BookDataResponse(result));
     }
 }
